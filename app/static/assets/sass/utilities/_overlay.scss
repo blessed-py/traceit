@@ -1,0 +1,50 @@
+@use 'base/variable' as *;
+@use 'base/mixin' as *;
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.position-center {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+[data-overlay] {
+  position: relative;
+  z-index: 2;
+  [class^="col-"],
+  [class*="col-"] {
+    z-index: 1;
+  }
+}
+
+[data-overlay]:before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+}
+
+
+@each $overlaycolorMap, $value in $overlaycolorMap {
+  [data-overlay="#{$overlaycolorMap}"]:before {
+    background-color: #{$value};
+  }
+}
+
+
+@for $i from 1 through 10 {
+  [data-opacity="#{1 * $i}"]:before {
+    opacity: #{$i*0.1};
+  }
+}

@@ -1,0 +1,105 @@
+@use 'base/variable' as *;
+@use 'base/mixin' as *;
+
+/* Event Area 1 ---------------------------------- */
+.event-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 36px 48px;
+    flex-wrap: wrap;
+    &:not(:last-child) {
+        border-bottom: 1px solid $light-color;
+        padding-bottom: 40px;
+        margin-bottom: 40px;
+    }
+    .event-card-img {
+        width: 260px;
+        height: 120px;
+        transition: 0.4s;
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+    .event-title-wrap {
+        margin-right: auto;
+    }
+    .event-speaker-wrap {
+        margin-right: auto;
+    }
+    .event-location-wrap {
+        margin-right: auto;
+    }
+    .event-card-title {
+        font-size: 24px;
+        font-weight: 600;
+        margin-top: -0.3em;
+        margin-bottom: 5px;
+        a {
+            color: $title-color;
+            &:hover {
+                color: $theme-color;
+            }
+        }
+    }
+    .event-card-date {
+        font-size: 18px;
+        font-family: $title-font;
+        color: $title-color;
+        margin-bottom: -0.3em;
+    }
+    .event-card-speaker {
+        font-size: 18px;
+        font-weight: 600;
+        font-family: $title-font;
+        margin-top: -0.3em;
+        margin-bottom: 5px;
+    }
+    .event-card-time {
+        font-size: 16px;
+        font-weight: 400;
+        font-family: $title-font;
+        color: $body-color;
+        margin-bottom: -0.3em;
+        display: block;
+    }
+    .event-card-location {
+        font-size: 18px;
+        font-weight: 600;
+        font-family: $title-font;
+        margin-top: -0.3em;
+        margin-bottom: 5px;
+    }
+    .event-card-location-tag {
+        font-size: 16px;
+        font-weight: 400;
+        font-family: $title-font;
+        color: $body-color;
+        margin-bottom: -0.3em;
+        display: block;
+    }
+    .btn-wrap {
+        flex: none;
+    }
+    &:hover {
+        .event-card-img {
+            transform: rotate(-8deg) scale(1.1);
+        }
+    }
+    @include xl {
+        gap: 30px 30px;
+    }
+    @include xs {
+        .event-card-img {
+            width: 100%;
+            height: 200px;
+        }
+        &:hover {
+            .event-card-img {
+                transform: none;
+            }
+        }
+    }
+}

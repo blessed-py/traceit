@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TraceIt | Dashboard</title>
+  <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='assets/img/logo_2.png') }}">
+
+
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome Pro v7 -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='fontawesome-pro/css/all.css') }}">
+  <!-- Ionicons (updated to v4 for better icon support) -->
+  <link rel="stylesheet" href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/@tabler/icons@2.39.0/iconfont/tabler-icons.min.css" rel="stylesheet">  
+  <link rel="stylesheet" href="{{ url_for('static', filename='plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css')}}">
+  <!-- iCheck -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
+  <!-- JQVMap -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='plugins/jqvmap/jqvmap.min.css')}}">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='dist/css/adminlte.min.css')}}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='dist/css/custom.css')}}">
+  
+  <!-- Theme Toggle Styles -->
+  <style>
+    /* Theme toggle animation */
+    #themeToggle {
+      transition: transform 0.3s ease;
+    }
+    
+    #themeToggle:hover {
+      transform: scale(1.1);
+    }
+    
+    #themeToggle:active {
+      transform: scale(0.95);
+    }
+    
+    /* Chart dark mode */
+    .dark-mode canvas {
+      filter: invert(1) hue-rotate(180deg);
+    }
+    
+    .dark-mode .card-body canvas {
+      filter: invert(1) hue-rotate(180deg);
+    }
+  </style>
+
+  <!-- overlayScrollbars -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='plugins/overlayScrollbars/css/OverlayScrollbars.min.css')}}">
+  <!-- Daterange picker -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='plugins/daterangepicker/daterangepicker.css')}}">
+  <!-- summernote -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='plugins/summernote/summernote-bs4.min.css')}}">
+</head>
+<body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+<div class="wrapper">
+
+  <!-- Preloader -->
+  <div class="preloader flex-column justify-content-center align-items-center">
+    <img class="animation__wobble" src="{{ url_for('static', filename='assets/img/logo_1.png')}}" alt="Logo" height="80" width="80">
+  </div>  
+
+
+  <!-- Navbar -->
+  <nav class="main-header navbar navbar-expand navbar-dark">
+    <!-- Left navbar links -->
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fa-solid fa-bars"></i></a>
+      </li>
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="javascript:void(0);" class="nav-link">Home</a>
+      </li>
+
+    </ul>
+
+    <!-- Right navbar links -->
+    <ul class="navbar-nav ml-auto">
+
+
+
+      <!-- Notifications Dropdown Menu -->
+      <li class="nav-item dropdown">
+        <a class="nav-link" data-toggle="dropdown" href="#">
+          <i class="fa-regular fa-bell"></i>
+        </a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link" data-toggle="dropdown" href="#" title="Theme Mode">
+          <i class="fa-solid fa-palette" id="themeIcon"></i>
+        </a>
+        <div class="dropdown-menu dropdown-menu-right">
+          <a href="#" class="dropdown-item" id="lightMode">
+            <i class="fa-sharp fa-regular fa-brightness-low mr-3"></i> Light Mode
+          </a>
+
+          <a href="#" class="dropdown-item" id="darkMode">
+            <i class="fa-sharp fa-solid fa-moon-stars mr-3"></i> Dark Mode
+          </a>
+    
+          <a href="#" class="dropdown-item" id="autoMode">
+            <i class="fa-solid fa-computer mr-3"></i>System
+          </a>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-widget="fullscreen" href="#" role="button">
+          <i class="fa-solid fa-expand-arrows-alt"></i>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/sys/logout">
+           <i class="fa-solid fa-power-off text-danger"></i>
+        </a>
+      </li>
+    </ul>
+  </nav>
+  <!-- /.navbar -->
+
+  <!-- Main Sidebar Container -->
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <a href="/sys/dashboard" class="brand-link">
+    <!-- Mini logo (collapsed sidebar) -->
+    <img src="{{ url_for('static', filename='assets/img/logo_1.png') }}" alt="TraceIt Logo"
+      class="brand-image brand-image-mini">
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <!-- Sidebar user panel (optional) -->
+      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="image">
+          <img src="{% if current_user.profile_picture %}
+            {{ url_for('serve_storage', filename='pfp/' ~ current_user.profile_picture) }}
+          {% else %}
+            /Storage/pfp/default.png
+          {% endif %}" class="img-circle elevation-2" alt="User Image">
+        </div>
+        <div class="info">
+          <a href="/sys/profile" class="d-block">{{current_user.first_name}} {{current_user.sur_name}}</a>
+        </div>
+      </div>
+
+            <!-- SidebarSearch Form -->
+      <div class="form-inline">
+        <div class="input-group" data-widget="sidebar-search">
+          <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
+          <div class="input-group-append">
+            <button class="btn btn-sidebar">
+              <i class="fa-solid fa-search fa-fw"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+
+
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+                     with font-awesome or any other icon font library -->
+      
+                     
+          <li class="nav-header">DASHBOARD</li>
+           
+          <li class="nav-item">
+            <a href="/sys/dashboard" class="nav-link active">
+              <i class="nav-icon fa-solid fa-layer-group"></i>
+              <p>
+                Home
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/sys/analytics" class="nav-link">
+              <i class="nav-icon fa-solid fa-chart-line-up"></i>
+              <p>
+                Analytics
+              </p>
+            </a>
+          </li>
+      <li class="nav-header">REPORTS</li>
+                <li class="nav-item">
+            <a href="/sys/item_lost" class="nav-link">
+              <i class="nav-icon fa-solid fa-layer-group"></i>
+              <p>
+                Items Lost
+              </p>
+            </a>
+          </li>
+            <li class="nav-item">
+            <a href="/sys/item_found" class="nav-link">
+              <i class="nav-icon fa-solid fa-layer-group"></i>
+              <p>
+                Items Found
+              </p>
+            </a>
+          </li>
+          <li class="nav-header">PAGES</li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fa-solid fa-screwdriver-wrench"></i>
+              <p>
+                Page Settings
+                <i class="fa-solid fa-angle-left right"></i>
+              </p>
+            </a>
+
+
+
+                                        <ul class="nav nav-treeview ">
+                                <li class="nav-item">
+                                    <a href="/settings/manage_testimonial" class="nav-link">
+                                        <i class="fa-solid fa-comment-dots"></i>
+                                        <p>
+                                            Testimonials
+                                        </p>
+                                    </a>
+                                </li>
+                            </ul>
+            <ul class="nav nav-treeview ">
+              <li class="nav-item">
+                <a href="/settings/manage_social" class="nav-link">
+                  <i class="fa-solid fa-link"></i>
+                  <p>
+                    Socials
+                  </p>
+                </a>
+              </li>
+            </ul>
+          </li>
+      
+      
+      
+          <li class="nav-header">SETTINGS</li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fa-solid fa-users"></i>
+              <p>
+                System Users
+                <i class="fa-solid fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview ">
+              <li class="nav-item ">
+                <a href="/sys/system_user" class="nav-link">
+                  <i class="fa-regular fa-circle nav-icon"></i>
+                  <p>Manage Users</p>
+                </a>
+              </li>
+            </ul>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="/sys/roles" class="nav-link">
+                  <i class="fa-regular fa-circle nav-icon"></i>
+                  <p>User Roles</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i class="nav-icon fa-solid fa-gear"></i>
+                <p>
+                  System Settings
+                  <i class="fa-solid fa-angle-left right"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview ">
+                <li class="nav-item ">
+                  <a href="/settings/manage_country" class="nav-link">
+                    <i class="fa-regular fa-circle nav-icon"></i>
+                    <p>Manage Countries</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+                        <li class="nav-header">SUPPORT</li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fa-solid fa-headset"></i>
+                                <p>
+                                    Customer Support
+                                    <i class="fa-solid fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview ">
+                                <li class="nav-item ">
+                                    <a href="/support/customer_support" class="nav-link">
+                                        <i class="fa-regular fa-circle nav-icon"></i>
+                                        <p>Contact Support</p>
+                                    </a>
+                                </li>
+                                                                <li class="nav-item ">
+                                    <a href="/support/contact_category" class="nav-link">
+                                        <i class="fa-regular fa-circle nav-icon"></i>
+                                        <p>Manage Category</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+        </ul>
+      </nav>
+      <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+  </aside>
+
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0">Dashboard</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Dashboard</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    
+    
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+
+<!-- Small boxes (Stat box) -->
+<div class="row">
+
+
+  <div class="col-lg-3 col-6 d-flex align-items-stretch">
+    <div class="small-box bg-cyan w-100">
+      <div class="inner">
+        <h3>12</h3>
+        <p>Total Reports</p>
+      </div>
+      <div class="icon">
+        <i class="ion ion-stats-bars"></i>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-3 col-6 d-flex align-items-stretch">
+    <div class="small-box bg-warning w-100">
+      <div class="inner">
+        <h3>17</h3>
+        <p>
+          Lost Items Reported This Month (<script>const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];document.write(monthNames[new Date().getMonth()]);</script>)
+        </p>
+      </div>
+      <div class="icon">
+        <i class="ti ti-chart-bar"></i>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-3 col-6 d-flex align-items-stretch">
+    <div class="small-box bg-danger w-100">
+      <div class="inner">
+        <h3>30</h3>
+        <p>
+          Found Items This Month (<script>const monthnames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];document.write(monthNames[new Date().getMonth()]);</script>)
+        </p>
+      </div>
+      <div class="icon">
+        <i class="ti ti-chart-bar"></i>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-3 col-6 d-flex align-items-stretch">
+    <div class="small-box bg-success w-100">
+      <div class="inner">
+        <h3>18</h3>
+        <p>Resolved Cases</p>
+      </div>
+      <div class="icon">
+        <i class="ion ion-stats-bars"></i>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="col-12">
+    <div class="card bg-gradient-primary text-white">
+      <div class="card-body">
+        <h3 class="mb-1">Welcome back, {{current_user.first_name}} {{current_user.sur_name}}!</h3>
+        <p class="mb-3">
+          Manage clients, content, and system settings from your dashboard.
+        </p>
+
+        <div class="d-flex align-items-center flex-wrap">
+
+          <!-- Primary Buttons (Left) -->
+          <a href="/sys/dashboard" class="btn btn-light btn-sm mr-2">
+            <i class="fa-solid fa-gauge mr-1"></i>
+            Get Analytics
+          </a>
+
+          <a href="/" class="btn btn-outline-light btn-sm mr-2">
+            <i class="fa-solid fa-house mr-1"></i>
+            View Website
+          </a>
+
+<style>
+  /* Add subtle bottom border to dropdown items */
+  .dropdown-menu .dropdown-item {
+    border-bottom: 1px solid #e0e0e0; /* light gray line */
+  }
+
+  /* Remove border from the last item */
+  .dropdown-menu .dropdown-item:last-child {
+    border-bottom: none;
+  }
+
+  /* Hover / focus / active styles */
+  .dropdown-menu .dropdown-item:hover,
+  .dropdown-menu .dropdown-item:focus,
+  .dropdown-menu .dropdown-item.active {
+    background-color: #007bff; /* primary color */
+    color: #fff;
+  }
+</style>
+
+<div class="dropdown ml-auto">
+  <button
+    class="btn btn-outline-light btn-sm dropdown-toggle"
+    type="button"
+    id="quickActionsDropdown"
+    data-toggle="dropdown"
+    aria-haspopup="true"
+    aria-expanded="false"
+  >
+    <i class="fa-solid fa-bolt mr-1"></i>
+    Actions
+  </button>
+
+  <div class="dropdown-menu dropdown-menu-right bg-white" aria-labelledby="quickActionsDropdown">
+    <a class="dropdown-item d-flex align-items-center" href="/sys/analytics">
+      <i class="fa-solid fa-chart-line-up"></i>
+      <i class="ti tabler-logout-2 mr-2"></i>
+      Analytics
+    </a>
+
+    <a class="dropdown-item d-flex align-items-center" href="/sys/client">
+      <i class=" fa-solid fa-users"></i>
+      <i class="ti tabler-server mr-2"></i>
+      Manage Clients
+    </a>
+
+    <a class="dropdown-item d-flex align-items-center" href="/sys/manage_service">
+      <i class="fa-solid fa-screwdriver-wrench"></i>
+      <i class="ti tabler-send mr-2"></i>
+      Page Settings
+    </a>
+
+    <a class="dropdown-item d-flex align-items-center" href="/sys/system_user">
+      <i class="fa-solid fa-users"></i>
+      <i class="ti tabler-send mr-2"></i>
+      Manage Users
+    </a>
+
+
+  </div>
+</div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+        <!-- Main row -->
+        <div class="row">
+
+          <!-- /.Left col -->
+
+
+          </div>
+          <!-- /.row (main row) -->
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+  <footer class="main-footer">
+                            
+    Copyright &copy; <script>document.write(new Date().getFullYear())</script><strong><a href="/"> TraceIt</a></strong>. All rights reserved.
+                            
+    <span class="float-right"> <a href="/sys/logout"  >Logout</a> |
+      <i class="fa-solid fa-power-off text-danger"></i>
+    </span>
+  </footer>
+
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery -->
+<script src="{{ url_for('static', filename='plugins/jquery/jquery.min.js')}}"></script>
+<!-- jQuery UI 1.11.4 -->
+<script src="{{ url_for('static', filename='plugins/jquery-ui/jquery-ui.min.js')}}"></script>
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script>
+  $.widget.bridge('uibutton', $.ui.button)
+</script>
+<!-- Bootstrap 4 -->
+<script src="{{ url_for('static', filename='plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+<!-- ChartJS -->
+<script src="{{ url_for('static', filename='plugins/chart.js/Chart.min.js')}}"></script>
+<!-- Sparkline -->
+<script src="{{ url_for('static', filename='plugins/sparklines/sparkline.js')}}"></script>
+<!-- JQVMap -->
+<script src="{{ url_for('static', filename='plugins/jqvmap/jquery.vmap.min.js')}}"></script>
+<script src="{{ url_for('static', filename='plugins/jqvmap/maps/jquery.vmap.usa.js')}}"></script>
+<!-- jQuery Knob Chart -->
+<script src="{{ url_for('static', filename='plugins/jquery-knob/jquery.knob.min.js')}}"></script>
+<!-- daterangepicker -->
+<script src="{{ url_for('static', filename='plugins/moment/moment.min.js')}}"></script>
+<script src="{{ url_for('static', filename='plugins/daterangepicker/daterangepicker.js')}}"></script>
+<!-- Tempusdominus Bootstrap 4 -->
+<script src="{{ url_for('static', filename='plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js')}}"></script>
+<!-- Summernote -->
+<script src="{{ url_for('static', filename='plugins/summernote/summernote-bs4.min.js')}}"></script>
+<!-- overlayScrollbars -->
+<script src="{{ url_for('static', filename='plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js')}}"></script>
+<!-- AdminLTE App -->
+<script src="{{ url_for('static', filename='dist/js/adminlte.js')}}"></script>
+<!-- Custom-JS -->
+<script src="{{ url_for('static', filename='pageScript/dashboard.js')}}"></script>
+
+  <script>
+    (function () {
+      var input = document.getElementById('qaFilter');
+      if (!input) return;
+      var items = Array.prototype.slice.call(document.querySelectorAll('#quickActionsList .list-group-item'));
+      input.addEventListener('input', function () {
+        var q = (this.value || '').toLowerCase();
+        items.forEach(function (el) {
+          var text = el.textContent.toLowerCase();
+          el.style.display = text.indexOf(q) !== -1 ? '' : 'none';
+        });
+      });
+    })();
+  </script>
+
+<!-- Theme Toggle JavaScript -->
+<script src="{{ url_for('static', filename='dist/js/theme.js') }}"></script>
+
+
+<!---Icons-->
+<script src="https://unpkg.com/@tabler/icons-webfont@1.39.1/tabler-icons.min.js"></script>
+</body>
+</html>

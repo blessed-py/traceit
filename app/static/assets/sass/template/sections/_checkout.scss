@@ -1,0 +1,218 @@
+@use 'base/variable' as *;
+@use 'base/mixin' as *;
+
+.woocommerce-checkout {
+    .form-group,
+    .form-row {
+        margin-bottom: 0;
+    }
+
+    .form-select,
+    .select2-container,
+    .form-control {
+        margin-bottom: 0;
+    }
+
+    .select2-container--open .select2-dropdown--below {
+        margin-top: 0;
+    }
+
+    .select2-container--open .select2-dropdown--above {
+        position: relative;
+        bottom: 0;
+    }
+
+    .select2-dropdown {
+        border: none;
+        border-top: none;
+    }
+
+    .select2-container--default .select2-selection--single {
+        border-radius: 27px;
+        .select2-selection__rendered,
+        .form-control:focus {
+            color: $body-color;
+        }
+    }
+    .shipping_address {
+        margin-top: -3px;
+    }
+}
+
+.select2-container--default .select2-search--dropdown .select2-search__field {
+    border: 1px solid transparent;
+    padding: 0;
+}
+
+.woocommerce-form-login,
+.woocommerce-form-coupon,
+.woocommerce-checkout {
+    select,
+    .form-select,
+    .form-control,
+    .select2,
+    .select2-container {
+        margin-bottom: var(--bs-gutter-x);
+    }
+}
+
+#ship-to-different-address {
+    margin-top: 15px;
+}
+
+.select2-container--default .select2-selection--single {
+    height: 56px;
+    border: 1px solid transparent;
+    background-color: $smoke-color;
+    border-radius: 27px;
+}
+
+.select2-container--default
+    .select2-selection--single
+    .select2-selection__rendered {
+    line-height: 56px;
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
+.woocommerce-billing-fields .form-row {
+    margin-bottom: 0;
+}
+
+.select2-container--default
+    .select2-selection--single
+    .select2-selection__arrow
+    b:before {
+    content: "\f107";
+    font-family: $icon-font;
+}
+
+.select2-container--default
+    .select2-selection--single
+    .select2-selection__arrow
+    b {
+    margin: 0;
+    border: none;
+    top: 0;
+}
+
+.select2-container--default
+    .select2-selection--single
+    .select2-selection__arrow {
+    height: 56px;
+    line-height: 56px;
+    margin-right: 30px;
+}
+
+span.select2-selection.select2-selection--single:focus {
+    outline: none;
+}
+.checkout-ordertable {
+    th,
+    td {
+        border: 1px solid #ededed;
+        text-align: right;
+        padding: 5px 20px;
+        vertical-align: top;
+        font-size: 14px;
+        font-weight: 600;
+        color: #2c3e50;
+    }
+
+    th {
+        font-weight: 600;
+        text-align: left;
+    }
+
+    ul {
+        margin: 0;
+        padding: 0;
+    }
+
+    .order-total {
+        .amount {
+            color: $theme-color;
+        }
+    }
+
+    input[type="hidden"] {
+        ~ label {
+            color: $theme-color;
+        }
+    }
+}
+
+.woocommerce-checkout {
+    .form-group {
+        input:not(:last-child) {
+            margin-bottom: var(--bs-gutter-x);
+        }
+    }
+}
+
+.woocommerce-checkout-payment {
+    text-align: left;
+
+    ul {
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+
+        li {
+            padding-top: 12px;
+            border-bottom: 1px solid #d8d8d8;
+            border-radius: 0;
+            font-size: 16px;
+        }
+
+        input[type="radio"] ~ label {
+            margin-bottom: 17px;
+            color: $body-color;
+
+            img {
+                margin-bottom: -2px;
+                margin-left: 10px;
+            }
+        }
+    }
+
+    .place-order {
+        padding-top: 30px;
+    }
+
+    .payment_box {
+        color: #a1b1bc;
+        background-color: rgba($color: #ecf0f1, $alpha: 1);
+        border: 1px solid #d8d8d8;
+        border-bottom: none;
+        font-size: 14px;
+        padding: 10px 20px;
+        border-radius: 4px;
+        display: none;
+
+        p {
+            margin: 0;
+        }
+    }
+}
+
+.th-checkout-wrapper form.woocommerce-form {
+    margin-bottom: 30px;
+}
+
+@include sm {
+    tfoot.checkout-ordertable th {
+        display: none;
+    }
+
+    .woocommerce-checkout-payment ul input[type="radio"] ~ label img {
+        max-width: 150px;
+    }
+
+    .checkout-ordertable {
+        th,
+        td {
+            padding: 5px 20px 5px 60px;
+        }
+    }
+}

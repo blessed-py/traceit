@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ContentPro | System Users</title>
+  <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='assets/img/logo_1.png') }}">
+
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+
+  <!-- Font Awesome Pro v7.0.0 -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='fontawesome-pro/css/all.css') }}">
+
+    <!-- Theme Toggle Styles -->
+  <style>
+    /* Theme toggle animation */
+    #themeToggle {
+      transition: transform 0.3s ease;
+    }
+    
+    #themeToggle:hover {
+      transform: scale(1.1);
+    }
+    
+    #themeToggle:active {
+      transform: scale(0.95);
+    }
+    
+    /* Chart dark mode */
+    .dark-mode canvas {
+      filter: invert(1) hue-rotate(180deg);
+    }
+    
+    .dark-mode .card-body canvas {
+      filter: invert(1) hue-rotate(180deg);
+    }
+  </style>
+
+  <!-- overlayScrollbars -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='plugins/overlayScrollbars/css/OverlayScrollbars.min.css')}}">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='dist/css/adminlte.min.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='dist/css/custom.css')}}">
+  <!-- DataTables -->
+<link rel="stylesheet" href="{{ url_for('static', filename='plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
+</head>
+<body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+<div class="wrapper">
+
+  <!-- Preloader -->
+  <div class="preloader flex-column justify-content-center align-items-center">
+    <img class="animation__wobble" src="{{ url_for('static', filename='assets/img/logo_1.png')}}" alt="Logo" height="80" width="80">
+  </div>
+
+  <!-- Navbar -->
+  <nav class="main-header navbar navbar-expand navbar-dark">
+    <!-- Left navbar links -->
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fa-solid fa-bars"></i></a>
+      </li>
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="javascript:void(0);" class="nav-link">System Users</a>
+      </li>
+    </ul>
+
+    <!-- Right navbar links -->
+    <ul class="navbar-nav ml-auto">
+
+
+      <!-- Notifications Dropdown Menu -->
+      <li class="nav-item dropdown">
+        <a class="nav-link" data-toggle="dropdown" href="#">
+          <i class="fa-regular fa-bell"></i>
+        </a>
+
+      </li>
+            <li class="nav-item dropdown">
+        <a class="nav-link" data-toggle="dropdown" href="#" title="Theme Mode">
+          <i class="fa-solid fa-palette" id="themeIcon"></i>
+        </a>
+        <div class="dropdown-menu dropdown-menu-right">
+          <a href="#" class="dropdown-item" id="lightMode">
+            <i class="fa-sharp fa-regular fa-brightness-low mr-3"></i> Light Mode
+          </a>
+
+          <a href="#" class="dropdown-item" id="darkMode">
+            <i class="fa-sharp fa-solid fa-moon-stars mr-3"></i> Dark Mode
+          </a>
+    
+          <a href="#" class="dropdown-item" id="autoMode">
+            <i class="fa-solid fa-computer mr-3"></i>System
+          </a>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-widget="fullscreen" href="#" role="button">
+          <i class="fa-solid fa-expand-arrows-alt"></i>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/sys/logout">
+           <i class="fa-solid fa-power-off text-danger"></i>
+        </a>
+      </li>
+    </ul>
+  </nav>
+  <!-- /.navbar -->
+
+  <!-- Main Sidebar Container -->
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <a href="/sys/dashboard" class="brand-link">
+      <img src="{{ url_for('static', filename='assets/img/infocontent_logo.png')}}" alt="ContentPro Logo" class="brand-image-full">
+    <!-- Mini logo (collapsed sidebar) -->
+    <img src="{{ url_for('static', filename='assets/img/logo_1.png') }}" alt="ContentPro Logo"
+      class="brand-image brand-image-mini">
+    </a>
+
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <!-- Sidebar user panel (optional) -->
+      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="image">
+          <img src="{% if current_user.profile_picture %}
+            {{ url_for('serve_storage', filename='pfp/' ~ current_user.profile_picture) }}
+          {% else %}
+            /Storage/pfp/default.png
+          {% endif %}" class="img-circle elevation-2" alt="User Image">
+        </div>
+        <div class="info">
+          <a href="/sys/profile" class="d-block">{{current_user.first_name}} {{current_user.sur_name}}</a>
+        </div>
+      </div>
+
+      <!-- SidebarSearch Form -->
+      <div class="form-inline">
+        <div class="input-group" data-widget="sidebar-search">
+          <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
+          <div class="input-group-append">
+            <button class="btn btn-sidebar">
+              <i class="fa-solid fa-search fa-fw"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+                     with font-awesome or any other icon font library -->
+      
+                     
+          <li class="nav-header">DASHBOARD</li>
+           
+          <li class="nav-item">
+            <a href="/sys/dashboard" class="nav-link">
+              <i class="nav-icon fa-solid fa-layer-group"></i>
+              <p>
+                Home
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/sys/analytics" class="nav-link">
+              <i class="nav-icon fa-solid fa-chart-line-up"></i>
+              <p>
+                Analytics
+              </p>
+            </a>
+          </li>
+      <li class="nav-header">REPORTS</li>
+                <li class="nav-item">
+            <a href="/sys/item_lost" class="nav-link">
+              <i class="nav-icon fa-solid fa-layer-group"></i>
+              <p>
+                Items Lost
+              </p>
+            </a>
+          </li>
+            <li class="nav-item">
+            <a href="/sys/item_found" class="nav-link">
+              <i class="nav-icon fa-solid fa-layer-group"></i>
+              <p>
+                Items Found
+              </p>
+            </a>
+          </li>
+          <li class="nav-header">PAGES</li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fa-solid fa-screwdriver-wrench"></i>
+              <p>
+                Page Settings
+                <i class="fa-solid fa-angle-left right"></i>
+              </p>
+            </a>
+
+
+
+                                        <ul class="nav nav-treeview ">
+                                <li class="nav-item">
+                                    <a href="/settings/manage_testimonial" class="nav-link">
+                                        <i class="fa-solid fa-comment-dots"></i>
+                                        <p>
+                                            Testimonials
+                                        </p>
+                                    </a>
+                                </li>
+                            </ul>
+            <ul class="nav nav-treeview ">
+              <li class="nav-item">
+                <a href="/settings/manage_social" class="nav-link">
+                  <i class="fa-solid fa-link"></i>
+                  <p>
+                    Socials
+                  </p>
+                </a>
+              </li>
+            </ul>
+          </li>
+      
+      
+      
+          <li class="nav-header">SETTINGS</li>
+          <li class="nav-item menu-open">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fa-solid fa-users"></i>
+              <p>
+                System Users
+                <i class="fa-solid fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview ">
+              <li class="nav-item ">
+                <a href="/sys/system_user" class="nav-link active">
+                  <i class="fa-regular fa-circle nav-icon"></i>
+                  <p>Manage Users</p>
+                </a>
+              </li>
+            </ul>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="/sys/roles" class="nav-link">
+                  <i class="fa-regular fa-circle nav-icon"></i>
+                  <p>User Roles</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+
+                        <li class="nav-header">SUPPORT</li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fa-solid fa-headset"></i>
+                                <p>
+                                    Customer Support
+                                    <i class="fa-solid fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview ">
+                                <li class="nav-item ">
+                                    <a href="/support/customer_support" class="nav-link">
+                                        <i class="fa-regular fa-circle nav-icon"></i>
+                                        <p>Contact Support</p>
+                                    </a>
+                                </li>
+                                                                <li class="nav-item ">
+                                    <a href="/support/contact_category" class="nav-link">
+                                        <i class="fa-regular fa-circle nav-icon"></i>
+                                        <p>Manage Category</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+        </ul>
+      </nav>
+      <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+  </aside>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0">System User</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="/sys/dashboard">Home</a></li>
+              <li class="breadcrumb-item active">System user</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+     <section class="content">
+      <div class="container-fluid">
+        <!-- Info boxes -->
+        <div class="row">
+          <div class="col-12 col-sm-6 col-md-3">
+            <div class="info-box">
+              <span class="info-box-icon bg-info elevation-1"><i class="fa-solid fa-users"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Total Users</span>
+                <span class="info-box-number">
+                  {{total_system_users}}
+                </span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+          <!-- /.col -->
+          <div class="col-12 col-sm-6 col-md-3">
+            <div class="info-box mb-3">
+              <span class="info-box-icon bg-success elevation-1"><i class="fa-solid fa-user-tie"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Admin</span>
+                <span class="info-box-number">{{admin_users_count}}</span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+          <!-- /.col -->
+
+          <!-- fix for small devices only -->
+          <div class="clearfix hidden-md-up"></div>
+
+          <div class="col-12 col-sm-6 col-md-3">
+            <div class="info-box mb-3">
+              <span class="info-box-icon bg-warning elevation-1"><i class="fa-solid fa-user-secret"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">System Maintainer</span>
+                <span class="info-box-number">{{system_maintainer_count}}</span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+          <!-- /.col -->
+          <div class="col-12 col-sm-6 col-md-3">
+            <div class="info-box mb-3">
+              <span class="info-box-icon bg-danger elevation-1"><i class="fa-solid fa-square-xmark"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Blocked Users</span>
+                <span class="info-box-number">{{blocked_users_count}}</span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+
+
+    <!-- Table Card -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Available Users</h3>
+                      <div class="d-flex justify-content-end">
+                        <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#addUser">
+                          <i class="fa-solid fa-circle-plus"></i> Add User
+                        </a>
+      
+                      </div>
+         
+        </div>
+        <div class="card-body">
+            <table id="example1" class="table table-bordered table-striped">
+                <thead class="table-dark">
+                    <tr>
+                        <th>S/N</th>
+                        <th>FULL NAME</th>
+                        <th>EMAIL</th>
+                        <th>ROLE</th>
+                        <th>STATUS</th>
+                        <th>ACTIONS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                  {% for user in users %}
+                    <tr>
+                        <td>{{loop.index}}</td>
+                        <td>{{user.first_name}} {{user.middle_name}} {{user.sur_name}}</td>
+                        <td>{{user.email}}</td>
+                        <td>{{user.role_name}}</td>
+                        <td>
+                          {% if user.status == 'Active' %}
+                            <span class="badge bg-success">ACTIVE</span>
+                          {% elif user.status == 'Blocked' %}
+                            <span class="badge bg-danger">BLOCKED</span>
+                          {% else %}
+                            <span class="badge bg-secondary">{{ user.status }}</span>
+                          {% endif %}
+                        </td>
+                        <td>
+                          {% if user.role_name == 'SYSTEM MAINTAINER' %}
+                          <span class="badge bg-secondary">NO ACTION</span>
+                          {% else %}
+
+<button
+    type="button"
+    class="btn btn-sm btn-outline-primary"
+    data-toggle="modal"
+    data-target="#editUser{{ user.user_id }}">
+    <i class="fa fa-edit"></i> Edit
+</button>
+
+                          <button
+                            type="button"
+                            class="btn btn-sm btn-default"
+                            onclick="deleteUser('{{ user.user_id }}')">
+                            <i class="fa-regular fa-trash-can"></i> Delete
+                          </button>
+
+
+
+                        {% endif %}
+                        </td>
+                    </tr>
+
+                  <!---Edit User Modal-->
+                  <div class="modal fade" id="editUser{{user.user_id}}" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog modal-lg" role="document">
+                      <div class="modal-content">
+                        
+                        <div class="modal-header">
+                          <h4 class="mb-2 text-center w-100">Edit a System User</h4>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        
+                        <div class="modal-body">
+                          <form id="edit_user_form{{user.user_id}}" method="POST">
+
+                            <div class="form-row">
+                              <div class="form-group col-md-6">
+                                <label for="first_name{{user.user_id}}">First Name</label>
+                                <input type="text" class="form-control" id="first_name{{user.user_id}}" name="first_name" value="{{user.first_name}}" required>
+                              </div>
+
+                              <div class="form-group col-md-6">
+                                <label for="middle_name{{user.user_id}}">Middle Name</label>
+                                <input type="text" class="form-control" id="middle_name{{user.user_id}}" name="middle_name" value="{{user.middle_name}}" required>
+                              </div>
+                            </div>
+
+                            <div class="form-row">
+                              <div class="form-group col-md-6">
+                                <label for="sur_name{{user.user_id}}">Surname</label>
+                                <input type="text" class="form-control" id="sur_name{{user.user_id}}" name="sur_name" value="{{user.sur_name}}" required>
+                              </div>
+
+                              <div class="form-group col-md-6">
+                                <label>Gender</label><br>
+                                <div class="form-check form-check-inline">
+                                  <input class="form-check-input" type="radio" name="gender{{user.user_id}}" id="gender_male{{user.user_id}}" value="Male" {% if user.gender == 'Male' %}checked{% endif %} required>
+                                  <label class="form-check-label" for="gender_male{{user.user_id}}">Male</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                  <input class="form-check-input" type="radio" name="gender{{user.user_id}}" id="gender_female{{user.user_id}}" value="Female" {% if user.gender == 'Female' %}checked{% endif %}>
+                                  <label class="form-check-label" for="gender_female{{user.user_id}}">Female</label>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="form-row">
+                              <div class="form-group col-md-6">
+                                <label for="email{{user.user_id}}">Email</label>
+                                <input type="email" class="form-control" id="email{{user.user_id}}" name="email" value="{{user.email}}" required>
+                              </div>
+
+                              <div class="form-group col-md-6">
+                                <label for="phone_number{{user.user_id}}">Phone Number</label>
+                                <input type="text" class="form-control" id="phone_number{{user.user_id}}" name="phone_number" value="{{user.phone_number}}" required>
+                              </div>
+                            </div>
+                          <div class="form-row mt-2">
+                            <div class="form-group col-md-6">
+                              <label for="status{{user.user_id}}">Status</label>
+                              <select id="status{{user.user_id}}" name="status" class="form-control select2" required>
+                                <option value="">Select status</option>
+                                <option value="Active" {% if user.status == 'Active' %}selected{% endif %}>Active</option>
+                                <option value="Blocked" {% if user.status == 'Blocked' %}selected{% endif %}>Blocked</option>
+                              </select>
+                            </div>
+                            <div class="form-group col-md-6">
+                              <label for="user_role{{ user.user_id }}">User Role</label>
+                              <select id="user_role{{ user.user_id }}" 
+                                      name="user_role" 
+                                      class="form-control select2" 
+                                      required>
+
+                                <option value="">Select user role</option>
+
+                                {% for role in sys_roles %}
+                                  {% if role.role_name != 'SYSTEM MAINTAINER' %}
+                                    <option value="{{ role.role_id }}"
+                                      {% if role.role_name == user.role_name %}selected{% endif %}>
+                                      {{ role.role_name }}
+                                    </option>
+                                  {% endif %}
+                                {% endfor %}
+
+                              </select>
+                            </div>
+                          </div>
+
+                          </form>
+                        </div>
+
+                        <div class="modal-footer justify-content-center">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                          <button type="button" class="btn btn-primary" onclick="editUser('{{ user.user_id }}')">
+                            Submit
+                          </button>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                    {% endfor %}
+
+
+                </tbody>
+            </table>
+        </div>
+
+           <!---Add User Modal-->
+              <div class="modal fade" id="addUser" tabindex="-1" role="dialog" aria-hidden="true">
+          <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="mb-2 text-center">Register New System User</h4> <br>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                    <form id="addUserForm" class="row g-6" action="/sys/add_user" method="POST">
+                      <div class="col-12 col-md-6">
+                        <label class="form-label" for="first_name">First Name</label>
+                        <input type="text" id="first_name" name="first_name" class="form-control" placeholder="First Name" required/>
+                      </div>
+                      <div class="col-12 col-md-6">
+                        <label class="form-label" for="middle_name">Middle Name</label>
+                        <input type="text" id="middle_name" name="middle_name" class="form-control" placeholder="Middle Name" required/>
+                      </div>
+                      <div class="col-12 col-md-6 mt-3">
+                        <label class="form-label" for="sur_name">Surname</label>
+                        <input type="text" id="sur_name" name="sur_name" class="form-control" placeholder="Surname" required />
+                      </div>
+                      <div class="col-md-4 mt-3">
+                        <label class="form-label">Gender</label><br>
+                        <input type="radio" name="gender" value="Male" required> Male
+                        <input type="radio" name="gender" value="Female"> Female
+                      </div>
+                      <div class="col-12 mt-3">
+                        <label class="form-label" for="email">Email</label>
+                        <input type="text" id="email" name="email" class="form-control" placeholder="Enter your email" required/>
+                      </div>
+                        <div class="col-12 col-md-6 mt-3">
+                        <label class="form-label" for="phone_number">Phone Number</label>
+                        <input type="text" id="phone_number" name="phone_number" class="form-control" placeholder="Phone Number" required/>
+                      </div>
+                      <div class="col-12 col-md-6 mt-3">
+                        <label class="form-label" for="user_role">User Role</label>
+                        <select id="user_role" name="user_role" class="select2 form-select form-control" aria-label="Default select example" required>
+                          <option value="">Select user role</option>
+                          {% for role in sys_roles %}
+                          {% if role.role_name != 'SYSTEM MAINTAINER' %}
+                          <option value="{{role.role_id}}">
+                            {{role.role_name}}
+                          </option>
+                          {% endif %}
+                          {% endfor %}
+                        </select>
+                      </div>
+
+                      <div class="col-12 col-md-6 mt-3">
+                        <label class="form-label" for="password">Password</label>
+                        <input type="password" id="password" name="password" class="form-control" placeholder="Enter password" required/>
+                      </div>
+            
+                      <div class="col-12 col-md-6 mt-3">
+                        <label class="form-label" for="confirm_password">Confirm Password</label>
+                        <input type="password" id="confirm_password" name="confirm_password" class="form-control"
+                          placeholder="Confirm password" required/>
+                        <div id="passwordError" class="invalid-feedback">
+                          Passwords do not match.
+                        </div>
+                      </div>
+            
+
+                    </form>
+            </div>
+            <div class="modal-footer justify-content-center">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button type="submit" form="addUserForm" class="btn btn-primary">Submit</button>
+            </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+      <!-- Add User Modal -->
+    </div>
+
+</div>
+
+
+
+      </div><!--/. container-fluid -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
+
+  <!-- Main Footer -->
+  <footer class="main-footer">
+                            
+    Copyright &copy; <script>document.write(new Date().getFullYear())</script><strong><a href="/"> ContentPro</a></strong>. All rights reserved.
+                            
+    <span class="float-right"> <a href="/sys/logout"  >Logout</a> |
+      <i class="fa-solid fa-power-off text-danger"></i>
+    </span>
+  </footer>
+</div>
+<!-- ./wrapper -->
+
+<!-- REQUIRED SCRIPTS -->
+<!-- jQuery -->
+<script src="{{ url_for('static', filename='plugins/jquery/jquery.min.js')}}"></script>
+<!-- Bootstrap -->
+<script src="{{ url_for('static', filename='plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+<!-- overlayScrollbars -->
+<script src="{{ url_for('static', filename='plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js')}}"></script>
+<!-- AdminLTE App -->
+<script src="{{ url_for('static', filename='dist/js/adminlte.js')}}"></script>
+
+<!-- PAGE PLUGINS -->
+<!-- jQuery Mapael -->
+<script src="{{ url_for('static', filename='plugins/jquery-mousewheel/jquery.mousewheel.js')}}"></script>
+<script src="{{ url_for('static', filename='plugins/raphael/raphael.min.js')}}"></script>
+<script src="{{ url_for('static', filename='plugins/jquery-mapael/jquery.mapael.min.js')}}"></script>
+<script src="{{ url_for('static', filename='plugins/jquery-mapael/maps/usa_states.min.js')}}"></script>
+<!-- ChartJS -->
+<script src="{{ url_for('static', filename='plugins/chart.js/Chart.min.js')}}"></script>
+<!-- DataTables -->
+<script src="{{ url_for('static', filename='plugins/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ url_for('static', filename='plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+<script src="{{ url_for('static', filename='plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
+<script src="{{ url_for('static', filename='plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
+<script src="{{ url_for('static', filename='plugins/jszip/jszip.min.js') }}"></script>
+<script src="{{ url_for('static', filename='plugins/pdfmake/pdfmake.min.js') }}"></script>
+<script src="{{ url_for('static', filename='plugins/pdfmake/vfs_fonts.js') }}"></script>
+<script src="{{ url_for('static', filename='plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
+<script src="{{ url_for('static', filename='plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
+<script src="{{ url_for('static', filename='plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
+<script src="{{ url_for('static', filename='plugins/sweetalert2/sweetalert2.all.min.js') }}"></script>
+<!-- ContentPro-JS -->
+<script src="{{ url_for('static', filename='pageScript/dashboard/system_user.js')}}"></script>
+<script src="{{ url_for('static', filename='dist/js/theme.js') }}"></script>
+
+<script>
+function editUser(userId) {
+
+    const data = {
+        user_id: userId,
+        first_name: document.getElementById('first_name' + userId).value,
+        middle_name: document.getElementById('middle_name' + userId).value,
+        sur_name: document.getElementById('sur_name' + userId).value,
+        gender: document.querySelector('input[name="gender' + userId + '"]:checked')?.value,
+        email: document.getElementById('email' + userId).value,
+        phone_number: document.getElementById('phone_number' + userId).value,
+        status: document.getElementById('status' + userId).value,
+        role_id: document.getElementById('user_role' + userId).value
+    };
+
+    fetch('/sys/edit_user', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(result => {
+        if (result.success) {
+            Swal.fire({
+                title: "Success!",
+                text: result.feedback,
+                icon: "success",
+                timer: 1500
+            }).then(Swal => {
+                if (Swal.isDismissed || Swal.isConfirmed) {
+                    window.location.reload();
+                }
+            });
+        } else {
+            Swal.fire({
+                title: "Error!",
+                text: result.feedback,
+                icon: "error",
+                allowOutsideClick: false
+            }).then(Swal => {
+                if (Swal.isConfirmed) {
+                    window.location.reload();
+                }
+            });
+        }
+    })
+    .catch(error => {
+        console.error(error);
+        Swal.fire("Error!", "Something went wrong.", "error");
+    });
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,265 @@
+@use 'base/variable' as *;
+@use 'base/mixin' as *;
+
+.tinv-wishlist {
+    input[type="checkbox"] {
+        display: inline-block;
+        opacity: 1;
+        visibility: visible;
+        vertical-align: middle;
+        width: auto;
+        height: auto;
+    }
+
+    .tinv-header {
+        margin-top: -0.8rem;
+        text-transform: capitalize;
+    }
+
+    .cart-empty {
+        padding: 14px 25px;
+        font-weight: 700;
+        font-size: 14px;
+        padding-left: 45px;
+        border-radius: 8px;
+    }
+
+    p.return-to-shop .button {
+        display: inline-block;
+        background-color: $theme-color;
+        color: #fff;
+        font-size: 14px;
+        padding: 10px 25px;
+        margin-top: 10px;
+        font-weight: 700;
+
+        &:hover {
+            background-color: $title-color;
+            color: $white-color;
+        }
+    }
+    table {
+        border: none;
+        th {
+            color: $title-color;
+        }
+        td,
+        th {
+            padding: 15.3px 10px;
+            border-bottom: 1px solid $border-color;
+            text-align: center;
+        }
+        thead {
+            background-color: $smoke-color;
+        }
+    }
+    .product-cb,
+    .product-remove {
+        width: 40px;
+        text-align: center;
+    }
+    .product-thumbnail {
+        width: 110px;
+    }
+    .stock.in-stock {
+        margin-bottom: 0;
+    }
+    ins {
+        text-decoration: none;
+    }
+    .product-remove button {
+        border: none;
+        height: 22px;
+        width: 22px;
+        text-align: center;
+        font-size: 12px;
+        line-height: 22px;
+        border-radius: 0;
+        padding-top: 0;
+        i {
+            line-height: 22px;
+            font-size: 16px;
+        }
+    }
+    .tinvwl-mobile {
+        display: none;
+    }
+    .social-buttons {
+        display: flex;
+        max-width: 295px;
+        margin-left: auto;
+        align-items: center;
+        ul {
+            padding-left: 0;
+            margin-bottom: 0;
+            margin-left: auto;
+            display: flex;
+            gap: 6px;
+        }
+    }
+
+    table.tinvwl-table-manage-list {
+        font-size: 16px;
+    }
+
+    .product-stock {
+        .stock {
+            display: block;
+        }
+        span {
+            display: inline;
+        }
+        i {
+            margin-right: 5px;
+        }
+    }
+
+    .tinv-modal {
+        .icon_big_times {
+            margin-bottom: 5px;
+            color: $theme-color;
+        }
+    }
+
+    button.button {
+        border: none;
+        height: 38px;
+        line-height: 38px;
+        font-size: 14px;
+        font-weight: 600;
+        background-color: $theme-color;
+        color: #fff;
+        padding: 1px 15px;
+        min-width: 140px;
+        i {
+            font-size: 18px !important;
+            margin-right: 3px !important;
+        }
+    }
+
+    button.button:hover {
+        background-color: $title-color;
+        color: #fff;
+    }
+    .tinvwl-buttons-group button i {
+        font-size: 14px;
+    }
+
+    th,
+    td.product-name {
+        font-size: 16px;
+        font-weight: 700;
+        font-family: $title-font;
+    }
+
+    td.product-name {
+        a {
+            color: $body-color;
+
+            &:hover {
+                color: $theme-color;
+            }
+        }
+    }
+
+    td.product-price del {
+        margin-left: 8px;
+        font-size: 0.9em;
+    }
+
+    .social-buttons {
+        > span {
+            font-weight: 700;
+            margin-right: 10px;
+            font-family: $title-font;
+            color: $title-color;
+        }
+
+        li {
+            display: inline-block;
+            margin-right: 0;
+            a.social {
+                background-color: $theme-color;
+                color: #fff;
+                @include equal-size-lineHeight(30px);
+                font-size: 14px;
+                display: inline-block;
+                text-align: center;
+                border-radius: 50px;
+                margin-left: 3px;
+                &:first-child {
+                    margin-left: 0;
+                }
+
+                i {
+                    line-height: inherit;
+                }
+
+                &:hover {
+                    background-color: $title-color;
+                    color: $white-color;
+                }
+            }
+        }
+    }
+}
+
+@include md {
+    .tinvwl-full {
+        display: none;
+    }
+    .tinv-wishlist .tinvwl-mobile {
+        display: block;
+    }
+    .tinvwl-txt {
+        display: inline-block !important;
+    }
+    .product-stock {
+        width: 40px;
+        text-align: center;
+    }
+}
+
+@include sm {
+    .tinv-wishlist table {
+        table-layout: fixed;
+        border-bottom: 1px solid $border-color;
+    }
+    .tinv-wishlist table.tinvwl-table-manage-list tbody td.product-remove,
+    .tinv-wishlist table.tinvwl-table-manage-list thead th:not(.product-name) {
+        display: none;
+    }
+    .tinv-wishlist table td,
+    .tinv-wishlist table th {
+        border: 1px solid $border-color;
+    }
+    .tinv-wishlist table.tinvwl-table-manage-list tbody td {
+        display: block;
+        width: 100% !important;
+        text-align: center;
+    }
+    .product-name {
+        text-align: center;
+    }
+    .tinv-wishlist table {
+        td,
+        th {
+            border-bottom: none;
+        }
+        tfoot {
+            border-bottom: 1px solid $border-color;
+        }
+    }
+    .tinv-wishlist .social-buttons {
+        max-width: 100%;
+        margin-left: unset;
+        flex-direction: column;
+        ul {
+            margin-left: unset;
+            margin-top: 5px;
+        }
+    }
+    .tinvwl-txt {
+        display: inline-block !important;
+    }
+}

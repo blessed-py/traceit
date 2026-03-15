@@ -1,0 +1,460 @@
+@use 'base/variable' as *;
+@use 'base/mixin' as *;
+
+.process-slide-image {
+    position: relative;
+    height: 570px;
+    border: none;
+    background-color: $smoke-color2;
+    overflow: hidden;
+    border-radius: 16px;
+
+    .img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-color: $smoke-color2;
+    }
+
+    .foreground-img {
+        background-position: left center;
+        width: 50%;
+
+        @include lg {
+            background-size: auto;
+        }
+    }
+
+    .background-img {
+        background-position: left center;
+
+        @include lg {
+            background-size: auto;
+            background-position: right;
+        }
+    }
+
+    .slider {
+        position: absolute;
+        appearance: none;
+        width: 100%;
+        height: 100%;
+        background: transparent;
+        outline: none;
+        margin: 0;
+        padding: 0;
+        border: none;
+        -webkit-transition: all .2s;
+        transition: all .2s;
+        text-align: center;
+
+        &::-webkit-slider-thumb {
+            appearance: none;
+            width: 3px;
+            height: 600px;
+            background: $white-color;
+            cursor: pointer;
+        }
+
+        &::-moz-range-thumb {
+            width: 2px;
+            height: 600px;
+            background: $white-color;
+            cursor: pointer;
+        }
+    }
+
+    .slider-button {
+        pointer-events: none;
+        position: absolute;
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        left: calc(50% - 43px);
+        top: calc(50% - 40px);
+        text-align: center;
+        background: $theme-color;
+        backdrop-filter: blur(10px);
+
+        &:after {
+            content: '';
+            display: inline-block;
+            width: 17px;
+            height: 15px;
+            border-right: solid 17px $white-color;
+            border-bottom: solid 7.5px transparent;
+            border-top: solid 7.5px transparent;
+            position: absolute;
+            left: 13px;
+            top: 50%;
+            transform: translate(0, -50%);
+        }
+
+        &:before {
+            content: '';
+            display: inline-block;
+            width: 17px;
+            height: 15px;
+            border-left: solid 17px $white-color;
+            border-bottom: solid 7.5px transparent;
+            border-top: solid 7.5px transparent;
+            position: absolute;
+            right: 13px;
+            top: 50%;
+            transform: translate(0, -50%);
+        }
+    }
+
+    @include xs {
+        height: 400px;
+    }
+}
+
+/* Process Card ---------------------------------- */
+.process-card {
+    position: relative;
+    z-index: 2;
+    padding: 37px 128px 37px 40px;
+    display: flex;
+    gap: 16px;
+
+    @include xl {
+        padding: 37px 90px 37px 40px;
+    }
+
+    @include lg {
+        background: $smoke-color2;
+        border-radius: 16px;
+    }
+
+    &:not(:last-child) {
+        margin-bottom: 24px;
+    }
+
+    .process-bg-mask {
+        position: absolute;
+        inset: 0;
+        background: $smoke-color2;
+        z-index: -1;
+
+        @include lg {
+            display: none;
+        }
+    }
+
+    .box-icon {
+        flex: none;
+    }
+
+    .box-number {
+        font-size: 32px;
+        font-weight: 500;
+        font-family: $title-font;
+        color: $title-color;
+        margin-bottom: -0.28em;
+        position: absolute;
+        right: 15px;
+        top: 22px;
+
+        @include ml {
+            font-size: 28px;
+            right: 12px;
+            top: 18px;
+        }
+
+        @include xl {
+            right: 6px;
+        }
+
+        @include lg {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: $white-color;
+            font-size: 20px;
+            right: 15px;
+            top: 15px;
+        }
+    }
+
+    .box-title {
+        margin-bottom: 10px;
+        font-size: 24px;
+        font-weight: 500;
+    }
+
+    .box-text {
+        line-height: 1.5em;
+    }
+}
+
+@media (max-width:425px) {
+    .process-card {
+        padding: 30px 90px 30px 20px;
+    }
+
+    .process-card .box-number {
+        font-size: 20px;
+        right: 20px;
+        top: 32px;
+    }
+}
+
+@include vxs {
+    .process-card {
+        padding: 37px 62px 35px 16px;
+    }
+}
+
+/* Process area 2 ---------------------------------- */
+
+.process-area-2 {
+    background: #1F1F1F;
+}
+
+.process-2-list-wrap {
+    display: flex;
+    border-top: 1px solid #353535;
+
+    .process-card2 {
+        flex: 100%;
+        position: relative;
+        border-right: 1px solid #353535;
+        cursor: pointer;
+        transition: all 0.6s linear;
+        height: 435px;
+
+        .box-title {
+            font-size: 64px;
+            color: #ffffff1a;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%) rotate(-90deg);
+            margin: 0;
+            text-transform: uppercase;
+            transition: all 0.8s ease-in-out;
+            width: max-content;
+        }
+
+        .process-icon {
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.8s ease-in-out;
+        }
+
+        .box-content {
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.8s ease-in-out;
+
+            .box-text_title {
+                color: var(--white-color);
+            }
+
+            .box-text {
+                color: #A9ACBD;
+                width: 83%;
+            }
+        }
+    }
+
+    .inner-wrap {
+        margin-left: 80px;
+        transition: all 0.8s ease-in-out;
+
+        .process-icon {
+            margin-top: 80px;
+        }
+
+        .box-content {
+            margin-top: 58px;
+        }
+    }
+}
+
+.process-2-list-wrap .process-card2 {
+    &.active {
+        flex: 200%;
+
+        .box-title {
+            transform: rotate(0deg);
+            top: 55px;
+            left: inherit;
+            right: 70px;
+        }
+
+        .process-icon {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .box-content {
+            opacity: 1;
+            visibility: visible;
+        }
+    }
+}
+
+@include xxl {
+    .process-2-list-wrap .inner-wrap {
+        margin-left: 40px;
+    }
+
+    .process-2-list-wrap .process-card2 .box-content .box-text {
+        color: #A9ACBD;
+        width: 98%;
+    }
+}
+
+@include lg {
+    .process-2-list-wrap .process-card2 .box-title {
+        font-size: 56px;
+    }
+
+    .process-2-list-wrap .process-card2.active .box-title {
+        right: 35px;
+    }
+
+    .process-2-list-wrap .process-card2 .process-icon img {
+        width: 80px;
+    }
+}
+
+@include md {
+    .process-2-list-wrap {
+        flex-direction: column;
+    }
+
+    .process-2-list-wrap .process-card2 {
+        border-right: 0;
+        border-bottom: 1px solid #353535;
+    }
+
+    .process-2-list-wrap .process-card2 .inner-wrap .process-icon {
+        margin-top: 0;
+    }
+
+    .process-2-list-wrap .process-card2.active .inner-wrap .process-icon {
+        margin-top: 45px;
+    }
+
+    .process-2-list-wrap .process-card2.active .box-title {
+        top: 24px;
+        right: 70px;
+    }
+
+    .process-2-list-wrap .inner-wrap .box-content {
+        margin-top: 40px;
+        margin-bottom: 50px;
+        width: 60%;
+    }
+}
+
+@include sm {
+    .process-2-list-wrap .inner-wrap .box-content {
+        width: 80%;
+    }
+}
+
+@include xs {
+    .process-2-list-wrap .inner-wrap .box-content {
+        width: 100%;
+    }
+
+    .process-2-list-wrap .inner-wrap {
+        margin-left: 15px;
+    }
+
+    .process-2-list-wrap .inner-wrap .box-content {
+        margin-top: 25px;
+    }
+
+    .process-2-list-wrap .process-card2 .box-content .box-text_title {
+        margin-bottom: 6px;
+    }
+
+    .process-2-list-wrap .process-card2.active .box-title {
+        font-size: 46px;
+    }
+
+    .process-2-list-wrap .process-card2 .box-title {
+        font-size: 46px;
+    }
+}
+
+@include vxs {
+    .process-2-list-wrap .process-card2 .process-icon img {
+        width: 55px;
+    }
+}
+
+
+
+
+/* Process area 1.1 ---------------------------------- */
+
+.process2-1-box {
+    position: relative;
+
+    .process2-1-thumb {
+        text-align: end;
+        background: var(--smoke-color2);
+        position: relative;
+
+        .process1-1-shape {
+            position: absolute;
+            left: 0;
+            z-index: -1;
+            width: 100%;
+        }
+    }
+
+    .process2-2-img {
+        position: absolute;
+        bottom: 0;
+        z-index: 2;
+        left: -92px;
+    }
+}
+
+@media (max-width:1500px) {
+    .process2-1-box .process2-2-img {
+        left: -50px;
+    }
+}
+
+@include ml {
+    .process2-1-box .process2-2-img {
+        left: -30px;
+    }
+}
+
+@include md {
+    .process2-1-box .process2-2-img {
+        left: 0px;
+    }
+    .process2-1-box .process2-2-img img {
+        width: 75%;
+    }
+}
+
+
+@include sm {
+    .process2-1-box .process2-2-img img {
+        width: 64%;
+    }
+}
+
+@include xs {
+    .process2-1-box .process2-2-img img {
+        width: 44%;
+    }
+}

@@ -1,0 +1,105 @@
+@use 'base/variable' as *;
+@use 'base/mixin' as *;
+
+/* Marquee Area 1 ---------------------------------- */
+.marquee-slider1,
+.marquee-slider2 {
+    margin: 0 -50px 0px;
+
+    .swiper-wrapper {
+        transition-timing-function: linear;
+    }
+
+    .swiper-slide {
+        width: auto;
+    }
+}
+
+.marquee-card {
+    margin-bottom: 0;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    position: relative;
+
+    .marquee-icon {
+        height: 70px;
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid $light-color;
+        border-left: 1px solid transparent;
+        border-right: 1px solid transparent;
+        margin: 0 -13px;
+    }
+
+    a {
+        font-size: 48px;
+        font-weight: 500;
+        font-family: $title-font;
+        color: $title-color;
+        display: inline-block;
+        line-height: 0.75em;
+        position: relative;
+        padding: 21px 40px 23px;
+        border: 1px solid $light-color;
+        border-left: 1px solid transparent;
+        border-right: 1px solid transparent;
+        border-radius: 28px;
+
+        &:hover {
+            color: $theme-color;
+        }
+    }
+
+    @include lg {
+        .marquee-icon {
+            height: 66px;
+        }
+
+        a {
+            font-size: 40px;
+        }
+    }
+
+    @include md {
+        a {
+            font-size: 36px;
+        }
+    }
+
+    @include sm {
+        .marquee-icon {
+            height: 60px;
+        }
+
+        a {
+            font-size: 30px;
+        }
+    }
+
+    @include xs {
+        .marquee-icon {
+            height: 54px;
+        }
+
+        a {
+            font-size: 24px;
+        }
+    }
+}
+
+/* Marquee Area 2---------------------------------- */
+.marquee-slider2 {
+    background-color: var(--theme-color);
+}
+
+.marquee-card.style2 {
+    a {
+        padding: 21px 17px 23px;
+        font-size: 30px;
+        border: 0;
+        color: var(--white-color);
+    }
+}

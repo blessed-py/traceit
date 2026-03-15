@@ -1,0 +1,22 @@
+@use 'base/variable' as *;
+@use 'base/mixin' as *;
+
+@each $textColorsMap, $value in $textColorsMap {
+  .text-#{$textColorsMap} {
+    color: #{$value} !important;
+  }
+}
+
+.text-inherit {
+  color: inherit;
+  &:hover {
+    color: $theme-color;
+  }
+}
+
+a.text-theme,
+.text-reset {
+  &:hover {
+    text-decoration: underline;
+  }
+}

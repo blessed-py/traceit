@@ -1,0 +1,1172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Your Item - TraceIt</title>
+    <meta name="author" content="blessedmatiko">
+    <meta name="description" content="TraceIt helps you find your lost items and report found items. Smart lost and found platform for your community.">
+    <meta name="keywords" content="lost and found, find lost items, report found items, trace it, lost items recovery">
+    <meta name="robots" content="INDEX,FOLLOW">
+    <!-- Mobile Specific Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Favicons-->
+    <link rel="icon" type="image/png" href="{{url_for('static', filename='assets/img/logo_2.png')}}">
+    <link rel="manifest" href="{{url_for('static', filename='assets/img/favicons/manifest.json')}}">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="theme-color" content="#ffffff">
+
+    <!--==============================
+	  Google Fonts
+	============================== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&family=Fredoka:wght@300..700&family=Onest:wght@100..900&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="{{url_for('static', filename='assets/css/bootstrap.min.css')}}">
+    <!-- Fontawesome Icon -->
+    <link rel="stylesheet" href="{{url_for('static', filename='assets/css/fontawesome.min.css')}}">
+    <!-- Magnific Popup -->
+    <link rel="stylesheet" href="{{url_for('static', filename='assets/css/magnific-popup.min.css')}}">
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="{{url_for('static', filename='assets/css/swiper-bundle.min.css')}}">
+    <!-- Theme Custom CSS -->
+    <link rel="stylesheet" href="{{url_for('static', filename='assets/css/style.css')}}">
+            <!-- Font Awesome Pro v7.0.0 -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='fontawesome-pro/css/all.css') }}">
+    
+    <!-- Custom CSS -->
+    <style>
+        :root {
+            --primary-color: #183d69;
+            --secondary-color: #667eea;
+            --accent-color: #3e61c3;
+            --success-color: #28a745;
+            --danger-color: #dc3545;
+            --light-bg: #f8f9fa;
+            --border-color: #e9ecef;
+            --text-muted: #6c757d;
+            --title-font: "Inter", sans-serif;
+            --body-font: "Onest", sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+
+        /* Header Styles */
+        .header {
+            background: white;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-logo img {
+            width: 150px;
+            height: auto;
+        }
+
+        .main-menu ul {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .main-menu ul li {
+            margin-left: 30px;
+        }
+
+        .main-menu ul li a {
+            font-family: 'Onest', sans-serif;
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: #333;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .main-menu ul li a:hover,
+        .main-menu ul li a.active {
+            color: var(--primary-color);
+        }
+
+
+
+        /* Hero Section */
+        .hero-section {
+            background: #F6F2ED;
+            color: white;
+            padding-top: 150px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffffff" fill-opacity="0.1" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,133.3C960,128,1056,96,1152,90.7C1248,85,1344,107,1392,117.3L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') no-repeat bottom;
+            background-size: cover;
+        }
+
+        .hero-title {
+            font-family: var(--title-font);
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 30px;
+        }
+
+        /* Search Section */
+        .search-section {
+            background: #F6F2ED;
+            padding: 40px 0;
+            position: relative;
+            z-index: 10;
+        }
+
+        .search-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border: 1px solid var(--border-color);
+        }
+
+        .search-form {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .search-input-group {
+            flex: 1;
+            min-width: 250px;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 15px 20px 15px 50px;
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            font-family: var(--body-font);
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        .category-filter {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 25px;
+        }
+
+        .category-btn {
+            padding: 10px 20px;
+            border: 2px solid var(--border-color);
+            background: white;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            font-size: 0.9rem;
+            font-family: var(--body-font);
+        }
+
+        .category-btn:hover {
+            border-color: var(--secondary-color);
+            color: var(--secondary-color);
+        }
+
+        .category-btn.active {
+            background: linear-gradient(135deg, var(--secondary-color) 0%, var(--accent-color) 100%);
+            color: white;
+            border-color: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .search-btn {
+            padding: 15px 35px;
+            background: linear-gradient(135deg, var(--secondary-color) 0%, var(--accent-color) 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: var(--body-font);
+        }
+
+        .search-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        /* Results Section */
+        .results-section {
+            padding: 0 0 80px;
+            background-color: #F6F2ED;
+        }
+
+        .results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .results-count {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .sort-dropdown {
+            padding: 10px 20px;
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            background: white;
+            font-family: var(--body-font);
+            font-weight: 600;
+        }
+
+        .items-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .item-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .item-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .item-image {
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .item-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .item-card:hover .item-image img {
+            transform: scale(1.05);
+        }
+
+        .status-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            z-index: 2;
+        }
+
+        .status-badge.lost {
+            background: linear-gradient(135deg, var(--danger-color) 0%, #c82333 100%);
+            color: white;
+        }
+
+        .status-badge.found {
+            background: linear-gradient(135deg, var(--success-color) 0%, #1e7e34 100%);
+            color: white;
+        }
+
+        .item-content {
+            padding: 25px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .item-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #333;
+            font-family: var(--title-font);
+        }
+
+        .item-description {
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            flex: 1;
+        }
+
+        .item-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .item-meta span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .item-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: auto;
+        }
+
+
+
+        .btn-primary-custom {
+            background: linear-gradient(135deg, var(--secondary-color) 0%, var(--accent-color) 100%);
+            color: white;
+        }
+
+        .btn-primary-custom:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+            color: white;
+        }
+
+        .btn-outline-custom {
+            background: transparent;
+            color: var(--secondary-color);
+            border: 2px solid var(--secondary-color);
+        }
+
+        .btn-outline-custom:hover {
+            background: var(--secondary-color);
+            color: white;
+        }
+
+        /* No Results */
+        .no-results {
+            text-align: center;
+            padding: 80px 20px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .no-results-icon {
+            font-size: 4rem;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+
+        .no-results-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .no-results-text {
+            color: var(--text-muted);
+            margin-bottom: 30px;
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 40px;
+        }
+
+        .page-btn {
+            padding: 10px 15px;
+            border: 2px solid var(--border-color);
+            background: white;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            min-width: 45px;
+            text-align: center;
+        }
+
+        .page-btn:hover {
+            border-color: var(--secondary-color);
+            color: var(--secondary-color);
+        }
+
+        .page-btn.active {
+            background: var(--secondary-color);
+            color: white;
+            border-color: var(--secondary-color);
+        }
+
+        /* Loading State */
+        .loading {
+            text-align: center;
+            padding: 40px;
+        }
+
+        .spinner {
+            border: 3px solid var(--border-color);
+            border-top: 3px solid var(--secondary-color);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+
+    </style>
+</head>
+<body>
+    <header class="th-header header-layout1">
+        <div class="sticky-wrapper">
+            <!-- Main Menu Area -->
+            <div class="menu-area">
+                <div class="container">
+                    <div class="row align-items-center justify-content-between">
+                        <div class="col-auto">
+                            <div class="header-logo">
+                                <a href="/">
+                                    <img src="{{url_for('static', filename='assets/img/logo_3.png')}}" style="width: 150px; height: auto;" alt="TraceIt">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <nav class="main-menu d-none d-lg-inline-block ms-5">
+                                <ul>
+                                    <li>
+                                        <a class="fw-bold" href="/">Home</a>
+                                    </li>
+                                    <li><a class="fw-bold" href="/about">About Us</a></li>
+                                    <li><a class="fw-bold" href="/report_lost">Report Lost Item</a></li>
+                                    <li><a class="fw-bold" href="/report_found">Report Found Item</a></li>
+                                    <li>
+                                        <a class="fw-bold" href="/contact">Contact</a>
+                                    </li>
+                                </ul>
+                            </nav>
+                     
+                            <div class="header-button d-flex d-lg-none">
+                                <button type="button" class="th-menu-toggle icon-btn"><i class="far fa-bars"></i></button>
+                                
+                                <!-- Mobile Dropdown Menu -->
+                                <div class="mobile-menu-dropdown mt-2">
+                                    <div class="mobile-menu-content">
+                                        <ul>
+                                            <li><a href="/">Home</a></li>
+                                            <li><a href="/about">About Us</a></li>
+                                            <li><a href="/report_lost">Report Lost Item</a></li>
+                                            <li><a href="/report_found">Report Found Item</a></li>
+                                            <li><a class="text-primary" href="/find_item">Find Your Item</a></li>
+                                            <li><a href="/contact">Contact Us</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+           
+                        </div>
+                        <div class="col-auto d-xl-block d-none">
+                            <div class="header-button">
+                                <a href="/find_item" class="th-btn fw-bold" style="border-radius: 10px;">Find Your Item</a>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h1 class="hero-title text-primary">Find Your Item</h1>
+                    <p class="hero-subtitle text-muted">Search through our database of lost and found items to reunite with your belongings</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Search Section -->
+    <section class="search-section">
+        <div class="container">
+            <div class="search-card">
+                <form class="search-form" id="searchForm">
+                    <div class="search-input-group">
+                        <i class="fas fa-search search-icon"></i>
+                        <input type="text" class="search-input" id="searchInput" placeholder="Search by item name, description, location...">
+                    </div>
+                    <button type="submit" class="search-btn">
+                        <i class="fas fa-search me-2"></i>Search
+                    </button>
+                </form>
+                
+                <div class="category-filter mt-2">
+                    <button class="category-btn active" data-category="all">All Items</button>
+                    <button class="category-btn" data-category="Electronics">📱 Electronics</button>
+                    <button class="category-btn" data-category="Wallet">👛 Wallet</button>
+                    <button class="category-btn" data-category="Keys">🔑 Keys</button>
+                    <button class="category-btn" data-category="Documents">📄 Documents</button>
+                    <button class="category-btn" data-category="Bag">🎒 Bag</button>
+                    <button class="category-btn" data-category="Jewelry">💎 Jewelry</button>
+                    <button class="category-btn" data-category="Clothing">👕 Clothing</button>
+                    <button class="category-btn" data-category="ID Card">🪪 ID Card</button>
+                    <button class="category-btn" data-category="Other">📦 Other</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Results Section -->
+    <section class="results-section">
+        <div class="container">
+            <div class="results-header">
+                <div class="results-count">
+                    <span id="resultsCount">24</span> items found
+                </div>
+                <select class="sort-dropdown" id="sortDropdown">
+                    <option value="recent">Most Recent</option>
+                    <option value="name">Name (A-Z)</option>
+                    <option value="location">Location</option>
+                    <option value="status">Status</option>
+                </select>
+            </div>
+
+            <div class="items-grid" id="itemsGrid">
+                <!-- Sample Items -->
+                {% for item in sys_items %}
+                <div class="item-card" data-category="{{item.category}}" >
+                    <div class="item-image">
+                        <img src="{{ url_for('serve_storage', filename='item_found/' ~ item.image) }}" alt="{{item.item_name}}">
+                    </div>
+                    <div class="item-content">
+                        <h3 class="item-title">{{item.item_name}}</h3>
+                        <p class="item-description">{{item.description}}</p>
+                        <div class="item-meta">
+                            <span><i class="fas fa-map-marker-alt"></i> {{item.location}}</span>
+                            <span><i class="fas fa-calendar"></i> {{item.date_found}}</span>
+                        </div>
+                        <div class="item-actions fw-bold">
+                        <a href="{{ url_for('public.view_detail', item_id=item.item_found_id) }}">
+                            View Details
+                        </a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+
+                <div class="item-card" data-category="Wallet" data-status="found">
+                    <div class="item-image">
+                        <img src="{{url_for('static', filename='assets/img/dataset/wallet.jpg')}}" alt="Leather Wallet">
+                    </div>
+                    <div class="item-content">
+                        <h3 class="item-title">Brown Leather Wallet</h3>
+                        <p class="item-description">Found in library study room. Contains ID cards and credit cards.</p>
+                        <div class="item-meta">
+                            <span><i class="fas fa-map-marker-alt"></i> Library</span>
+                            <span><i class="fas fa-calendar"></i> 1 day ago</span>
+                        </div>
+                        <div class="item-actions">
+                            <a href="#" class="fw-bold">View Details</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="item-card" data-category="Keys" data-status="lost">
+                    <div class="item-image">
+                        <img src="{{url_for('static', filename='assets/img/dataset/keys.webp')}}" alt="Car Keys">
+                    </div>
+                    <div class="item-content">
+                        <h3 class="item-title">Toyota Car Keys</h3>
+                        <p class="item-description">Black Toyota key fob with red keychain. Lost near parking lot B.</p>
+                        <div class="item-meta">
+                            <span><i class="fas fa-map-marker-alt"></i> Parking Lot</span>
+                            <span><i class="fas fa-calendar"></i> 5 days ago</span>
+                        </div>
+                        <div class="item-actions">
+                            <a href="#" class="fw-bold">View Details</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="item-card" data-category="Bag" data-status="found">
+                    <div class="item-image">
+                        <img src="{{url_for('static', filename='assets/img/dataset/bag.webp')}}" alt="Backpack">
+                    </div>
+                    <div class="item-content">
+                        <h3 class="item-title">Black Backpack</h3>
+                        <p class="item-description">Found in cafeteria. Contains laptop and notebooks. Owner needed!</p>
+                        <div class="item-meta">
+                            <span><i class="fas fa-map-marker-alt"></i> Cafeteria</span>
+                            <span><i class="fas fa-calendar"></i> 2 days ago</span>
+                        </div>
+                        <div class="item-actions">
+                            <a href="#" class="fw-bold">View Details</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="item-card" data-category="Documents" data-status="lost">
+                    <div class="item-image">
+                        <img src="{{url_for('static', filename='assets/img/dataset/passport.jpg')}}" alt="Passport">
+                    </div>
+                    <div class="item-content">
+                        <h3 class="item-title">Passport</h3>
+                        <p class="item-description">US Passport with name John Smith. Lost during travel.</p>
+                        <div class="item-meta">
+                            <span><i class="fas fa-map-marker-alt"></i> Airport</span>
+                            <span><i class="fas fa-calendar"></i> 1 week ago</span>
+                        </div>
+                        <div class="item-actions">
+                            <a href="#" class="fw-bold">View Details</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="item-card" data-category="Jewelry" data-status="found">
+                    <div class="item-image">
+                        <img src="{{url_for('static', filename='assets/img/dataset/gold_ring.jpg')}}" alt="Ring">
+                    </div>
+                    <div class="item-content">
+                        <h3 class="item-title">Gold Ring</h3>
+                        <p class="item-description">Found near gym entrance. Appears to be wedding band.</p>
+                        <div class="item-meta">
+                            <span><i class="fas fa-map-marker-alt"></i> Gym</span>
+                            <span><i class="fas fa-calendar"></i> 4 days ago</span>
+                        </div>
+                        <div class="item-actions">
+                            <a href="#" class="fw-bold">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination">
+                <button class="page-btn active">1</button>
+                <button class="page-btn">2</button>
+                <button class="page-btn">3</button>
+                <button class="page-btn">4</button>
+                <button class="page-btn">Next</button>
+            </div>
+        </div>
+    </section>
+
+        <section class="process-area-2 position-relative overflow-hidden space-top">
+        <div class="container th-container2">
+            <div class="row">
+                <div class="col-xl-9 col-lg-11">
+                    <div class="title-area mb-55">
+                        <span class="sub-title style2 text-anim" data-cue="slideInUp">Our Work Process</span>
+                        <h2 class="sec-title mb-0 text-white text-anim2" data-cue="slideInUp">4-Step Process to Find Your Item</h2>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="container-fluid p-0">
+            <div class="process-2-list-wrap">
+                <div class="process-card2 active" data-cue="slideInUp">
+                    <h3 class="box-title">Step 01</h3>
+                    <div class="inner-wrap ">
+<div class="process-icon">
+    <i class="fa-solid fa-box-arrow-down-magnifying-glass text-white" style="font-size:60px;"></i>
+</div>
+                        <div class="box-content">
+                            <h5 class="box-text_title">Search or Browse Items</h5>
+                            <p class="box-text">Use the search bar or browse through the categories to look for items that match what you lost. You can filter by item type, location, or whether the item is reported as lost or found.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="process-card2 " data-cue="slideInUp">
+                    <h3 class="box-title">Step 02</h3>
+                    <div class="inner-wrap">
+                                              <div class="process-icon">
+                                                <i class="fa-solid fa-list-check text-white" style="font-size:60px;"></i>
+                        </div>
+                        <div class="box-content">
+                            <h5 class="box-text_title">Review Item Details</h5>
+                            <p class="box-text">Click on an item to see its full details, including description, images, date reported, and the location where it was found or lost. Compare these details with your item.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="process-card2 " data-cue="slideInUp">
+                    <h3 class="box-title">Step 03</h3>
+                    <div class="inner-wrap">
+                      <div class="process-icon">
+                        <i class="fa-solid fa-address-book text-white" style="font-size:60px;"></i>
+                      </div>
+                        <div class="box-content">
+                            <h5 class="box-text_title">Contact Us</h5>
+                            <p class="box-text">If the item looks like yours, use the contact or claim option to reach out to the person who reported it. Provide additional details to confirm that the item belongs to you.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="process-card2 " data-cue="slideInUp">
+                    <h3 class="box-title">Step 04</h3>
+                    <div class="inner-wrap">
+                      <div class="process-icon">
+
+                        <i class="fa-solid fa-badge-check text-white" style="font-size:60px;"></i>
+                      </div>
+                        <div class="box-content">
+                            <h5 class="box-text_title">Confirm and Retrieve Your Item</h5>
+                            <p class="box-text">Once ownership is verified, arrange a safe place to collect the item. After receiving it, mark the item as recovered so the community knows it has been returned.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!---Footer-->
+        <footer class="footer-wrapper footer-layout1">
+        <div class="footer-1-top-shape">
+            <img src="{{url_for('static', filename='assets/img/bg/footer-1-top-shape.png')}}" alt="img">
+        </div>
+
+
+        <div class="container th-container2">
+            <div class="footer-bottom">
+                <div class="widget-area">
+                    <div class="row justify-content-between">
+                        <div class="col-md-6 col-xl-auto" data-cue="slideInUp">
+                            <div class="widget footer-widget">
+                                <div class="th-widget-about">
+                                    <div class="about-logo">
+                                        <a href="/"><img src="{{url_for('static', filename='assets/img/logo_3.png')}}" style="width: 230px; height: auto;" alt="TraceIt"></a>
+                                    </div>
+                                    <p class="about-text">Helping people reconnect with their lost belongings through a smarter lost and found system.</p>
+                                    <div class="th-social style7">
+                                        <a href="https://www.facebook.com/"><i class="fab fa-github"></i></a>
+                                        <a href="https://www.linkedin.com/"><i class="fab fa-linkedin-in"></i></a>
+                                        <a href="https://www.instagram.com/"><i class="fa-brands fa-instagram"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-xl-auto" data-cue="slideInUp">
+                            <div class="widget widget-contact-wrap footer-widget">
+                                <div class="info-box">
+                                    <div class="info-box_icon">
+                                        <i class="fas fa-phone"></i>
+                                    </div>
+                                    <div class="box-content">
+                                        <p class="info-box_title">Help For Call</p>
+                                        <p class="info-box_text">
+                                            <a href="tel:+917696912420" class="info-box_link">+91 7696912420</a>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="info-box">
+                                    <div class="info-box_icon">
+                                        <i class="fas fa-location"></i>
+                                    </div>
+                                    <div class="box-content">
+                                        <p class="info-box_title">Our Address</p>
+                                        <p class="info-box_text text-white">
+                                            Phagwara, LPU
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="info-box">
+                                    <div class="info-box_icon">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                    </div>
+                                    <div class="box-content">
+                                        <p class="info-box_title">WhatsApp</p>
+                                        <p class="info-box_text">
+                                            <a href="https://wa.me/+917696912420" target="_blank" class="info-box_link">+917696912420</a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xl-auto" data-cue="slideInUp">
+                            <div >
+                                       <h4 class="text-white">Quick Links</h4>
+                                       <p><a href="/">Home</a></p>
+                                       <p><a href="/report_lost">Report Lost</a> </p>
+                                       <p><a href="/report_found">Report Found</a></p>
+                                       <p><a href="/browse_item">Browse Items</a></p>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="container">
+            <div class="copyright-wrap ">
+                <div class="row gy-2">
+                    <div class="col-lg-4 col-xl-4" data-cue="slideInUp">
+                        <p class="copyright-text">Copyright &copy; 2026 <a href="/">TraceIt.</a> All Rights Reserved.</p>
+                    </div>
+                    <div class="col-lg-8 col-xl-6 text-center text-lg-end" data-cue="slideInUp">
+                        <div class="footer-links">
+                            <ul>
+                                <li>
+                                    <a href="/about">Terms and Conditions.</a>
+                                </li>
+                                <li>
+                                    <a href="/about">Privacy Policy</a>
+                                </li>
+
+                                <li>
+                                    <a href="/contact">Get Support</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Scroll To Top -->
+    <div class="scroll-top">
+        <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+            <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" style="transition: stroke-dashoffset 10ms linear 0s; stroke-dasharray: 307.919, 307.919; stroke-dashoffset: 307.919;"></path>
+        </svg>
+    </div>
+    <!-- Jquery -->
+    <script src="{{url_for('static', filename='assets/js/vendor/jquery-3.7.1.min.js')}}"></script>
+    <!-- Swiper Js -->
+    <script src="{{url_for('static', filename='assets/js/swiper-bundle.min.js')}}"></script>
+    <!-- Bootstrap -->
+    <script src="{{url_for('static', filename='assets/js/bootstrap.min.js')}}"></script>
+    <!-- Magnific Popup -->
+    <script src="{{url_for('static', filename='assets/js/jquery.magnific-popup.min.js')}}"></script>
+    <!-- Counter Up -->
+    <script src="{{url_for('static', filename='assets/js/jquery.counterup.min.js')}}"></script>
+    <!-- Range Slider -->
+    <script src="{{url_for('static', filename='assets/js/jquery-ui.min.js')}}"></script>
+    <!-- Isotope Filter -->
+    <script src="{{url_for('static', filename='assets/js/imagesloaded.pkgd.min.js')}}"></script>
+    <script src="{{url_for('static', filename='assets/js/isotope.pkgd.min.js')}}"></script>
+    <!-- Cue Js -->
+    <script src="{{url_for('static', filename='assets/js/scrollCue.min.js')}}"></script>
+    <!-- Gsap -->
+    <script src="{{url_for('static', filename='assets/js/gsap.min.js')}}"></script>
+    <!-- Scroll Trigger -->
+    <script src="{{url_for('static', filename='assets/js/ScrollTrigger.min.js')}}"></script>
+    <!-- Split Text -->
+    <script src="{{url_for('static', filename='assets/js/SplitText.min.js')}}"></script>
+    <!-- Lenis Js -->
+    <script src="{{url_for('static', filename='assets/js/lenis.min.js')}}"></script>
+
+    <!-- Perticle Js -->
+    <script src="{{url_for('static', filename='assets/js/particles.min.js')}}"></script>
+    <script src="{{url_for('static', filename='assets/js/particles-config.js')}}"></script>
+
+    <!-- Main Js File -->
+    <script src="{{url_for('static', filename='assets/js/main.js')}}"></script>
+    
+    <!-- Custom JavaScript -->
+    <script>
+        // Sample data for demonstration
+        const sampleItems = [
+            {
+                id: 1,
+                title: "iPhone 13 Pro",
+                description: "Blue iPhone 13 Pro with screen protector. Lost in taxi from airport to downtown.",
+                category: "Electronics",
+
+                location: "Auditorium",
+                date: "3 days ago",
+                image: "{{url_for('static', filename='assets/img/dataset/iphone_cover.jpeg')}}"
+            },
+            {
+                id: 2,
+                title: "Brown Leather Wallet",
+                description: "Found in library study room. Contains ID cards and credit cards.",
+                category: "Wallet",
+
+                location: "Library",
+                date: "1 day ago",
+                image: "{{url_for('static', filename='assets/img/dataset/wallet.jpg')}}"
+            },
+            {
+                id: 3,
+                title: "Toyota Car Keys",
+                description: "Black Toyota key fob with red keychain. Lost near parking lot B.",
+                category: "Keys",
+
+                location: "Parking Lot",
+                date: "5 days ago",
+                image: "{{url_for('static', filename='assets/img/dataset/keys.webp')}}"
+            },
+            {
+                id: 4,
+                title: "Black Backpack",
+                description: "Found in cafeteria. Contains laptop and notebooks. Owner needed!",
+                category: "Bag",
+
+                location: "Cafeteria",
+                date: "2 days ago",
+                image: "{{url_for('static', filename='assets/img/dataset/bag.webp')}}"
+            },
+            {
+                id: 5,
+                title: "Passport",
+                description: "Indian Passport with name Kumar. Lost during travel.",
+                category: "Documents",
+
+                location: "Airport",
+                date: "1 week ago",
+                image: "{{url_for('static', filename='assets/img/dataset/passport.jpg')}}"
+            },
+            {
+                id: 6,
+                title: "Gold Ring",
+                description: "Found near gym entrance. Appears to be wedding band.",
+                category: "Jewelry",
+  
+                location: "Gym",
+                date: "4 days ago",
+                image: "{{url_for('static', filename='assets/img/dataset/gold_ring.jpg')}}"
+            }
+        ];
+
+        let currentItems = [...sampleItems];
+        let activeCategory = 'all';
+        let searchQuery = '';
+
+        // DOM Elements
+        const searchForm = document.getElementById('searchForm');
+        const searchInput = document.getElementById('searchInput');
+        const categoryButtons = document.querySelectorAll('.category-btn');
+        const itemsGrid = document.getElementById('itemsGrid');
+        const resultsCount = document.getElementById('resultsCount');
+        const sortDropdown = document.getElementById('sortDropdown');
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            renderItems(currentItems);
+            setupEventListeners();
+        });
+
+        // Setup Event Listeners
+        function setupEventListeners() {
+            // Search form submission
+            searchForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                searchQuery = searchInput.value.toLowerCase().trim();
+                filterAndRenderItems();
+            });
+
+            // Category filter buttons
+            categoryButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    categoryButtons.forEach(btn => btn.classList.remove('active'));
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    activeCategory = this.dataset.category;
+                    filterAndRenderItems();
+                });
+            });
+
+            // Sort dropdown
+            sortDropdown.addEventListener('change', function() {
+                sortItems(this.value);
+            });
+        }
+
+        // Filter and render items
+        function filterAndRenderItems() {
+            let filteredItems = [...sampleItems];
+
+            // Filter by category
+            if (activeCategory !== 'all') {
+                filteredItems = filteredItems.filter(item => item.category === activeCategory);
+            }
+
+            // Filter by search query
+            if (searchQuery) {
+                filteredItems = filteredItems.filter(item => 
+                    item.title.toLowerCase().includes(searchQuery) ||
+                    item.description.toLowerCase().includes(searchQuery) ||
+                    item.location.toLowerCase().includes(searchQuery)
+                );
+            }
+
+            currentItems = filteredItems;
+            renderItems(currentItems);
+        }
+
+        // Sort items
+        function sortItems(sortBy) {
+            let sortedItems = [...currentItems];
+
+            switch(sortBy) {
+                case 'name':
+                    sortedItems.sort((a, b) => a.title.localeCompare(b.title));
+                    break;
+                case 'location':
+                    sortedItems.sort((a, b) => a.location.localeCompare(b.location));
+                    break;
+                case 'status':
+                    sortedItems.sort((a, b) => a.status.localeCompare(b.status));
+                    break;
+                case 'recent':
+                default:
+                    // Keep original order (most recent first)
+                    break;
+            }
+
+            currentItems = sortedItems;
+            renderItems(currentItems);
+        }
+
+        // Render items to the grid
+        function renderItems(items) {
+            if (items.length === 0) {
+                itemsGrid.innerHTML = `
+                    <div class="no-results">
+                        <div class="no-results-icon">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <h3 class="no-results-title">No items found</h3>
+                        <p class="no-results-text">Try adjusting your search or filter criteria</p>
+                        <button class="search-btn" onclick="clearFilters()">Clear Filters</button>
+                    </div>
+                `;
+                resultsCount.textContent = '0';
+                return;
+            }
+
+            const itemsHTML = items.map(item => `
+                <div class="item-card" data-category="${item.category}" data-status="${item.status}">
+                    <div class="item-image">
+                        <img src="${item.image}" alt="${item.title}">
+                        <span class="status-badge ${item.status}">${item.status.toUpperCase()}</span>
+                    </div>
+                    <div class="item-content">
+                        <h3 class="item-title">${item.title}</h3>
+                        <p class="item-description">${item.description}</p>
+                        <div class="item-meta">
+                            <span><i class="fas fa-map-marker-alt"></i> ${item.location}</span>
+                            <span><i class="fas fa-calendar"></i> ${item.date}</span>
+                        </div>
+                        <div class="item-actions">
+                            <a href="#" class="item-btn btn-primary-custom" onclick="viewItemDetails(${item.id})">View Details</a>
+                            <a href="#" class="item-btn btn-outline-custom" onclick="contactOwner(${item.id})">Contact</a>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            itemsGrid.innerHTML = itemsHTML;
+            resultsCount.textContent = items.length;
+        }
+
+        // Clear all filters
+        function clearFilters() {
+            searchInput.value = '';
+            searchQuery = '';
+            activeCategory = 'all';
+            
+            // Reset category buttons
+            categoryButtons.forEach(btn => btn.classList.remove('active'));
+            categoryButtons[0].classList.add('active');
+            
+            // Reset sort
+            sortDropdown.value = 'recent';
+            
+            filterAndRenderItems();
+        }
+
+        // View item details (placeholder function)
+        function viewItemDetails(itemId) {
+            const item = sampleItems.find(i => i.id === itemId);
+            if (item) {
+                alert(`Viewing details for: ${item.title}\n\nThis would open a detailed view page with more information about the item.`);
+            }
+        }
+
+        // Contact owner (placeholder function)
+        function contactOwner(itemId) {
+            const item = sampleItems.find(i => i.id === itemId);
+            if (item) {
+                alert(`Contacting about: ${item.title}\n\nThis would open a contact form or show contact information.`);
+            }
+        }
+    </script>
+</body>
+</html>

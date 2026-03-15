@@ -1,0 +1,105 @@
+@use 'base/variable' as *;
+@use 'base/mixin' as *;
+
+/* Counter 1 ---------------------------------- */
+.counter-card {
+    text-align: center;
+    padding: 37.6px 0;
+    .box-number {
+        margin-top: -0.22em;
+        margin-bottom: -0.1em;
+    }
+    .box-text {
+        max-width: 186px;
+        font-size: 18px;
+        font-weight: 500;
+        display: inline-block;
+        @include sm {
+            font-size: 16px;
+            max-width: 170px;
+        }
+    }
+}
+.counter-wrap1 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: $title-color;
+    padding: 0 80px;
+    border-radius: 0 0 24px 24px;
+    border-bottom: 1px solid $theme-color;
+    .divider {
+        width: 1px;
+        height: 180px;
+        background: $body-color;
+        &:last-of-type {
+            display: none;
+        }
+        @include md {
+            display: none;
+        }
+    }
+    @include lg {
+        padding: 0 40px;
+    }
+    @include md {
+        flex-wrap: wrap;
+        gap: 40px 0;
+        padding: 60px;
+        .counter-card {
+            flex: 50%;
+            padding: 0;
+        }
+    }
+    @include sm {
+        padding: 40px;
+    }
+    @include xs {
+        padding: 40px 20px;
+    }
+    @include vxs {
+        .counter-card {
+            flex: 100%;
+        }
+    }
+}
+
+/* Counter 2 ---------------------------------- */
+.counter-card2 {
+    text-align: center;
+    padding: 30px;
+    width: 240px;
+    height: 240px;
+    border-radius: 50%;
+    border: 1px solid $black-color3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .box-number {
+        margin-top: -0.22em;
+        margin-bottom: -0.1em;
+        font-size: 44px;
+        font-weight: 500;
+    }
+    .box-text {
+        font-size: 16px;
+        font-weight: 500;
+        font-family: $title-font;
+        color: $gray-color3;
+        margin-bottom: -0.4em;
+        margin-top: 10px;
+    }
+    &.style2 {
+        border-color: $border-color;
+    }
+}
+.counter-wrap2 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 24px;
+    @include ml {
+        justify-content: center;
+    }
+}

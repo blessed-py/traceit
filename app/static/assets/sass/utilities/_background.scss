@@ -1,0 +1,66 @@
+@use 'base/variable' as *;
+@use 'base/mixin' as *;
+
+@each $bgcolorMap, $value in $bgcolorMap {
+    .bg-#{$bgcolorMap} {
+        background-color: #{$value} !important;
+    }
+}
+
+.gradient-body {
+    background-image: linear-gradient(100.62deg, rgba(249, 215, 175, 0.3) 0%, rgba(214, 202, 245, 0.3) 24.03%, rgba(198, 241, 255, 0.3) 45.73%, rgba(248, 242, 222, 0.3) 69.05%, rgba(212, 179, 253, 0.3) 100.44%);
+}
+.gr-bg1 {
+	background-image: linear-gradient(80deg, rgba(249, 215, 175, 0.3) 0%, rgba(214, 202, 245, 0.3) 23.81%, rgba(198, 241, 255, 0.3) 45.3%, rgba(248, 242, 222, 0.3) 68.4%, rgba(212, 179, 253, 0.3) 99.5%);
+}
+.gr-bg2 {
+    background-image: linear-gradient(100.62deg, rgba(249, 215, 175, 0.3) 0%, rgba(214, 202, 245, 0.3) 24.03%, rgba(198, 241, 255, 0.3) 45.73%, rgba(248, 242, 222, 0.3) 69.05%, rgba(212, 179, 253, 0.3) 100.44%);
+}
+.gr-bg3 {
+    // background-image: linear-gradient(110.59deg, rgba(205, 219, 253, 0.4) 0%, rgba(229, 233, 255, 0.7) 100%);
+    background-image: linear-gradient(110.59deg, rgba(236, 207, 254, 0.4) 0%, rgba(255, 221, 221, 0.5) 46.79%, rgba(247, 255, 229, 0.7) 100%);
+    backdrop-filter: blur(10px);
+}
+.gr-bg4 {
+    background-image: linear-gradient(105.44deg, rgba(255, 229, 133, 0.4) 0%, rgba(189, 255, 199, 0.4) 48.48%, rgba(223, 109, 223, 0.4) 100%);
+    backdrop-filter: blur(15px);
+}
+
+.background-image,
+[data-bg-src] {
+    @include background-content(no-repeat, cover, center center);
+}
+
+.bg-fluid {
+    @include background-content(no-repeat, 100% 100%, center center);
+}
+
+.bg-auto {
+    background-size: auto auto;
+}
+
+.bg-top-center {
+    background-size: auto;
+    background-position: top center;
+}
+
+.bg-repeat {
+    background-size: auto;
+    background-repeat: repeat;
+}
+
+.bg-bottom-right {
+    background-size: auto;
+    background-position: bottom right;
+}
+.bg-top-right {
+    background-size: auto;
+    background-position: top right;
+}
+.bg-top-left {
+    background-size: auto;
+    background-position: top left;
+}
+.bg-attachment {
+    background-attachment: fixed;
+}

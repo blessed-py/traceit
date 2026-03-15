@@ -1,0 +1,57 @@
+@use 'base/variable' as *;
+@use 'base/mixin' as *;
+
+/* Brand 1 ---------------------------------- */
+.brand-wrap1 {
+    margin-top: 70px;
+    background: var(--white-color);
+    padding: 25px;
+    border-radius: 80px;
+    .brand-wrap-title {
+        font-size: 24px;
+        font-weight: 600;
+        margin-top: -0.25em;
+        margin-bottom: 40px;
+        span {
+            font-size: 30px;
+        }
+    }
+    .swiper-wrapper {
+        transition-timing-function: linear;
+    }
+    .swiper-slide {
+        width: auto;
+    }
+}
+.brand-box {
+    display: grid;
+    align-content: center;
+    text-align: center;
+    justify-content: center;
+    transition: 0.4s ease-in-out;
+    min-height: 32px;
+    img {
+        transition: 0.4s;
+    }
+    &:hover {
+        img {
+            filter: none;
+            transform: scale(.97);
+        }
+    }
+}
+/* Brand 2 ---------------------------------- */
+.brand-wrap2 {
+    .swiper-wrapper {
+        transition-timing-function: linear;
+    }
+    .swiper-slide {
+        width: auto;
+        opacity: 0.7;
+        transition: 0.4s;
+        &:hover {
+            opacity: 1;
+        }
+    }
+}
+

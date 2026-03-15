@@ -1,0 +1,1114 @@
+<!doctype html>
+<html class="no-js" lang="zxx" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>TraceIt - Smart Lost and Found Platform</title>
+    <meta name="author" content="blessedmatiko">
+    <meta name="description" content="TraceIt helps you find your lost items and report found items. Smart lost and found platform for your community.">
+    <meta name="keywords" content="lost and found, find lost items, report found items, trace it, lost items recovery">
+    <meta name="robots" content="INDEX,FOLLOW">
+
+    <!-- Mobile Specific Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Favicons-->
+    <link rel="icon" type="image/png" href="{{url_for('static', filename='assets/img/logo_2.png')}}">
+    <link rel="manifest" href="{{url_for('static', filename='assets/img/favicons/manifest.json')}}">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="theme-color" content="#ffffff">
+
+    <!--==============================
+	  Google Fonts
+	============================== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&family=Fredoka:wght@300..700&family=Onest:wght@100..900&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="{{url_for('static', filename='assets/css/bootstrap.min.css')}}">
+    <!-- Fontawesome Icon -->
+    <link rel="stylesheet" href="{{url_for('static', filename='assets/css/fontawesome.min.css')}}">
+    <!-- Magnific Popup -->
+    <link rel="stylesheet" href="{{url_for('static', filename='assets/css/magnific-popup.min.css')}}">
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="{{url_for('static', filename='assets/css/swiper-bundle.min.css')}}">
+    <!-- Theme Custom CSS -->
+    <link rel="stylesheet" href="{{url_for('static', filename='assets/css/style.css')}}">
+            <!-- Font Awesome Pro v7.0.0 -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='fontawesome-pro/css/all.css') }}">
+    
+    <!-- Custom CSS for Recent Items -->
+    <style>
+        .item-box {
+            border: 1px solid #e9ecef;
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            background: white;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .item-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .item-image {
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        
+        .item-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        
+        .status-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            z-index: 2;
+        }
+        
+        .status-badge.lost {
+            background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+            color: white;
+        }
+        
+        .status-badge.found {
+            background: linear-gradient(135deg, #28a745 0%, #1e7e34 100%);
+            color: white;
+        }
+        
+        .item-content {
+            padding: 25px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .item-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        
+        .item-description {
+            color: #666;
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            flex: 1;
+        }
+        
+        .item-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            font-size: 0.85rem;
+            color: #888;
+        }
+        
+        .item-link {
+            display: inline-block;
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+        
+        .item-link:hover {
+            color: #764ba2;
+            transform: translateX(5px);
+        }
+        
+        .filter-tabs {
+            margin-bottom: 40px;
+        }
+        
+        .filter-btn {
+            background: transparent;
+            border: 2px solid #e9ecef;
+            padding: 12px 30px;
+            margin: 0 10px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 700;
+            font-size: 0.95rem;
+        }
+        
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-color: #667eea;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+        }
+    </style>
+
+</head>
+
+<body class="">
+
+    <div class="cursor-follower"></div>
+
+    <!--Preloader-->
+    <div class="preloader ">
+        <div class="preloader-inner">
+            <div class="bounce">
+                <img src="{{url_for('static', filename='assets/img/logo_1.png')}}" style="width: 200px; height: auto;" alt="img">
+            </div>
+            <span class="loader">
+                TraceIt
+                <span class="loading-text">TraceIt</span>
+            </span>
+        </div>
+    </div>
+
+
+
+<!--Header Area-->
+    <header class="th-header header-layout1">
+        <div class="sticky-wrapper">
+            <!-- Main Menu Area -->
+            <div class="menu-area">
+                <div class="container">
+                    <div class="row align-items-center justify-content-between">
+                        <div class="col-auto">
+                            <div class="header-logo">
+                                <a href="/">
+                                    <img src="{{url_for('static', filename='assets/img/logo_3.png')}}" style="width: 150px; height: auto;" alt="TraceIt">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <nav class="main-menu d-none d-lg-inline-block ms-5">
+                                <ul>
+                                    <li>
+                                        <a class="fw-bold" href="/">Home</a>
+                                    </li>
+                                    <li><a class="fw-bold text-primary" href="/about">About Us</a></li>
+                                    <li><a class="fw-bold" href="/report_lost">Report Lost Item</a></li>
+                                    <li><a class="fw-bold" href="/report_found">Report Found Item</a></li>
+                                    <li>
+                                        <a class="fw-bold" href="/contact">Contact</a>
+                                    </li>
+                                </ul>
+                            </nav>
+                     
+                            <div class="header-button d-flex d-lg-none">
+                                <button type="button" class="th-menu-toggle icon-btn"><i class="far fa-bars"></i></button>
+                                
+                                <!-- Mobile Dropdown Menu -->
+                                <div class="mobile-menu-dropdown mt-2">
+                                    <div class="mobile-menu-content">
+                                        <ul>
+                                            <li><a href="/">Home</a></li>
+                                            <li><a class="text-primary" href="/about">About Us</a></li>
+                                            <li><a href="/report_lost">Report Lost Item</a></li>
+                                            <li><a href="/report_found">Report Found Item</a></li>
+                                            <li><a href="/find_item">Find Your Item</a></li>
+                                            <li><a href="/contact">Contact Us</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+           
+                        </div>
+                        <div class="col-auto d-xl-block d-none">
+                            <div class="header-button">
+                                <a href="/find_item" class="th-btn fw-bold" style="border-radius: 10px;">Find Your Item</a>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+
+    <!--About us-->
+    <div class="testi-area-2 about-area-2 overflow-hidden position-relative overflow-hidden" id="about-sec" style="background-color: #F6F2ED;" >
+
+        <div class="about2-bottom">
+            <img src="{{url_for('static', filename='assets/img/shape/about2-bottom.png')}}" alt="img">
+        </div>
+
+
+        <div class="why-bg-shape1-2 shape-mockup moving d-xxl-block d-none" data-top="0" data-right="1%">
+            <img src="{{url_for('static', filename='assets/img/shape/shape1-33.png')}}" alt="img">
+        </div>
+        <div class="why-bg-shape1-2 shape-mockup moving d-xxl-block d-none" data-bottom="0" data-left="24%">
+            <img src="{{url_for('static', filename='assets/img/shape/shape1-34.png')}}" alt="img">
+        </div>
+
+
+        <div class="container th-container2">
+            <div class="row gy-4">
+                <div class="col-lg-7 col-xl-6 col-xxl-5 ">
+                    <div class="title-area mb-35 mt-15">
+                        <span class="sub-title style2 mb-30 text-anim" data-cue="slideInUp">About TraceIt</span>
+                        <h2 class="sec-title style2 text-anim2" data-cue="slideInUp">Helping Communities Reunite with Their Belongings.</h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="about-slider2" data-cue="slideInUp">
+                <div class="swiper th-slider" id="aboutSlider2" data-slider-options='{"autoplay": true, "loop": true, "breakpoints":{"0":{"slidesPerView":1},"576":{"slidesPerView":"1"},"768":{"slidesPerView":"1"},"992":{"slidesPerView":"1"},"1200":{"slidesPerView":"1"}}}'>
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <div class="row gx-30 gy-40 align-items-center">
+                                <div class="col-xxl-6 col-xl-6">
+                                    <div class="img-box2 me-xl-3" data-cue="slideInLeft">
+                                        <div class="img1" data-mask-src="assets/img/shape/about-2-1_mask.jpg">
+                                            <img class="w-100" src="{{url_for('static', filename='assets/img/normal/about-thumb2-1.jpg')}}" alt="About">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xxl-6 col-xl-6">
+                                    <div class="about-wrap2">
+                                        <h4 class="box-title">Our Mission</h4>
+                                        <p class="sec-text mb-25" data-cue="slideInUp"> At <srong>TraceIt</strong>, we believe that losing personal belongings should not mean losing them forever. Our mission is to create a smart, simple, and reliable platform that helps people report lost items, share found items, and reconnect owners with what matters to them.</p>
+                                        <div class="icon-box-wrap" data-cue="slideInUp">
+                                            <div class="icon-box-item">
+                                                <div class="icon-box">
+                                                    <img src="{{url_for('static', filename='assets/img/icon/check.svg')}}" alt="img">
+                                                </div>
+                                                <div class="content">
+                                                    <p class="box-text"><span>Smart Item Tracking – </span> Our system organizes lost and found reports using categories, descriptions, and locations to help identify potential matches between lost and found items quickly.</p>
+                                                </div>
+                                            </div>
+                                            <div class="icon-box-item">
+                                                <div class="icon-box">
+                                                    <img src="{{url_for('static', filename='assets/img/icon/check.svg')}}" alt="img">
+                                                </div>
+                                                <div class="content">
+                                                    <p class="box-text"><span> Community Collaboration – </span> TraceIt encourages people who find items to report them easily, helping create a supportive community where honesty and helpfulness lead to successful item recovery.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="pet-care-wrap" data-cue="slideInUp">
+                                            <div class="item">
+                                                <div class="box-title">Items Reported</div>
+                                                <div class="prog-wrap">
+                                                    <h2 class="box-number"><span class="counter-number">40</span></h2>
+                                                </div>
+                                            </div>
+                                            <div class="item">
+                                                <div class="box-title">Items Recovered</div>
+                                                <div class="prog-wrap">
+                                                    <h2 class="box-number"><span class="counter-number">58</span></h2>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="swiper-slide">
+                            <div class="row gx-30 gy-40 align-items-center">
+                                <div class="col-xxl-6 col-xl-6">
+                                    <div class="img-box2 me-xl-3" data-cue="slideInLeft">
+                                        <div class="img1" data-mask-src="assets/img/shape/about-2-1_mask.jpg">
+                                            <img class="w-100" src="{{url_for('static', filename='assets/img/normal/about-thumb2-2.jpg')}}" alt="About">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xxl-6 col-xl-6">
+                                    <div class="about-wrap2">
+                                        <h4 class="box-title">Our Vision</h4>
+                                        <p class="sec-text mb-25" data-cue="slideInUp">Our vision is to become a leading smart lost-and-found platform used in universities, workplaces, and communities, making the recovery of lost items faster, easier, and more reliable.</p>
+                                        <div class="icon-box-wrap" data-cue="slideInUp">
+                                            <div class="icon-box-item">
+                                                <div class="icon-box">
+                                                    <img src="{{url_for('static', filename='assets/img/icon/check.svg')}}" alt="img">
+                                                </div>
+                                                <div class="content">
+                                                    <p class="box-text"><span>Quick & Easy Reporting – </span> TraceIt allows users to report lost or found items in just a few simple steps without complicated procedures.</p>
+                                                </div>
+                                            </div>
+                                            <div class="icon-box-item">
+                                                <div class="icon-box">
+                                                    <img src="{{url_for('static', filename='assets/img/icon/check.svg')}}" alt="img">
+                                                </div>
+                                                <div class="content">
+                                                    <p class="box-text"><span>Secure Contact System – </span> Contact information is handled responsibly so that item owners and finders can communicate safely.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="pet-care-wrap" data-cue="slideInUp">
+                                            <div class="item">
+                                                <div class="box-title">Items Reported</div>
+                                                <div class="prog-wrap">
+                                                    <h2 class="box-number"><span class="counter-number">85</span></h2>
+                                                </div>
+                                            </div>
+                                            <div class="item">
+                                                <div class="box-title">Items Recovered</div>
+                                                <div class="prog-wrap">
+                                                    <h2 class="box-number"><span class="counter-number">95</span></h2>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="swiper-slide">
+                            <div class="row gx-30 gy-40 align-items-center">
+                                <div class="col-xxl-6 col-xl-6">
+                                    <div class="img-box2 me-xl-3" data-cue="slideInLeft">
+                                        <div class="img1" data-mask-src="assets/img/shape/about-2-1_mask.jpg">
+                                            <img class="w-100" src="{{url_for('static', filename='assets/img/normal/about-thumb2-3.jpg')}}" alt="About">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xxl-6 col-xl-6">
+                                    <div class="about-wrap2">
+                                        <h4 class="box-title">Our Mission</h4>
+                                        <p class="sec-text mb-25" data-cue="slideInUp"> we believe pets are more than just animals — they’re family. Founded with a deep love for animals and a passion for providing top-tier care, Babet is your pet’s home away from home. Whether youre a busy pet parent in need of reliable daycare. </p>
+                                        <div class="icon-box-wrap" data-cue="slideInUp">
+                                            <div class="icon-box-item">
+                                                <div class="icon-box">
+                                                    <img src="{{url_for('static', filename='assets/img/icon/check.svg')}}" alt="img">
+                                                </div>
+                                                <div class="content">
+                                                    <p class="box-text"><span>Safe & Supervised Environment – </span> Your pet’s safety is our top priority. All play and care areas are professionally supervised and sanitized daily.</p>
+                                                </div>
+                                            </div>
+                                            <div class="icon-box-item">
+                                                <div class="icon-box">
+                                                    <img src="{{url_for('static', filename='assets/img/icon/check.svg')}}" alt="img">
+                                                </div>
+                                                <div class="content">
+                                                    <p class="box-text"><span>Personalized Attention – </span> We treat every pet as an individual, tailoring care, feeding, and activities to their specific needs and temperament.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="pet-care-wrap" data-cue="slideInUp">
+                                            <div class="item">
+                                                <div class="box-title">Pet Care Progress</div>
+                                                <div class="prog-wrap">
+                                                    <h2 class="box-number"><span class="counter-number">85</span>%</h2>
+                                                    <div class="button-wrap">
+                                                        <a class="th-btn th-btn-sm" href="contact.html">View Graph</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="item">
+                                                <div class="box-title">Pet Care Progress</div>
+                                                <div class="prog-wrap">
+                                                    <h2 class="box-number"><span class="counter-number">95</span>%</h2>
+                                                    <div class="button-wrap">
+                                                        <a class="th-btn th-btn-sm" href="contact.html">View Graph</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="about-slider-group">
+                    <button data-slider-prev="#aboutSlider2" class="slider-arrow default style-border2 slider-prev"><i class="far fa-arrow-left"></i></button>
+                    <button data-slider-next="#aboutSlider2" class="slider-arrow default style-border2 slider-next"><i class="far fa-arrow-right"></i></button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!--======== / Hero Section ========--><!--==============================
+Feature Area  
+==============================-->
+    <section class="feature-area-1 position-relative space overflow-hidden" id="service-sec">
+        <div class="why-bg-shape1-2 shape-mockup moving d-xxl-block d-none" data-top="12%" data-right="6%">
+            <img src="{{url_for('static', filename='assets/img/shape/shape1-30.png')}}" alt="img">
+        </div>
+        <div class="why-bg-shape1-2 shape-mockup jump d-xxl-block d-none" data-top="41%" data-right="2%">
+            <img src="{{url_for('static', filename='assets/img/shape/shape1-31.png')}}" alt="img">
+        </div>
+        <div class="container th-container2">
+            <div class="row justify-content-center">
+                <div class="col-xl-8 col-lg-10">
+                    <div class="title-area text-center">
+                        <span class="sub-title style2 text-anim" data-cue="slideInUp">How It Works</span>
+                        <h2 class="sec-title text-anim2" data-cue="slideInUp">Simple Steps to Find Your Items</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row gy-4 justify-content-center">
+                <div class="col-xl-3 col-lg-6 col-md-6">
+                    <div class="feature-card" data-cue="slideInUp">
+                        <div class="top-wrap">
+                            <div class="box-icon">
+                                <img src="{{url_for('static', filename='assets/img/icon/con-call.svg')}}" alt="icon">
+                            </div>
+                            <h3 class="box-title">Report Lost Item</h3>
+                            <p class="box-text">Fill out our simple form with details about your lost item, including description, location, and contact information.</p>
+                        </div>
+                        <div class="bottom-text">
+                            <div class="checklist style2">
+                                <ul>
+                                    <li>Quick online form</li>
+                                    <li>Add photos & details</li>
+                                    <li>Instant posting</li>
+                                </ul>
+                            </div>
+                            <a class="th-btn th-btn-sm w-100" href="/report_lost">Report Lost </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-6 col-md-6">
+                    <div class="feature-card" data-cue="slideInUp">
+                        <div class="top-wrap">
+                            <div class="box-icon">
+                                <img src="{{url_for('static', filename='assets/img/icon/con-email.svg')}}" alt="icon">
+                            </div>
+                            <h3 class="box-title">Report Found Item</h3>
+                            <p class="box-text">Help others by reporting items you've found. Provide details to help the owner identify and claim their belongings.</p>
+                        </div>
+                        <div class="bottom-text">
+                            <div class="checklist style2">
+                                <ul>
+                                    <li>Help your community</li>
+                                    <li>Secure storage info</li>
+                                    <li>Anonymous option</li>
+                                </ul>
+                            </div>
+                            <a class="th-btn th-btn-sm w-100" href="/report_found">Report Found </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-6 col-md-6">
+                    <div class="feature-card" data-cue="slideInUp">
+                        <div class="top-wrap">
+                            <div class="box-icon">
+                                <img src="{{url_for('static', filename='assets/img/icon/con-location.svg')}}" alt="icon">
+                            </div>
+                            <h3 class="box-title">Find Your Item</h3>
+                            <p class="box-text">Browse through all reported lost and found items. Use filters to narrow down by category, location, or date.</p>
+                        </div>
+                        <div class="bottom-text">
+                            <div class="checklist style2">
+                                <ul>
+                                    <li>Advanced search filters</li>
+                                    <li>Category browsing</li>
+                                    <li>Location-based search</li>
+                                </ul>
+                            </div>
+                            <a class="th-btn th-btn-sm w-100" href="search-items.html">Browse Items </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-6 col-md-6">
+                    <div class="feature-card" data-cue="slideInUp">
+                        <div class="top-wrap">
+                            <div class="box-icon">
+                                <img src="{{url_for('static', filename='assets/img/icon/feature-icon1-4.svg')}}" alt="icon">
+                            </div>
+                            <h3 class="box-title">Get Notified</h3>
+                            <p class="box-text">Receive instant notifications when matching items are reported. Stay updated on the status of your reports.</p>
+                        </div>
+                        <div class="bottom-text">
+                            <div class="checklist style2">
+                                <ul>
+                                    <li>Email notifications</li>
+                                    <li>Real-time updates</li>
+                                    <li>Smart matching alerts</li>
+                                </ul>
+                            </div>
+                            <a class="th-btn th-btn-sm w-100" href="contact.html">Learn More </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!--==============================
+    Recent Items Section
+    ==============================-->
+     <!--Recent Items Section-->
+    <section class="recent-items-section space" id="recent-items">
+        <div class="container th-container2">
+            <div class="row justify-content-center">
+                <div class="col-xl-8 col-lg-10">
+                    <div class="title-area text-center">
+                        <span class="sub-title style2 text-anim" data-cue="slideInUp">Recent Reports</span>
+                        <h2 class="sec-title text-anim2" data-cue="slideInUp">Latest Lost & Found Items</h2>
+                    </div>
+                </div>
+            </div>
+            
+
+            
+            <!-- Items Grid -->
+            <div class="row g-4" id="items-grid">
+                <!-- Sample Lost Item -->
+                <div class="col-lg-4 col-md-6 item-card" data-category="lost">
+                    <div class="item-box">
+                        <div class="item-image">
+                            <img src="{{url_for('static', filename='assets/img/dataset/wallet.jpg')}}" alt="Lost Wallet" class="w-100">
+                        </div>
+                        <div class="item-content">
+                            <h4 class="item-title">Black Leather Wallet</h4>
+                            <p class="item-description">Lost near downtown coffee shop. Contains ID and cards.</p>
+                            <div class="item-meta">
+                                <span class="location"><i class="fas fa-map-marker-alt"></i> Downtown</span>
+                                <span class="date"><i class="fas fa-calendar"></i> 2 days ago</span>
+                            </div>
+                            <a href="item-details.html" class="item-link">View Details</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Sample Found Item -->
+                <div class="col-lg-4 col-md-6 item-card" data-category="found">
+                    <div class="item-box">
+                        <div class="item-image">
+                            <img src="{{url_for('static', filename='assets/img/dataset/keys.webp')}}" alt="Found Keys" class="w-100">
+                        </div>
+                        <div class="item-content">
+                            <h4 class="item-title">Car Keys with Keychain</h4>
+                            <p class="item-description">Found in parking lot. Toyota key with blue keychain.</p>
+                            <div class="item-meta">
+                                <span class="location"><i class="fas fa-map-marker-alt"></i> Mall Parking</span>
+                                <span class="date"><i class="fas fa-calendar"></i> 1 day ago</span>
+                            </div>
+                            <a href="item-details.html" class="item-link">View Details</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Another Sample Lost Item -->
+                <div class="col-lg-4 col-md-6 item-card" data-category="lost">
+                    <div class="item-box">
+                        <div class="item-image">
+                            <img src="{{url_for('static', filename='assets/img/dataset/bag.webp')}}" alt="Lost Phone" class="w-100">
+                        </div>
+                        <div class="item-content">
+                            <h4 class="item-title">Bag</h4>
+                            <p class="item-description">Lost in taxi. Blue case with screen protector.</p>
+                            <div class="item-meta">
+                                <span class="location"><i class="fas fa-map-marker-alt"></i> Auditorium</span>
+                                <span class="date"><i class="fas fa-calendar"></i> 3 days ago</span>
+                            </div>
+                            <a href="item-details.html" class="item-link">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-5">
+                <a href="/find_item" class="th-btn">View All Items</a>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <!--==============================
+Process Area  
+==============================-->
+    <section class="process-area-2 position-relative overflow-hidden space-top">
+        <div class="container th-container2">
+            <div class="row">
+                <div class="col-xl-9 col-lg-11">
+                    <div class="title-area mb-55">
+                        <span class="sub-title style2 text-anim" data-cue="slideInUp">Our Work Process</span>
+                        <h2 class="sec-title mb-0 text-white text-anim2" data-cue="slideInUp">4-Step Process to Report a Lost Item</h2>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="container-fluid p-0">
+            <div class="process-2-list-wrap">
+                <div class="process-card2 active" data-cue="slideInUp">
+                    <h3 class="box-title">Step 01</h3>
+                    <div class="inner-wrap ">
+<div class="process-icon">
+    <i class="fa-solid fa-list-check text-white" style="font-size:60px;"></i>
+</div>
+                        <div class="box-content">
+                            <h5 class="box-text_title">Item Details</h5>
+                            <p class="box-text">Provide basic details about the lost item. This includes the item name, category, description, and optionally an image. These details help the system identify and match the item if it is reported as found by someone else.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="process-card2 " data-cue="slideInUp">
+                    <h3 class="box-title">Step 02</h3>
+                    <div class="inner-wrap">
+                                              <div class="process-icon">
+                                                <i class="fa-solid fa-location-dot text-white" style="font-size:60px;"></i>
+                        </div>
+                        <div class="box-content">
+                            <h5 class="box-text_title">Location Information</h5>
+                            <p class="box-text">Specify where and when the item was last seen. Accurate location and time details help narrow down potential matches and assist others in locating the item.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="process-card2 " data-cue="slideInUp">
+                    <h3 class="box-title">Step 03</h3>
+                    <div class="inner-wrap">
+                      <div class="process-icon">
+                        <i class="fa-solid fa-address-book text-white" style="font-size:60px;"></i>
+                      </div>
+                        <div class="box-content">
+                            <h5 class="box-text_title">Contact Details</h5>
+                            <p class="box-text">Provide contact details so the system or a finder can reach you if a matching item is reported. Your information is kept secure and only used for communication regarding the lost item.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="process-card2 " data-cue="slideInUp">
+                    <h3 class="box-title">Step 04</h3>
+                    <div class="inner-wrap">
+                      <div class="process-icon">
+
+                        <i class="fa-solid fa-print-magnifying-glass text-white" style="font-size:60px;"></i>
+                      </div>
+                        <div class="box-content">
+                            <h5 class="box-text_title">Review</h5>
+                            <p class="box-text">Before submitting, review the information you provided to ensure all details are accurate. Once confirmed, submit the report so the item can be added to the TraceIt lost and found system.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--==============================
+Marquee Area  
+==============================-->
+<div class="space-bottom overflow-hidden">
+    <div class="container-fluid p-0" data-cue="slideInUp">
+        <div class="swiper th-slider marquee-slider2" data-slider-options='{"breakpoints":{"0":{"slidesPerView":"auto"}},"autoplay":{"delay":0,"disableOnInteraction":false},"noSwiping":"true","speed":10000,"spaceBetween":0}'>
+            <div class="swiper-wrapper">
+
+                <div class="swiper-slide">
+                    <div class="marquee-card style2">
+                        <a target="_blank" href="#">Lost something important?</a>
+                    </div>
+                </div>
+
+                <div class="swiper-slide">
+                    <div class="marquee-card style2">
+                        <a target="_blank" href="#">Report lost items instantly</a>
+                    </div>
+                </div>
+
+                <div class="swiper-slide">
+                    <div class="marquee-card style2">
+                        <a target="_blank" href="#">Report found items easily</a>
+                    </div>
+                </div>
+
+                <div class="swiper-slide">
+                    <div class="marquee-card style2">
+                        <a target="_blank" href="#">Smart matching system</a>
+                    </div>
+                </div>
+
+                <div class="swiper-slide">
+                    <div class="marquee-card style2">
+                        <a target="_blank" href="#">Reconnect with your belongings</a>
+                    </div>
+                </div>
+
+                <div class="swiper-slide">
+                    <div class="marquee-card style2">
+                        <a target="_blank" href="#">Community powered recovery</a>
+                    </div>
+                </div>
+
+                <div class="swiper-slide">
+                    <div class="marquee-card style2">
+                        <a target="_blank" href="#">Find what matters most</a>
+                    </div>
+                </div>
+
+                <div class="swiper-slide">
+                    <div class="marquee-card style2">
+                        <a target="_blank" href="#">Lost & Found made simple</a>
+                    </div>
+                </div>
+
+                <div class="swiper-slide">
+                    <div class="marquee-card style2">
+                        <a target="_blank" href="#">Helping people recover lost items</a>
+                    </div>
+                </div>
+
+                <div class="swiper-slide">
+                    <div class="marquee-card style2">
+                        <a target="_blank" href="#">TraceIt – Smart Lost & Found</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    <!--Frequently Asked Questions-->
+    <div class="faq-sec-2 space overflow-hidden bg-smoke2 position-relative mb-30">
+        <div class="service-bg-shape1-1 shape-mockup d-xxl-block d-none" data-top="4%" data-left="1.4%">
+            <img src="{{url_for('static', filename='assets/img/shape/shape1-57.png')}}" alt="img">
+        </div>
+        <div class="service-bg-shape1-1 shape-mockup jump d-xxl-block d-none" data-top="20%" data-left="31%">
+            <img src="{{url_for('static', filename='assets/img/shape/shape1-59.png')}}" alt="img">
+        </div>
+
+
+
+        <div class="container th-container2">
+            <div class="row gy-40 gx-60">
+                <div class="col-xxl-6 col-xl-6">
+                    <div class="accordion-2-wrap">
+                        <div class="title-area mb-55">
+                            <span class="sub-title style2 text-anim mb-30" data-cue="slideInUp">Quick answers</span>
+                            <h2 class="sec-title text-white text-anim2" data-cue="slideInLeft">Smart Solutions for Lost and Found Items</h2>
+                        </div>
+
+
+                        <div class="accordion" id="faqAccordion">
+                            <div class="accordion-card style2" data-cue="slideInUp">
+                                <div class="accordion-header" id="collapse-item-1">
+                                    <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target="#collapse-1" aria-expanded="true" aria-controls="collapse-1"> Do I need an account to report a lost item?</button>
+                                </div>
+                                <div id="collapse-1" class="accordion-collapse collapse show" aria-labelledby="collapse-item-1" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        <p class="faq-text">No. TraceIt allows users to report lost or found items without creating an account. However, registering gives you the ability to track your reports and receive updates about possible matches.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="accordion-card style2" data-cue="slideInUp">
+                                <div class="accordion-header" id="collapse-item-2">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-2" aria-expanded="false" aria-controls="collapse-2">How does TraceIt match lost and found items?</button>
+                                </div>
+                                <div id="collapse-2" class="accordion-collapse collapse " aria-labelledby="collapse-item-2" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        <p class="faq-text">TraceIt compares item details such as name, category, description, and location between lost and found reports. When a potential match is identified, the system alerts the user for verification.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="accordion-card style2" data-cue="slideInUp">
+                                <div class="accordion-header" id="collapse-item-3">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-3" aria-expanded="false" aria-controls="collapse-3">What should I do if I find a lost item?</button>
+                                </div>
+                                <div id="collapse-3" class="accordion-collapse collapse " aria-labelledby="collapse-item-3" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        <p class="faq-text">If you find an item, you can report it through the “Report Found Item” section. Providing accurate details helps the system match the item with someone who has reported it as lost.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="accordion-card style2" data-cue="slideInUp">
+                                <div class="accordion-header" id="collapse-item-4">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-4" aria-expanded="false" aria-controls="collapse-4"> How will I know if my lost item has been found?</button>
+                                </div>
+                                <div id="collapse-4" class="accordion-collapse collapse " aria-labelledby="collapse-item-4" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        <p class="faq-text">When a possible match is detected, TraceIt will notify you using the contact information you provided so you can verify the item and arrange its return.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-xxl-6 col-xl-6 align-self-center" data-cue="slideInUp">
+                    <div class="faq-img-box2 " data-cue="slideInUp">
+                        <div class="faq2-gradient-wrap">
+                            <div class="gradient-box">
+                                <div class="faq2-mask" data-mask-src="{{url_for('static', filename='assets/img/bg/faq2-mask.png')}}"> </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!--==============================
+Testimonial Area  
+==============================-->
+    <section class="testi-area-2 space overflow-hidden space-extra-bottom">
+        <div class="container-fluid">
+            <div class="row justify-content-center">
+                <div class="col-xl-6 col-lg-8">
+                    <div class="title-area text-center">
+                        <span class="sub-title style2 text-anim" data-cue="slideInUp">Our Feedbacks</span>
+                        <h2 class="sec-title text-anim2" data-cue="slideInUp">What Users Are Saying About Smart Lost & Found</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="testi-wrap2" data-cue="slideInUp">
+                <div class="slider-area">
+                    <div class="swiper th-slider testi-slider2 " id="testiSlide2" data-slider-options='{"breakpoints":{"0":{"slidesPerView":1},"767":{"slidesPerView":"1","centeredSlides":"false"},"992":{"slidesPerView":"1","centeredSlides":"false"},"1200":{"slidesPerView":"2.4","centeredSlides":"true"},"1300":{"slidesPerView":"2.5","centeredSlides":"true"},"1400":{"spaceBetween":30,"slidesPerView":"2.85","centeredSlides":"true"}},"autoplay":"false"}'>
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide">
+                                <div class="testi-card2">
+                                    <div class="box-thumb">
+                                        <img src="assets/img/testimonial/testi2-1.png" alt="img">
+                                    </div>
+                                    <div class="box-content">
+                                        <p class="box-text">“Babet has been a lifesaver for our family. I used to feel so guilty leaving Bella alone while I worked. Since finding Babet, I drop her off every morning knowing ...”</p>
+                                        <h3 class="box-title">William Hayes</h3>
+                                        <p class="box-desig">Marketing Manager, ABC Center</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="testi-card2">
+                                    <div class="box-thumb">
+                                        <img src="assets/img/testimonial/testi2-2.png" alt="img">
+                                    </div>
+                                    <div class="box-content">
+                                        <p class="box-text">“Babet has been a lifesaver for our family. I used to feel so guilty leaving Bella alone while I worked. Since finding Babet, I drop her off every morning knowing ...”</p>
+                                        <h3 class="box-title">Katrine Katija</h3>
+                                        <p class="box-desig">Marketing Manager, ABC Center</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="testi-card2">
+                                    <div class="box-thumb">
+                                        <img src="assets/img/testimonial/testi2-1.png" alt="img">
+                                    </div>
+                                    <div class="box-content">
+                                        <p class="box-text">“Babet has been a lifesaver for our family. I used to feel so guilty leaving Bella alone while I worked. Since finding Babet, I drop her off every morning knowing ...”</p>
+                                        <h3 class="box-title">Alexander Webb</h3>
+                                        <p class="box-desig">Marketing Manager, ABC Center</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="testi-card2">
+                                    <div class="box-thumb">
+                                        <img src="assets/img/testimonial/testi2-2.png" alt="img">
+                                    </div>
+                                    <div class="box-content">
+                                        <p class="box-text">“Babet has been a lifesaver for our family. I used to feel so guilty leaving Bella alone while I worked. Since finding Babet, I drop her off every morning knowing ...”</p>
+                                        <h3 class="box-title">William Hayes</h3>
+                                        <p class="box-desig">Marketing Manager, ABC Center</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="testi-card2">
+                                    <div class="box-thumb">
+                                        <img src="assets/img/testimonial/testi2-1.png" alt="img">
+                                    </div>
+                                    <div class="box-content">
+                                        <p class="box-text">“Babet has been a lifesaver for our family. I used to feel so guilty leaving Bella alone while I worked. Since finding Babet, I drop her off every morning knowing ...”</p>
+                                        <h3 class="box-title">Katrine Katija</h3>
+                                        <p class="box-desig">Marketing Manager, ABC Center</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <div class="testi-card2">
+                                    <div class="box-thumb">
+                                        <img src="assets/img/testimonial/testi2-2.png" alt="img">
+                                    </div>
+                                    <div class="box-content">
+                                        <p class="box-text">“Babet has been a lifesaver for our family. I used to feel so guilty leaving Bella alone while I worked. Since finding Babet, I drop her off every morning knowing ...”</p>
+                                        <h3 class="box-title">Alexander Webb</h3>
+                                        <p class="box-desig">Marketing Manager, ABC Center</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!--==============================
+	Footer Area
+==============================-->
+    <footer class="footer-wrapper footer-layout1">
+        <div class="footer-1-top-shape">
+            <img src="{{url_for('static', filename='assets/img/bg/footer-1-top-shape.png')}}" alt="img">
+        </div>
+
+
+        <div class="container th-container2">
+            <div class="footer-bottom">
+                <div class="widget-area">
+                    <div class="row justify-content-between">
+                        <div class="col-md-6 col-xl-auto" data-cue="slideInUp">
+                            <div class="widget footer-widget">
+                                <div class="th-widget-about">
+                                    <div class="about-logo">
+                                        <a href="/"><img src="{{url_for('static', filename='assets/img/logo_3.png')}}" style="width: 230px; height: auto;" alt="TraceIt"></a>
+                                    </div>
+                                    <p class="about-text">Helping people reconnect with their lost belongings through a smarter lost and found system.</p>
+                                    <div class="th-social style7">
+                                        <a href="https://www.facebook.com/"><i class="fab fa-github"></i></a>
+                                        <a href="https://www.linkedin.com/"><i class="fab fa-linkedin-in"></i></a>
+                                        <a href="https://www.instagram.com/"><i class="fa-brands fa-instagram"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-xl-auto" data-cue="slideInUp">
+                            <div class="widget widget-contact-wrap footer-widget">
+                                <div class="info-box">
+                                    <div class="info-box_icon">
+                                        <i class="fas fa-phone"></i>
+                                    </div>
+                                    <div class="box-content">
+                                        <p class="info-box_title">Help For Call</p>
+                                        <p class="info-box_text">
+                                            <a href="tel:+917696912420" class="info-box_link">+91 7696912420</a>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="info-box">
+                                    <div class="info-box_icon">
+                                        <i class="fas fa-location"></i>
+                                    </div>
+                                    <div class="box-content">
+                                        <p class="info-box_title">Our Address</p>
+                                        <p class="info-box_text text-white">
+                                            Phagwara, LPU
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="info-box">
+                                    <div class="info-box_icon">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                    </div>
+                                    <div class="box-content">
+                                        <p class="info-box_title">WhatsApp</p>
+                                        <p class="info-box_text">
+                                            <a href="https://wa.me/+917696912420" target="_blank" class="info-box_link">+917696912420</a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xl-auto" data-cue="slideInUp">
+                            <div >
+                                       <h4 class="text-white">Quick Links</h4>
+                                       <p><a href="/">Home</a></p>
+                                       <p><a href="/report_lost">Report Lost</a> </p>
+                                       <p><a href="/report_found">Report Found</a></p>
+                                       <p><a href="/browse_item">Browse Items</a></p>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="container">
+            <div class="copyright-wrap ">
+                <div class="row gy-2">
+                    <div class="col-lg-4 col-xl-4" data-cue="slideInUp">
+                        <p class="copyright-text">Copyright &copy; 2026 <a href="/">TraceIt.</a> All Rights Reserved.</p>
+                    </div>
+                    <div class="col-lg-8 col-xl-6 text-center text-lg-end" data-cue="slideInUp">
+                        <div class="footer-links">
+                            <ul>
+                                <li>
+                                    <a href="/about">Terms and Conditions.</a>
+                                </li>
+                                <li>
+                                    <a href="/about">Privacy Policy</a>
+                                </li>
+
+                                <li>
+                                    <a href="/contact">Get Support</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll To Top -->
+    <div class="scroll-top">
+        <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+            <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" style="transition: stroke-dashoffset 10ms linear 0s; stroke-dasharray: 307.919, 307.919; stroke-dashoffset: 307.919;"></path>
+        </svg>
+    </div>
+
+
+    <!--==============================
+    All Js File
+============================== -->
+    <!-- Jquery -->
+    <script src="{{url_for('static', filename='assets/js/vendor/jquery-3.7.1.min.js')}}"></script>
+    <!-- Swiper Js -->
+    <script src="{{url_for('static', filename='assets/js/swiper-bundle.min.js')}}"></script>
+    <!-- Bootstrap -->
+    <script src="{{url_for('static', filename='assets/js/bootstrap.min.js')}}"></script>
+    <!-- Magnific Popup -->
+    <script src="{{url_for('static', filename='assets/js/jquery.magnific-popup.min.js')}}"></script>
+    <!-- Counter Up -->
+    <script src="{{url_for('static', filename='assets/js/jquery.counterup.min.js')}}"></script>
+    <!-- Range Slider -->
+    <script src="{{url_for('static', filename='assets/js/jquery-ui.min.js')}}"></script>
+    <!-- Isotope Filter -->
+    <script src="{{url_for('static', filename='assets/js/imagesloaded.pkgd.min.js')}}"></script>
+    <script src="{{url_for('static', filename='assets/js/isotope.pkgd.min.js')}}"></script>
+    <!-- Cue Js -->
+    <script src="{{url_for('static', filename='assets/js/scrollCue.min.js')}}"></script>
+    <!-- Gsap -->
+    <script src="{{url_for('static', filename='assets/js/gsap.min.js')}}"></script>
+    <!-- Scroll Trigger -->
+    <script src="{{url_for('static', filename='assets/js/ScrollTrigger.min.js')}}"></script>
+    <!-- Split Text -->
+    <script src="{{url_for('static', filename='assets/js/SplitText.min.js')}}"></script>
+    <!-- Lenis Js -->
+    <script src="{{url_for('static', filename='assets/js/lenis.min.js')}}"></script>
+
+    <!-- Perticle Js -->
+    <script src="{{url_for('static', filename='assets/js/particles.min.js')}}"></script>
+    <script src="{{url_for('static', filename='assets/js/particles-config.js')}}"></script>
+
+    <!-- Main Js File -->
+    <script src="{{url_for('static', filename='assets/js/main.js')}}"></script>
+
+</body>
+
+</html>

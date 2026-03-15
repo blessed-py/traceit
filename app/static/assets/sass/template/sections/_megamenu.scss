@@ -1,0 +1,261 @@
+@use 'base/variable' as *;
+@use 'base/mixin' as *;
+
+/*Mega menu area*********************/
+.main-menu {
+    ul.mega-menu {
+        position: absolute;
+        top: 100%;
+        left: 0 !important;
+        right: 0 !important;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        display: flex;
+        width: 1200px;
+        max-width: max-content;
+        max-height: 500px;
+        overflow: overlay;
+        opacity: 0;
+        visibility: hidden;
+        transform-origin: top center;
+        transform: scaleY(0) translateZ(100px);
+        transition: opacity 500ms ease, visibility 500ms ease, transform 700ms ease;
+        z-index: 99;
+        background-color: $white-color;
+        padding: 20px 10px;
+
+        @media(max-width: 1599px) {
+            width: 1170px;
+            left: -10rem !important;
+        }
+
+        @include ml {
+            left: -16rem !important;
+            
+        }
+        @include lg {
+            left: -18rem !important;
+            
+        }
+        li {
+            flex: 1 1 100%;
+            width: 100%;
+            position: relative;
+        }
+
+        a {
+            font-size: 16px;
+            line-height: 30px;
+            &:hover {
+                color: $theme-color;
+            }
+        }
+
+        /***scroll-bar***/
+        &::-webkit-scrollbar {
+            width: 5px;
+            height: 5px;
+            border-radius: 0px;
+        }
+
+        &::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 1);
+            box-shadow: inset 0 0 0px rgba(0, 0, 0, 0.3);
+            border-radius: 0px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background-color: $theme-color;
+            background-image: -webkit-linear-gradient(45deg,
+                    rgba(255, 255, 255, 0.3) 25%,
+                    transparent 20%,
+                    transparent 50%,
+                    rgba(255, 255, 255, 0.3) 50%,
+                    rgba(255, 255, 255, 0.3) 75%,
+                    transparent 75%,
+                    transparent);
+            border-radius: 0px;
+        }
+
+        li {
+
+            li {
+                padding: 2px 0;
+            }
+
+            a {
+                display: inline-block;
+                text-transform: capitalize;
+            }
+        }
+
+        >li {
+            >a {
+                display: block;
+                padding: 0;
+                padding-bottom: 15px;
+                margin-bottom: 10px;
+                text-transform: capitalize;
+                letter-spacing: 1px;
+                font-weight: 700;
+                color: $title-color;
+                border-color: $theme-color;
+                &::after,
+                &::before {
+                    content: "";
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    width: 15px;
+                    height: 1px;
+                    background-color: $theme-color;
+                }
+
+                &::after {
+                    width: calc(100% - 20px);
+                    left: 20px;
+                }
+
+                &:hover {
+                    padding-left: 0;
+                }
+            }
+        }
+        @include xl {
+            width: 1000px;
+        }
+        @include lg {
+            width: 900px;
+        }
+        @include md {
+            padding: 10px 0 !important;
+        }
+
+        .th-mobile-menu ul li ul li {
+            padding-left: 0px;
+        }
+
+        .th-mobile-menu ul li a:before {
+            content: '\f105';
+            font-family: var(--icon-font);
+            position: absolute;
+            left: 0;
+            top: 12px;
+            margin-right: 10px;
+            display: none;
+        }
+    }
+}
+
+.mega-menu-box {
+    box-shadow: 0px 0px 34px rgba(0, 0, 0, 0.08);
+    border-radius: 5px;
+
+    .mega-menu-img {
+        position: relative;
+        border-radius: 5px 5px 0 0;
+        overflow: hidden;
+
+        &:after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba($color: #000000, $alpha: 0);
+        }
+
+        img {
+            transition: filter 500ms ease;
+            filter: blur(0px);
+        }
+
+        .btn-wrap {
+            z-index: 1;
+            background: rgba($color: #000000, $alpha: 0.5);
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            transform: scale(1, 0);
+            transition: transform 500ms ease, opacity 600ms linear;
+            transform-origin: bottom center;
+            opacity: 0;
+
+
+            .th-btn {
+                padding: 6px 18px;
+                font-size: 14px;
+                color: $white-color;
+                width: max-content;
+            }
+        }
+
+
+    }
+
+    &:hover {
+        .btn-wrap {
+            transform: scale(1, 1);
+            opacity: 1;
+            transform-origin: top center;
+        }
+
+        .mega-menu-img {
+            img {
+
+                filter: blur(2px);
+            }
+        }
+    }
+
+    .mega-menu-title {
+        margin-bottom: 0;
+        text-align: center;
+        line-height: normal;
+        display: flex;
+        justify-content: center;
+        padding: 14px 0;
+
+        span {
+            color: $theme-color;
+            text-transform: capitalize;
+            font-size: 16px;
+            margin-right: 5px;
+
+            &:after {
+                display: none;
+            }
+        }
+
+        a {
+            color: $black-color2;
+            line-height: normal;
+
+            &:after {
+                display: none;
+            }
+
+            &:hover {
+                color: $title-color;
+            }
+        }
+    }
+    
+    @include md {
+        .mega-menu-title a {
+            padding: 0;
+
+            &:before {
+                display: none;
+            }
+        }
+    }
+}
+
+/*Mega menu area end*********************/

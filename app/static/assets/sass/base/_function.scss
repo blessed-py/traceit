@@ -1,0 +1,23 @@
+
+// Function For Letter Spacing
+@function letter-spacing($psValue, $return: 'em', $fSize: '16') {
+  @if $return=='em' {
+    @return ($psValue) * 0.001 + em;
+  }
+
+  @else {
+    @return ($psValue * $fSize) * 0.001;
+  }
+}
+
+@mixin letter-spacing($space) {
+  letter-spacing: letter-spacing($space);
+}
+
+
+// Convert a hex value to comma-delimited rgb values
+@function convert-rgb($hex) {
+  @return red($hex),
+  green($hex),
+  blue($hex);
+}

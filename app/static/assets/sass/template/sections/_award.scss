@@ -1,0 +1,149 @@
+@use 'base/variable' as *;
+@use 'base/mixin' as *;
+
+/* Award 1 ---------------------------------- */
+.award-title-wrap1 {
+    max-width: 437px;
+}
+.award-list-card {
+    display: flex;
+    align-items: center;
+    gap: 100px;
+    position: relative;
+    padding-bottom: 56px;
+    &:not(:last-child) {
+        margin-bottom: 56px;
+    }
+    &:after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: -31.8%;
+        right: 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .box-number {
+        margin-right: 40px;
+        font-size: 56px;
+        font-weight: 700;
+        font-family: $title-font;
+        color: transparent;
+        -webkit-text-stroke: 1px $light-color;
+        letter-spacing: 0.02em;
+        line-height: 0.75em;  
+        flex: none; 
+        width: 85px;   
+        transition: 0.4s;  
+    }
+    .box-img {
+        flex: none;
+    }
+    .box-content {
+        flex: 1;
+        padding-right: 38px;
+    }
+    .box-title {
+        font-size: 28px;
+        font-weight: 600;
+        margin-bottom: 12px;
+        a {
+            color: $white-color;
+            &:hover {
+                color: $theme-color
+            }
+        }
+    }
+    .box-text {
+        font-size: 18px;
+        color: $light-color;
+    }
+    .th-btn {
+        margin-top: 40px;
+    }
+    &:hover {
+        .box-number {
+            color: $white-color;
+        }
+    }
+    @include xxl {
+        gap: 60px;
+        .box-number {
+            margin-right: 0;
+        }
+    }
+    @include ml {
+        gap: 40px;
+        padding-bottom: 40px;
+        &:not(:last-child) {
+            margin-bottom: 40px;
+        }
+        .box-number {
+            margin-right: 0;
+        }
+        .box-title {
+            font-size: 24px;
+        }
+        .box-text {
+            font-size: 16px;
+        }
+    }
+    @include xl {
+        .box-img {
+            flex: 0.5;
+        }
+    }
+    @include lg {
+        padding-bottom: 0;
+        &:not(:last-child) {
+            margin-bottom: 60px;
+        }
+        &:after {
+            display: none;
+        }
+    }
+    @include sm {
+        flex-wrap: wrap;
+        .box-number {
+            flex: none;
+            order: 2;
+            width: -webkit-fill-available;
+            font-size: 40px;
+        }
+        .box-img {
+            flex: none;
+            width: 100%;
+            order: 1;
+        }
+        .box-content {
+            order: 3;
+        }
+    }
+}
+
+/* Award 2 ---------------------------------- */
+.award-list-card.style2 {
+    .box-number {
+        -webkit-text-stroke: 1px $theme-color;
+    }
+    .box-title {
+        a {
+            color: $title-color;
+            &:hover {
+                color: $theme-color;
+            }
+        }
+    }
+    .box-text {
+        color: $body-color;
+    }
+    &:after {
+        background: $body-color;
+        opacity: 0.2;
+        left: 0;
+    }
+    &:hover {
+        .box-number {
+            color: $theme-color;
+        }
+    }
+}

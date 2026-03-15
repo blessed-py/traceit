@@ -1,0 +1,109 @@
+@use 'base/variable' as *;
+@use 'base/mixin' as *;
+
+.popup-search-box {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    background-color: rgba(19, 24, 43, 0.75);
+    height: 0;
+    width: 0;
+    overflow: hidden;
+    z-index: 99999;
+    opacity: 0;
+    visibility: hidden;
+    border-radius: 50%;
+    transform: translateX(-50%);
+    transition: all ease 0.4s;
+
+    button.searchClose {
+        width: 60px;
+        height: 60px;
+        line-height: 58px;
+        position: absolute;
+        top: 40px;
+        right: 40px;
+        border-width: 2px;
+        border-style: solid;
+        border-color: $theme-color;
+        background-color: transparent;
+        font-size: 22px;
+        border-radius: 50%;
+        transform: rotate(0);
+        transition: all ease 0.4s;
+        color: $white-color;
+
+        &:hover {
+            color: $white-color;
+            border-color: $theme-color;
+            background: $theme-color;
+            transform: rotate(90deg);
+        }
+    }
+
+    form {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        display: inline-block;
+        padding-bottom: 40px;
+        cursor: auto;
+        width: 100%;
+        max-width: 700px;
+        transform: translate(-50%, -50%) scale(0);
+        transition: transform ease 0.4s;
+
+        @include lg {
+            max-width: 600px;
+        }
+
+        input {
+            font-size: 18px;
+            height: 70px;
+            width: 100%;
+            border: 2px solid $theme-color;
+            background-color: transparent;
+            padding-left: 30px;
+            color: #fff;
+            border-radius: 50px;
+            padding-right: 80px;
+            @include inputPlaceholder {
+                color: #fff;
+            }
+        }
+
+        button {
+            position: absolute;
+            top: 0px;
+            background-color: transparent;
+            border: none;
+            color: #fff;
+            font-size: 24px;
+            right: 12px;
+            color: $white-color;
+            cursor: pointer;
+            width: 70px;
+            height: 70px;
+            transition: all ease 0.4s;
+            transform: scale(1.001);
+
+            &:hover {
+                transform: scale(1.1);
+            }
+        }
+    }
+
+    &.show {
+        opacity: 1;
+        visibility: visible;
+        width: 100.1%;
+        height: 100%;
+        transition: all ease 0.4s;
+        border-radius: 0;
+
+        form {
+            transition-delay: 0.5s;
+            transform: translate(-50%, -50%) scale(1);
+        }
+    }
+}

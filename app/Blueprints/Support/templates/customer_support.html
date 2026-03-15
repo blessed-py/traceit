@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>TraceIt | Customer Support</title>
+    <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='assets/img/logo_1.png') }}">
+
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+
+    <!-- Font Awesome Pro v7.0.0 -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='fontawesome-pro/css/all.css') }}">
+
+    <!-- overlayScrollbars -->
+    <link rel="stylesheet"
+        href="{{ url_for('static', filename='plugins/overlayScrollbars/css/OverlayScrollbars.min.css')}}">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='dist/css/adminlte.min.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='dist/css/custom.css')}}">
+
+    <!-- Theme Toggle Styles -->
+    <style>
+        /* Theme toggle animation */
+        #themeToggle {
+            transition: transform 0.3s ease;
+        }
+
+        #themeToggle:hover {
+            transform: scale(1.1);
+        }
+
+        #themeToggle:active {
+            transform: scale(0.95);
+        }
+
+        /* Chart dark mode */
+        .dark-mode canvas {
+            filter: invert(1) hue-rotate(180deg);
+        }
+
+        .dark-mode .card-body canvas {
+            filter: invert(1) hue-rotate(180deg);
+        }
+    </style>
+
+    <!-- DataTables -->
+    <link rel="stylesheet"
+        href="{{ url_for('static', filename='plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+    <link rel="stylesheet"
+        href="{{ url_for('static', filename='plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
+</head>
+
+<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed dark-mode">
+    <div class="wrapper">
+
+        <!-- Preloader -->
+        <div class="preloader flex-column justify-content-center align-items-center">
+            <img class="animation__wobble" src="{{ url_for('static', filename='assets/img/logo_1.png')}}" alt="Logo"
+                height="80" width="80">
+        </div>
+
+        <!-- Navbar -->
+        <nav class="main-header navbar navbar-expand navbar-dark">
+            <!-- Left navbar links -->
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i
+                            class="fa-solid fa-bars"></i></a>
+                </li>
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="javascript:void(0);" class="nav-link">Customer Support</a>
+                </li>
+            </ul>
+
+            <!-- Right navbar links -->
+            <ul class="navbar-nav ml-auto">
+
+
+
+                <!-- Notifications Dropdown Menu -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link" data-toggle="dropdown" href="#">
+                        <i class="fa-regular fa-bell"></i>
+                    </a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link" data-toggle="dropdown" href="#" title="Theme Mode">
+                        <i class="fa-solid fa-palette" id="themeIcon"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <a href="#" class="dropdown-item" id="lightMode">
+                            <i class="fa-sharp fa-regular fa-brightness-low mr-3"></i> Light Mode
+                        </a>
+
+                        <a href="#" class="dropdown-item" id="darkMode">
+                            <i class="fa-sharp fa-solid fa-moon-stars mr-3"></i> Dark Mode
+                        </a>
+
+                        <a href="#" class="dropdown-item" id="autoMode">
+                            <i class="fa-solid fa-computer mr-3"></i>System
+                        </a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="fullscreen" href="#" role="button">
+                        <i class="fa-solid fa-expand-arrows-alt"></i>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/sys/logout">
+                        <i class="fa-solid fa-power-off text-danger"></i>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <!-- /.navbar -->
+
+        <!-- Main Sidebar Container -->
+        <aside class="main-sidebar sidebar-dark-primary elevation-4">
+        <!-- Brand Logo -->
+        <a href="/sys/dashboard" class="brand-link">
+        <img src="{{ url_for('static', filename='assets/img/infocontent_logo.png')}}" alt="ContentPro Logo" class="brand-image-full">
+        <!-- Mini logo (collapsed sidebar) -->
+        <img src="{{ url_for('static', filename='assets/img/logo_1.png') }}" alt="ContentPro Logo"
+        class="brand-image brand-image-mini">
+        </a>
+
+
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <!-- Sidebar user panel (optional) -->
+                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="image">
+            <img src="{{ url_for('static', filename='assets/img/infocontent_logo.png')}}" alt="TraceIt">
+            
+
+        </div>
+                    <div class="info">
+                        <a href="#" class="d-block">Certified Developer</a>
+                    </div>
+                </div>
+
+                <!-- SidebarSearch Form -->
+                <div class="form-inline">
+                    <div class="input-group" data-widget="sidebar-search">
+                        <input class="form-control form-control-sidebar" type="search" placeholder="Search"
+                            aria-label="Search">
+                        <div class="input-group-append">
+                            <button class="btn btn-sidebar">
+                                <i class="fa-solid fa-search fa-fw"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+                     with font-awesome or any other icon font library -->
+      
+                     
+          <li class="nav-header">DASHBOARD</li>
+           
+          <li class="nav-item">
+            <a href="/sys/dashboard" class="nav-link active">
+              <i class="nav-icon fa-solid fa-layer-group"></i>
+              <p>
+                Home
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/sys/analytics" class="nav-link">
+              <i class="nav-icon fa-solid fa-chart-line-up"></i>
+              <p>
+                Analytics
+              </p>
+            </a>
+          </li>
+      <li class="nav-header">REPORTS</li>
+                <li class="nav-item">
+            <a href="/sys/item_lost" class="nav-link">
+              <i class="nav-icon fa-solid fa-layer-group"></i>
+              <p>
+                Items Lost
+              </p>
+            </a>
+          </li>
+            <li class="nav-item">
+            <a href="/sys/item_found" class="nav-link">
+              <i class="nav-icon fa-solid fa-layer-group"></i>
+              <p>
+                Items Found
+              </p>
+            </a>
+          </li>
+          <li class="nav-header">PAGES</li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fa-solid fa-screwdriver-wrench"></i>
+              <p>
+                Page Settings
+                <i class="fa-solid fa-angle-left right"></i>
+              </p>
+            </a>
+
+
+
+                                        <ul class="nav nav-treeview ">
+                                <li class="nav-item">
+                                    <a href="/settings/manage_testimonial" class="nav-link">
+                                        <i class="fa-solid fa-comment-dots"></i>
+                                        <p>
+                                            Testimonials
+                                        </p>
+                                    </a>
+                                </li>
+                            </ul>
+            <ul class="nav nav-treeview ">
+              <li class="nav-item">
+                <a href="/settings/manage_social" class="nav-link">
+                  <i class="fa-solid fa-link"></i>
+                  <p>
+                    Socials
+                  </p>
+                </a>
+              </li>
+            </ul>
+          </li>
+      
+      
+      
+          <li class="nav-header">SETTINGS</li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fa-solid fa-users"></i>
+              <p>
+                System Users
+                <i class="fa-solid fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview ">
+              <li class="nav-item ">
+                <a href="/sys/system_user" class="nav-link">
+                  <i class="fa-regular fa-circle nav-icon"></i>
+                  <p>Manage Users</p>
+                </a>
+              </li>
+            </ul>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="/sys/roles" class="nav-link">
+                  <i class="fa-regular fa-circle nav-icon"></i>
+                  <p>User Roles</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i class="nav-icon fa-solid fa-gear"></i>
+                <p>
+                  System Settings
+                  <i class="fa-solid fa-angle-left right"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview ">
+                <li class="nav-item ">
+                  <a href="/settings/manage_country" class="nav-link">
+                    <i class="fa-regular fa-circle nav-icon"></i>
+                    <p>Manage Countries</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+                        <li class="nav-header">SUPPORT</li>
+                        <li class="nav-item menu-open">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fa-solid fa-headset"></i>
+                                <p>
+                                    Customer Support
+                                    <i class="fa-solid fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview ">
+                                <li class="nav-item ">
+                                    <a href="/support/customer_support" class="nav-link">
+                                        <i class="fa-regular fa-circle nav-icon"></i>
+                                        <p>Contact Support</p>
+                                    </a>
+                                </li>
+                                                                <li class="nav-item ">
+                                    <a href="/support/contact_category" class="nav-link acive">
+                                        <i class="fa-regular fa-circle nav-icon"></i>
+                                        <p>Manage Category</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+        </ul>
+      </nav>
+      <!-- /.sidebar-menu -->
+            </div>
+            <!-- /.sidebar -->
+        </aside>
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <div class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1 class="m-0">Contact Support</h1>
+                        </div><!-- /.col -->
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a href="/sys/dashboard">Home</a></li>
+                                <li class="breadcrumb-item active">Contact Support</li>
+                            </ol>
+                        </div><!-- /.col -->
+                    </div><!-- /.row -->
+                </div><!-- /.container-fluid -->
+            </div>
+            <!-- /.content-header -->
+
+            <!-- Main content -->
+            <section class="content">
+                <div class="container-fluid">
+                    <!-- Info boxes -->
+                    <div class="row">
+                        <div class="col-12 col-sm-6 col-md-3">
+                            <div class="info-box mb-3">
+                                <span class="info-box-icon bg-gradient-dark elevation-1"><i
+                                        class="fa-solid fa-messages"></i></span>
+
+                                <div class="info-box-content">
+                                    <span class="info-box-text">Total Tickets</span>
+                                    <span class="info-box-number">{{total_support_tickets}}</span>
+                                </div>
+                                <!-- /.info-box-content -->
+                            </div>
+                            <!-- /.info-box -->
+                        </div>
+                        <!-- /.col -->
+                        <div class="col-12 col-sm-6 col-md-3">
+                            <div class="info-box mb-3">
+                                <span class="info-box-icon bg-gradient-blue elevation-1"><i
+                                        class="fa-solid fa-bell"></i></span>
+
+                                <div class="info-box-content">
+                                    <span class="info-box-text">New Tickets</span>
+                                    <span class="info-box-number">{{new_support_tickets}}</span>
+                                </div>
+                                <!-- /.info-box-content -->
+                            </div>
+                            <!-- /.info-box -->
+                        </div>
+                        <!-- /.col -->
+
+                        <!-- fix for small devices only -->
+                        <div class="clearfix hidden-md-up"></div>
+
+                        <div class="col-12 col-sm-6 col-md-3">
+                            <div class="info-box mb-3">
+                                <span class="info-box-icon bg-gradient-cyan elevation-1"><i
+                                        class="fa-solid fa-clock"></i></span>
+
+                                <div class="info-box-content">
+                                    <span class="info-box-text">Tickets In Progress</span>
+                                    <span class="info-box-number">{{in_progress_support_tickets}}</span>
+                                </div>
+                                <!-- /.info-box-content -->
+                            </div>
+                            <!-- /.info-box -->
+                        </div>
+                        <!-- /.col -->
+                        <div class="col-12 col-sm-6 col-md-3">
+                            <div class="info-box mb-3">
+                                <span class="info-box-icon bg-success elevation-1"><i
+                                        class="fa-solid fa-circle-check"></i></span>
+
+                                <div class="info-box-content">
+                                    <span class="info-box-text">Resolved Tickets</span>
+                                    <span class="info-box-number">{{resolved_support_tickets}}</span>
+                                </div>
+                                <!-- /.info-box-content -->
+                            </div>
+                            <!-- /.info-box -->
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                    <!-- /.row -->
+
+
+                    <!-- Table Card -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Available Messages</h3>
+
+                        </div>
+                        <div class="card-body">
+                            <table id="example1" class="table table-bordered table-striped">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th>S/N</th>
+                                        <th>NAME</th>
+                                        <th>EMAIL</th>
+                                        <th>SUBJECT</th>
+                                        <th>STATUS</th>
+                                        <th>ACTIONS</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for support_ticket in sys_support_tickets %}
+                                    <tr>
+                                        <td>{{ loop.index }}</td>
+                                        <td>{{ support_ticket.name }}</td>
+                                        <td>{{ support_ticket.email}}</td>
+                                        <td style="max-width: 300px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"
+                                            title="{{ support_ticket['subject'] }}">
+                                            {{ support_ticket['subject'] }}
+                                        </td>
+                                        <td>
+                                            {% if support_ticket.status == 'new' %}
+                                            <span id="status-{{ support_ticket.support_ticket_id }}"
+                                                class="badge bg-info">NEW</span>
+                                            {% elif support_ticket.status == 'in_progress' %}
+                                            <span id="status-{{ support_ticket.support_ticket_id }}"
+                                                class="badge bg-secondary">IN PROGRESS</span>
+                                            {% elif support_ticket.status == 'resolved' %}
+                                            <span id="status-{{ support_ticket.support_ticket_id }}"
+                                                class="badge bg-success">RESOLVED</span>
+                                            {% else %}
+                                            <span id="status-{{ support_ticket.support_ticket_id }}"
+                                                class="badge bg-secondary">{{ support_ticket.status }}</span>
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-sm btn-outline-info"
+                                                data-toggle="modal"
+                                                data-target="#viewSupportTicket{{support_ticket.support_ticket_id}}"
+                                                data-ticket-id="{{ support_ticket.support_ticket_id }}">
+                                                <i class="fa fa-eye"></i> View
+                                            </button>
+
+
+                                            <button type="button" class="btn btn-sm btn-default"
+                                                onclick="deleteSupportTicket('{{ support_ticket.support_ticket_id }}')">
+                                                <i class="fa-regular fa-trash-can"></i> Delete
+                                            </button>
+                                        </td>
+                                    </tr>
+
+                                    <!-- View Support Ticket Modal -->
+                                    <div class="modal fade" id="viewSupportTicket{{ support_ticket.support_ticket_id }}"
+                                        tabindex="-1" role="dialog" aria-hidden="true">
+                                        <div class="modal-dialog modal-lg" role="document">
+                                            <div class="modal-content">
+
+                                                <div class="modal-header">
+                                                    <h4 class="mb-0">View Support Ticket</h4>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+
+                                                <div class="modal-body">
+                                                    <form>
+
+                                                        <!-- Row 1 -->
+                                                        <div class="form-row">
+                                                            <div class="form-group col-md-12">
+                                                                <label>Name</label>
+                                                                <input type="text" class="form-control"
+                                                                    value="{{ support_ticket.name }}" readonly>
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="form-row">
+                                                            <div class="form-group col-md-6">
+                                                                <label>Email</label>
+                                                                <input type="text" class="form-control"
+                                                                    value="{{ support_ticket.email }}" readonly>
+                                                            </div>
+
+                                                            <div class="form-group col-md-6">
+                                                                <label>Phone Number</label>
+                                                                <input type="text" class="form-control"
+                                                                    value="{{ support_ticket.phone_number }}" readonly>
+                                                            </div>
+                                                        </div>
+
+
+                                                        <div class="form-row">
+                                                            <div class="form-group col-md-6">
+                                                                <label>Service Name</label>
+                                                                <input type="text" class="form-control"
+                                                                    value="{{ support_ticket.service }}" readonly>
+                                                            </div>
+                                                                <div class="form-group col-md-6">
+                                                                <label>Category</label>
+                                                                <input type="text" class="form-control"
+                                                                    value="{{ support_ticket.category }}" readonly>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-row">
+                                                            <div class="form-group col-md-12">
+                                                                <label>Subject</label>
+                                                                <input type="text" class="form-control"
+                                                                    value="{{ support_ticket.subject }}" readonly>
+                                                            </div>
+                                                        </div>
+
+                                                        <!-- Message -->
+                                                        <textarea class="form-control" rows="5" readonly
+                                                            style="resize:none;">{{ support_ticket.message | e }}</textarea>
+
+                                                        <!-- Row 2 -->
+                                                        <div class="form-row">
+                                                            <div class="form-group col-md-4">
+                                                                <label>Status</label>
+                                                                <input type="text" class="form-control 
+                            {% if support_ticket.status == 'resolved' %}text-sucess
+                            {% elif support_ticket.status == 'in_progress' %}text-info
+                            {% else %}text-primary{% endif %}" value="{{ support_ticket.status.replace('_', ' ').upper() }}"
+                                                                    readonly>
+                                                            </div>
+
+                                                            <div class="form-group col-md-4">
+                                                                <label>Created At</label>
+                                                                <p class="form-control text-muted ">
+                                                                    {{ support_ticket.created_at }}
+                                                                </p>
+                                                            </div>
+                                                        </div>
+
+                                                    </form>
+
+                                                    <div class="modal-footer justify-content-center">
+                                                        <button type="button" class="btn btn-secondary"
+                                                            data-dismiss="modal">
+                                                            Close
+                                                        </button>
+                                                        {% if support_ticket.status == 'in_progress' %}
+                                                        <button id="resolve-btn-{{ support_ticket.support_ticket_id }}"
+                                                            type="button" class="btn btn-success"
+                                                            onclick="resolveSupportTicket('{{ support_ticket.support_ticket_id }}')">
+                                                            Mark as Resolved
+                                                        </button>
+                                                        {% endif %}
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+        </div><!--/. container-fluid -->
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+    </aside>
+    <!-- /.control-sidebar -->
+
+    <!-- Main Footer -->
+    <footer class="main-footer">
+
+        Copyright &copy;
+        <script>document.write(new Date().getFullYear())</script><strong><a href="/"> ContentPro</a></strong>. All
+        rights reserved.
+
+        <span class="float-right"> <a href="/sys/logout">Logout</a> |
+            <i class="fa-solid fa-power-off text-danger"></i>
+        </span>
+    </footer>
+    </div>
+    <!-- ./wrapper -->
+
+    <!-- REQUIRED SCRIPTS -->
+    <!-- jQuery -->
+    <script src="{{ url_for('static', filename='plugins/jquery/jquery.min.js')}}"></script>
+    <!-- Bootstrap -->
+    <script src="{{ url_for('static', filename='plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+    <!-- overlayScrollbars -->
+    <script
+        src="{{ url_for('static', filename='plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js')}}"></script>
+    <!-- AdminLTE App -->
+    <script src="{{ url_for('static', filename='dist/js/adminlte.js')}}"></script>
+
+    <!-- PAGE PLUGINS -->
+    <!-- jQuery Mapael -->
+    <script src="{{ url_for('static', filename='plugins/jquery-mousewheel/jquery.mousewheel.js')}}"></script>
+    <script src="{{ url_for('static', filename='plugins/raphael/raphael.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='plugins/jquery-mapael/jquery.mapael.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='plugins/jquery-mapael/maps/usa_states.min.js')}}"></script>
+    <!-- ChartJS -->
+    <script src="{{ url_for('static', filename='plugins/chart.js/Chart.min.js')}}"></script>
+    <!-- DataTables -->
+    <script src="{{ url_for('static', filename='plugins/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='plugins/jszip/jszip.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='plugins/pdfmake/pdfmake.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='plugins/pdfmake/vfs_fonts.js') }}"></script>
+    <script src="{{ url_for('static', filename='plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
+    <!-- ContentPro-JS -->
+    <script src="{{ url_for('static', filename='pageScript/support/customer_support.js')}}"></script>
+    <script src="{{ url_for('static', filename='plugins/sweetalert2/sweetalert2.all.min.js') }}"></script>
+
+<script>
+        //Swal Toast Initialization
+  const ticketToast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 2200,
+    timerProgressBar: true,
+    background: '#343a40',  
+    color: '#f8f9fa'        
+});
+
+
+
+        //View Support Ticket and change status from new to In progress
+$('.modal').on('show.bs.modal', function (event) {
+    var modal = $(this);
+    // extract the numeric ID from the modal's id
+    var ticketId = modal.attr('id').replace('viewSupportTicket', '');
+
+    // now send POST request to advance status
+    fetch(`/support/advance_status/${ticketId}`, { method: 'POST' })
+    .then(res => res.json())
+    .then(data => {
+        if(data.success){
+            // update badge in the table
+            let badge = document.getElementById(`status-${ticketId}`);
+            if(badge && badge.innerText === 'NEW'){  // only if it's NEW
+                badge.className = 'badge bg-secondary';
+                badge.innerText = 'IN PROGRESS';
+            }
+
+            // show toast
+            Swal.fire({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 2000,
+                icon: 'info',
+                title: 'Support ticket is now In Progress',
+                background: '#6c757d', 
+                color: '#fff'
+            });
+        }
+    });
+});
+
+
+
+        //Resolve Support Ticket
+function resolveSupportTicket(ticketId) {
+    Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6", // green
+        cancelButtonColor: "#6c757d", // secondary
+        confirmButtonText: "Yes, resolve it!"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            fetch(`/support/resolve_ticket/${ticketId}`, {
+                method: 'POST'
+            })
+            .then(response => response.json())
+            .then(result => {
+                if (result.success) {
+                    // Update badge in the table instantly
+                    let badge = document.getElementById(`status-${ticketId}`);
+                    if(badge){
+                        badge.className = 'badge bg-success';
+                        badge.innerText = 'RESOLVED';
+                    }
+
+                    let resolveBtn = document.getElementById(`resolve-btn-${ticketId}`);
+                    if(resolveBtn) resolveBtn.disabled = true;
+
+  
+                    Swal.fire({
+                        icon: 'success',
+                        title: "Success!",
+                        text: result.feedback,
+                        showConfirmButton: true,
+                        icon: "success",
+                        confirmButtonColor: "#3085d6",
+                        timer: 1500
+                        }).then(Swal => {
+                        if (Swal.isDismissed || Swal.isConfirmed){
+                            window.location.reload();
+                        }
+                        })
+                } else {
+                    Swal.fire({
+                        title: "Error!",
+                        text: result.feedback,
+                        icon: "error"
+                    });
+                }
+            });
+        }
+    });
+}
+</script>
+
+<!-- Theme Toggle JavaScript -->
+<script src="{{ url_for('static', filename='dist/js/theme.js') }}"></script>
+</body>
+
+</html>

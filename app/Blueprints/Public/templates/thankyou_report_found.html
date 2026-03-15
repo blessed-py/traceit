@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Thank You | TraceIt</title>
+
+<meta name="author" content="blessedmatiko">
+<meta name="description" content="TraceIt helps you find your lost items and report found items. Smart lost and found platform for your community.">
+<meta name="keywords" content="lost and found, find lost items, report found items, trace it, lost items recovery">
+<meta name="robots" content="INDEX,FOLLOW">
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="{{url_for('static', filename='assets/css/bootstrap.min.css')}}">
+    <!-- Fontawesome Icon -->
+    <link rel="stylesheet" href="{{url_for('static', filename='assets/css/fontawesome.min.css')}}">
+    <!-- Magnific Popup -->
+    <link rel="stylesheet" href="{{url_for('static', filename='assets/css/magnific-popup.min.css')}}">
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="{{url_for('static', filename='assets/css/swiper-bundle.min.css')}}">
+    <!-- Theme Custom CSS -->
+    <link rel="stylesheet" href="{{url_for('static', filename='assets/css/style.css')}}">
+        <!-- Font Awesome Pro v7.0.0 -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='fontawesome-pro/css/all.css') }}">
+
+</head>
+
+<body>
+<!-- MOBILE MENU -->
+<div class="th-menu-wrapper allow-natural-scroll">
+  <div class="th-menu-area text-center">
+    <button class="th-menu-toggle"><i class="fal fa-times"></i></button>
+    <div class="mobile-logo">
+      <a href="/"><img src="{{url_for('static', filename='assets/img/logo_1.png')}}" alt="TraceIt"></a>
+    </div>
+    <div class="th-mobile-menu">
+      <ul>
+        <li>
+          <a href="/">Home</a>
+        </li>
+        <li><a href="/find_item">Find Your Item</a></li>
+        <li><a href="/report_lost">Report Lost Item</a></li>
+        <li><a href="/report_found" class="active">Report Found Item</a></li>
+        <li><a href="/about">About Us</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+        <li>
+          <a href="/contact">Contact Us</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<!--Header Area-->
+  <header class="th-header header-layout1">
+    <div class="sticky-wrapper">
+      <!-- Main Menu Area -->
+      <div class="menu-area">
+        <div class="container">
+          <div class="row align-items-center justify-content-between">
+            <div class="col-auto">
+              <div class="header-logo">
+                <a href="/">
+                  <img src="{{url_for('static', filename='assets/img/logo_3.png')}}" style="width: 200px; height: auto;" alt="TraceIt">
+                </a>
+              </div>
+            </div>
+            <div class="col-auto">
+              <nav class="main-menu d-none d-lg-inline-block ">
+                <ul>
+                  <li>
+                    <a class="fw-bold" href="/">Home</a>
+                  </li>
+                  <li><a class="fw-bold" href="/find_item">Find Your Item</a></li>
+                  <li><a class="fw-bold" href="/report_lost">Report Lost Item</a></li>
+                  <li><a class="fw-bold" href="/report_found" class="active">Report Found Item</a></li>
+                  <li>
+                    <a class="fw-bold" href="/contact">Contact</a>
+                  </li>
+                </ul>
+              </nav>
+           
+              <div class="header-button d-flex d-lg-none">
+                <button type="button" class="th-menu-toggle icon-btn"><i class="far fa-bars"></i></button>
+              </div>
+        
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+<!-- PAGE HEADER -->
+<section class="page-header">
+  <div class="container text-center">
+  </div>
+</section>
+    <!-- main-area -->
+    <main>
+
+
+<style>
+
+    @media (max-width: 768px) {
+        .thank-you-wrapper {
+            padding-top: 300px !important; 
+            align-items: flex-start !important; 
+        }
+        .thank-you-title {
+            font-size: 50px !important;
+        }
+        .pricing-subtitle {
+            font-size: 28px !important;
+        }
+    }
+
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .animate-content {
+        animation: fadeInUp 0.8s ease-out forwards;
+    }
+</style>
+
+<section class="thank-you-wrapper"
+         style="position: relative; 
+                min-height: 100vh; 
+                width: 100%; 
+                overflow: hidden; 
+                display: flex; 
+                align-items: center; /* Centered on PC */
+                justify-content: center; 
+                margin: 0; 
+                padding: 40px 20px;">
+
+        <style>
+        .thank-you-wrapper {
+            background-color: #F6F2ED;
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+            transform: scale(1.1);
+        }
+        </style>
+ 
+
+    <div style="
+        position: absolute;
+        inset: 0;
+        background: rgba(255,255,255,0.4);
+        z-index: 1;
+    "></div>
+
+    <div class="container text-center animate-content" style="position: relative; z-index: 2; width: 100%;">
+        <div class="row justify-content-center">
+            <div class="col-xl-8 col-lg-10">
+
+                <h1 class="thank-you-title" style="font-size: 56px; font-weight: 900; margin-bottom: 10px; line-height: 1.1;">
+                     Found Item Report Submitted <span class="text-primary">Successfully</span>!
+                </h1>
+
+
+                <p style="font-size: 19px; max-width: 720px; margin: 0 auto 40px; color: #444; line-height: 1.6; font-weight: 500;">
+Thank you for reporting a found item. Your submission has been received and recorded in our system.
+
+If someone claims the item, we will contact you using the details you provided.               </p>
+
+
+
+            </div>
+        </div>
+    </div>
+</section>
+    </main>
+    <!-- main-area-end -->
+
+    <!-- JS here -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="{{ url_for('static', filename='plugins/sweetalert2/sweetalert2.all.min.js') }}"></script>
+
+</body>
+
+</html>

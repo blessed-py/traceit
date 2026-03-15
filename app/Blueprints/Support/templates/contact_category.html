@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>TraceIt | Manage Category</title>
+    <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='assets/img/logo_1.png') }}">
+
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+
+    <!-- Font Awesome Pro v7.0.0 -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='fontawesome-pro/css/all.css') }}">
+
+    <!-- overlayScrollbars -->
+    <link rel="stylesheet"
+        href="{{ url_for('static', filename='plugins/overlayScrollbars/css/OverlayScrollbars.min.css')}}">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='dist/css/adminlte.min.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='dist/css/custom.css')}}">
+
+    <!-- Theme Toggle Styles -->
+    <style>
+        /* Theme toggle animation */
+        #themeToggle {
+            transition: transform 0.3s ease;
+        }
+
+        #themeToggle:hover {
+            transform: scale(1.1);
+        }
+
+        #themeToggle:active {
+            transform: scale(0.95);
+        }
+
+        /* Chart dark mode */
+        .dark-mode canvas {
+            filter: invert(1) hue-rotate(180deg);
+        }
+
+        .dark-mode .card-body canvas {
+            filter: invert(1) hue-rotate(180deg);
+        }
+    </style>
+
+    <!-- DataTables -->
+    <link rel="stylesheet"
+        href="{{ url_for('static', filename='plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+    <link rel="stylesheet"
+        href="{{ url_for('static', filename='plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
+</head>
+
+<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed dark-mode">
+    <div class="wrapper">
+
+        <!-- Preloader -->
+        <div class="preloader flex-column justify-content-center align-items-center">
+            <img class="animation__wobble" src="{{ url_for('static', filename='assets/img/logo_1.png')}}" alt="Logo"
+                height="80" width="80">
+        </div>
+
+        <!-- Navbar -->
+        <nav class="main-header navbar navbar-expand navbar-dark">
+            <!-- Left navbar links -->
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i
+                            class="fa-solid fa-bars"></i></a>
+                </li>
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="javascript:void(0);" class="nav-link">Manage Category</a>
+                </li>
+            </ul>
+
+            <!-- Right navbar links -->
+            <ul class="navbar-nav ml-auto">
+
+
+
+                <!-- Notifications Dropdown Menu -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link" data-toggle="dropdown" href="#">
+                        <i class="fa-regular fa-bell"></i>
+                    </a>
+   
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link" data-toggle="dropdown" href="#" title="Theme Mode">
+                        <i class="fa-solid fa-palette" id="themeIcon"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <a href="#" class="dropdown-item" id="lightMode">
+                            <i class="fa-sharp fa-regular fa-brightness-low mr-3"></i> Light Mode
+                        </a>
+
+                        <a href="#" class="dropdown-item" id="darkMode">
+                            <i class="fa-sharp fa-solid fa-moon-stars mr-3"></i> Dark Mode
+                        </a>
+
+                        <a href="#" class="dropdown-item" id="autoMode">
+                            <i class="fa-solid fa-computer mr-3"></i>System
+                        </a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="fullscreen" href="#" role="button">
+                        <i class="fa-solid fa-expand-arrows-alt"></i>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/sys/logout">
+                        <i class="fa-solid fa-power-off text-danger"></i>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <!-- /.navbar -->
+
+        <!-- Main Sidebar Container -->
+        <aside class="main-sidebar sidebar-dark-primary elevation-4">
+        <!-- Brand Logo -->
+        <a href="/sys/dashboard" class="brand-link">
+        <img src="{{ url_for('static', filename='assets/img/infocontent_logo.png')}}" alt="ContentPro Logo" class="brand-image-full">
+        <!-- Mini logo (collapsed sidebar) -->
+        <img src="{{ url_for('static', filename='assets/img/logo_1.png') }}" alt="ContentPro Logo"
+        class="brand-image brand-image-mini">
+        </a>
+
+
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <!-- Sidebar user panel (optional) -->
+                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="image">
+          <img src="{% if current_user.profile_picture %}
+            {{ url_for('serve_storage', filename='pfp/' ~ current_user.profile_picture) }}
+          {% else %}
+            /Storage/pfp/default.png
+          {% endif %}" class="img-circle elevation-2" alt="User Image">
+        </div>
+                    <div class="info">
+                        <a href="/sys/profile" class="d-block">{{current_user.first_name}} {{current_user.sur_name}}</a>
+                    </div>
+                </div>
+
+                <!-- SidebarSearch Form -->
+                <div class="form-inline">
+                    <div class="input-group" data-widget="sidebar-search">
+                        <input class="form-control form-control-sidebar" type="search" placeholder="Search"
+                            aria-label="Search">
+                        <div class="input-group-append">
+                            <button class="btn btn-sidebar">
+                                <i class="fa-solid fa-search fa-fw"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sidebar Menu -->
+                <nav class="mt-2">
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+                        data-accordion="false">
+                        <!-- Add icons to the links using the .nav-icon class
+                     with font-awesome or any other icon font library -->
+
+
+                        <li class="nav-header">DASHBOARD</li>
+
+                        <li class="nav-item">
+                            <a href="/sys/dashboard" class="nav-link">
+                                <i class="nav-icon fa-solid fa-layer-group"></i>
+                                <p>
+                                    Home
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/sys/analytics" class="nav-link">
+                                <i class="nav-icon fa-solid fa-chart-line-up"></i>
+                                <p>
+                                    Analytics
+                                </p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fa-solid fa-users"></i>
+                                <p>
+                                    Clients
+                                    <i class="fa-solid fa-angle-left right"></i>
+                                </p>
+                            </a>
+            <ul class="nav nav-treeview ">
+              <li class="nav-item">
+                <a href="/sys/quotation_request" class="nav-link">
+                  <i class="fa-regular fa-circle nav-icon"></i>
+                  <p>Quotation Requests</p>
+                </a>
+              </li>
+              <li class="nav-item ">
+                <a href="/sys/demo_request" class="nav-link ">
+                  <i class="fa-regular fa-circle nav-icon"></i>
+                  <p>Demo Requests</p>
+                </a>
+              </li>
+              <li class="nav-item ">
+                <a href="/sys/client" class="nav-link">
+                  <i class="fa-regular fa-circle nav-icon"></i>
+                  <p>Manage clients</p>
+                </a>
+              </li>
+
+            </ul>
+                        </li>
+                          <li class="nav-item">
+                            <a href="/sys/partner_request" class="nav-link">
+                                <i class="nav-icon fa-duotone fa-regular fa-briefcase-blank"></i>
+                                <p>
+                                    Partner Requests
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-header">PAGES</li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fa-solid fa-screwdriver-wrench"></i>
+                                <p>
+                                    Page Settings
+                                    <i class="fa-solid fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview ">
+                                <li class="nav-item">
+                                    <a href="/settings/manage_service" class="nav-link">
+                                        <i class="fa-solid fa-folder-gear"></i>
+                                        <p>
+                                            Solutions
+                                        </p>
+                                    </a>
+                                </li>
+                            </ul>
+
+                            <ul class="nav nav-treeview ">
+                                <li class="nav-item">
+                                    <a href="/settings/manage_partner" class="nav-link">
+                                        <i class="fa-solid fa-handshake"></i>
+                                        <p>
+                                            Partners
+                                        </p>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="nav nav-treeview ">
+                                <li class="nav-item">
+                                    <a href="/settings/manage_team" class="nav-link">
+                                        <i class="fa-solid fa-people-group"></i>
+                                        <p>
+                                            Team
+                                        </p>
+                                    </a>
+                                </li>
+                            </ul>
+
+                            <ul class="nav nav-treeview ">
+                                <li class="nav-item">
+                                    <a href="/settings/manage_testimonial" class="nav-link">
+                                        <i class="fa-solid fa-comment-dots"></i>
+                                        <p>
+                                            Testimonials
+                                        </p>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="nav nav-treeview ">
+                                <li class="nav-item">
+                                    <a href="/settings/manage_social" class="nav-link">
+                                        <i class="fa-solid fa-link"></i>
+                                        <p>
+                                            Socials
+                                        </p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+
+
+                        <li class="nav-header">SETTINGS</li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fa-solid fa-users"></i>
+                                <p>
+                                    System Users
+                                    <i class="fa-solid fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview ">
+                                <li class="nav-item ">
+                                    <a href="/sys/system_user" class="nav-link">
+                                        <i class="fa-regular fa-circle nav-icon"></i>
+                                        <p>Manage Users</p>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="/sys/roles" class="nav-link">
+                                        <i class="fa-regular fa-circle nav-icon"></i>
+                                        <p>User Roles</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fa-solid fa-gear"></i>
+                                <p>
+                                    System Settings
+                                    <i class="fa-solid fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview ">
+                                <li class="nav-item ">
+                                    <a href="/settings/manage_country" class="nav-link">
+                                        <i class="fa-regular fa-circle nav-icon"></i>
+                                        <p>Manage Countries</p>
+                                    </a>
+                                </li>
+                            </ul>
+
+                        </li>
+
+                        <li class="nav-header">SUPPORT</li>
+                        <li class="nav-item menu-open">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fa-solid fa-headset"></i>
+                                <p>
+                                    Customer Support
+                                    <i class="fa-solid fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview ">
+                                <li class="nav-item ">
+                                    <a href="/support/customer_support" class="nav-link">
+                                        <i class="fa-regular fa-circle nav-icon"></i>
+                                        <p>Contact Support</p>
+                                    </a>
+                                </li>
+
+                                 <li class="nav-item ">
+                                    <a href="/support/contact_category" class="nav-link active">
+                                        <i class="fa-regular fa-circle nav-icon"></i>
+                                        <p>Manage Category</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        
+                    </ul>
+                </nav>
+                <!-- /.sidebar-menu -->
+            </div>
+            <!-- /.sidebar -->
+        </aside>
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <div class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1 class="m-0">Manage Category</h1>
+                        </div><!-- /.col -->
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a href="/sys/dashboard">Home</a></li>
+                                <li class="breadcrumb-item active">Manage Category</li>
+                            </ol>
+                        </div><!-- /.col -->
+                    </div><!-- /.row -->
+                </div><!-- /.container-fluid -->
+            </div>
+            <!-- /.content-header -->
+
+            <!-- Main content -->
+            <section class="content">
+                <div class="container-fluid">
+                    <!-- Info boxes -->
+                    <div class="row">
+                        <div class="col-12 col-sm-6 col-md-4">
+                            <div class="info-box mb-3">
+                                <span class="info-box-icon bg-gradient-dark elevation-1"><i
+                                        class="fa-solid fa-messages"></i></span>
+
+                                <div class="info-box-content">
+                                    <span class="info-box-text">Total Categories</span>
+                                    <span class="info-box-number">{{total_categories}}</span>
+                                </div>
+                                <!-- /.info-box-content -->
+                            </div>
+                            <!-- /.info-box -->
+                        </div>
+                        <!-- /.col -->
+                        <div class="col-12 col-sm-6 col-md-4">
+                            <div class="info-box mb-3">
+                                <span class="info-box-icon bg-success elevation-1"><i
+                                        class="fa-solid fa-circle-check"></i></span>
+
+                                <div class="info-box-content">
+                                    <span class="info-box-text">Active Categories</span>
+                                    <span class="info-box-number">{{active_categories}}</span>
+                                </div>
+                                <!-- /.info-box-content -->
+                            </div>
+                            <!-- /.info-box -->
+                        </div>
+                        <!-- /.col -->
+
+                        <!-- fix for small devices only -->
+                        <div class="clearfix hidden-md-up"></div>
+
+                        <!-- /.col -->
+                        <div class="col-12 col-sm-6 col-md-4">
+                            <div class="info-box mb-3">
+                                <span class="info-box-icon bg-danger elevation-1"><i
+                                        class="fa-solid fa-ban"></i></span>
+
+                                <div class="info-box-content">
+                                    <span class="info-box-text">Inactive Categories</span>
+                                    <span class="info-box-number">{{inactive_categories}}</span>
+                                </div>
+                                <!-- /.info-box-content -->
+                            </div>
+                            <!-- /.info-box -->
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                    <!-- /.row -->
+
+
+                    <!-- Table Card -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Available Categories</h3>
+                      <div class="d-flex justify-content-end">
+                        <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#addCategory">
+                          <i class="fa-solid fa-circle-plus"></i> Add Category
+                        </a>
+      
+                      </div>
+                        </div>
+                        <div class="card-body">
+                            <table id="example1" class="table table-bordered table-striped">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th>S/N</th>
+                                        <th>NAME</th>
+                                        <th>STATUS</th>
+                                        <th>ACTIONS</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for contact_category in sys_contact_categories %}
+                                    <tr>
+                                        <td>{{ loop.index }}</td>
+                                        <td>{{ contact_category.name }}</td>
+                                        <td>
+                                            {% if contact_category.status == 'active' %}
+                                            <span id="status-{{ contact_category.contact_category_id }}"
+                                                class="badge bg-success">ACTIVE</span>
+                                            {% elif contact_category.status == 'inactive' %}
+                                            <span id="status-{{ contact_category.contact_category_id }}"
+                                                class="badge bg-danger">INACTIVE</span>
+                                            {% else %}
+                                            <span id="status-{{ contact_category.contact_category_id }}"
+                                                class="badge bg-secondary">{{ contact_category.status }}</span>
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                        <button type="button" class="btn btn-sm btn-outline-primary" data-toggle="modal"
+                                            data-target="#editCategory{{ contact_category.contact_category_id }}">
+                                            <i class="fa fa-edit"></i> Edit
+                                        </button>
+                                            <button type="button" class="btn btn-sm btn-default"
+                                               onclick="deleteContactCategory('{{ contact_category.contact_category_id }}')">
+                                                <i class="fa-regular fa-trash-can"></i> Delete
+                                            </button>
+                                        </td>
+                                    </tr>
+
+                                    <!-- Edit Contact Category Modal -->
+<div class="modal fade" id="editCategory{{contact_category.contact_category_id}}" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="mb-2 text-center">Edit Contact Category</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      
+      <div class="modal-body">
+          <form id="edit_category_form_{{contact_category.contact_category_id}}" class="row g-6">
+                  <div class="form-row">
+                  
+                  <div class="col-12 col-md-6">
+                      <label class="form-label" for="name_{{contact_category.contact_category_id}}">Category Name</label>
+                      <input type="text" id="name_{{contact_category.contact_category_id}}" name="name" class="form-control" value="{{contact_category.name}}" required>
+                    </div>
+                    <!-- Status -->
+                    <div class="form-group col-md-6 mb-3">
+                        <label for="status_{{contact_category.contact_category_id}}">Status</label>
+                        <select class="form-control" id="status_{{contact_category.contact_category_id}}" name="status" required>
+                            <option value="active" {% if contact_category.status == 'active' %}selected{% endif %}>Active</option>
+                            <option value="inactive" {% if contact_category.status == 'inactive' %}selected{% endif %}>Inactive</option>
+                        </select>
+                    </div>
+                </div>
+        </form>
+      </div>
+
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+<button type="submit"
+        onclick="editContactCategory('{{contact_category.contact_category_id}}')"
+        class="btn btn-primary">
+    Submit
+</button>      </div>
+    </div>
+  </div>
+</div>
+<!-- Edit Contact Category Modal -->
+
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+
+<!-- Add Contact Category Modal -->
+<div class="modal fade" id="addCategory" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="mb-2 text-center">Register New Category</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <form id="add_category_form" class="row g-6">
+
+            <div class="col-12 col-md-6">
+            <label class="form-label" for="name">Category Name</label>
+            <input type="text" id="name" name="name" class="form-control" placeholder="Category Name" required>
+          </div>
+
+        </form>
+      </div>
+
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="submit" form="add_category_form" class="btn btn-primary">Submit</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Add Contact Category Modal -->
+
+
+                    </div>
+                </div>
+
+
+
+        </div><!--/. container-fluid -->
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+    </aside>
+    <!-- /.control-sidebar -->
+
+    <!-- Main Footer -->
+    <footer class="main-footer">
+
+        Copyright &copy;
+        <script>document.write(new Date().getFullYear())</script><strong><a href="/"> ContentPro</a></strong>. All
+        rights reserved.
+
+        <span class="float-right"> <a href="/sys/logout">Logout</a> |
+            <i class="fa-solid fa-power-off text-danger"></i>
+        </span>
+    </footer>
+    </div>
+    <!-- ./wrapper -->
+
+    <!-- REQUIRED SCRIPTS -->
+    <!-- jQuery -->
+    <script src="{{ url_for('static', filename='plugins/jquery/jquery.min.js')}}"></script>
+    <!-- Bootstrap -->
+    <script src="{{ url_for('static', filename='plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+    <!-- overlayScrollbars -->
+    <script
+        src="{{ url_for('static', filename='plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js')}}"></script>
+    <!-- AdminLTE App -->
+    <script src="{{ url_for('static', filename='dist/js/adminlte.js')}}"></script>
+
+    <!-- PAGE PLUGINS -->
+    <!-- jQuery Mapael -->
+    <script src="{{ url_for('static', filename='plugins/jquery-mousewheel/jquery.mousewheel.js')}}"></script>
+    <script src="{{ url_for('static', filename='plugins/raphael/raphael.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='plugins/jquery-mapael/jquery.mapael.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='plugins/jquery-mapael/maps/usa_states.min.js')}}"></script>
+    <!-- ChartJS -->
+    <script src="{{ url_for('static', filename='plugins/chart.js/Chart.min.js')}}"></script>
+    <!-- DataTables -->
+    <script src="{{ url_for('static', filename='plugins/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='plugins/jszip/jszip.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='plugins/pdfmake/pdfmake.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='plugins/pdfmake/vfs_fonts.js') }}"></script>
+    <script src="{{ url_for('static', filename='plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
+    <!-- ContentPro-JS -->
+    <script src="{{ url_for('static', filename='pageScript/support/customer_support.js')}}"></script>
+    <script src="{{ url_for('static', filename='plugins/sweetalert2/sweetalert2.all.min.js') }}"></script>
+<!-- Theme Toggle JavaScript -->
+<script src="{{ url_for('static', filename='dist/js/theme.js') }}"></script>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const addCategoryForm = document.getElementById("add_category_form");
+
+    if (!addCategoryForm) return;
+
+    addCategoryForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        const formData = new FormData(addCategoryForm);
+
+        fetch("/support/add_contact_category", {
+            method: "POST",
+            body: formData
+        })
+        .then(response => response.json())
+        .then(result => {
+            if (result.success) {
+                Swal.fire({
+                    title: "Success!",
+                    text: result.message,
+                    icon: "success",
+                    timer: 1500,
+                    confirmButtonColor: "#3085d6"
+                }).then(() => {
+                    addCategoryForm.reset();
+                    $("#addCategoryModal").modal("hide");
+                    window.location.reload();
+                });
+            } else {
+                Swal.fire({
+                    title: "Error!",
+                    text: result.message,
+                    icon: "error",
+                    confirmButtonColor: "#3085d6",
+                });
+            }
+        })
+        .catch(error => {
+            console.error(error);
+            Swal.fire({
+                title: "Error!",
+                text: "Something went wrong. Please try again.",
+                icon: "error",
+                confirmButtonColor: "#3085d6"
+            });
+        });
+    });
+
+});
+</script>
+<script>
+function editContactCategory(contactCategoryId) {
+    // Get values from modal inputs
+    const name = document.getElementById('name_' + contactCategoryId).value;
+    const status = document.getElementById('status_' + contactCategoryId).value;
+
+    // Basic validation
+    if (!name || !status) {
+        Swal.fire({
+            title: "Error!",
+            text: "All fields are required.",
+            icon: "error",
+            confirmButtonColor: "#3085d6"
+        });
+        return;
+    }
+
+    // Create FormData
+    const formData = new FormData();
+    formData.append("contact_category_id", contactCategoryId);
+    formData.append("name", name);
+    formData.append("status", status);
+
+    // Send to Flask route
+    fetch('/support/edit_contact_category', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(result => {
+        if (result.success) {
+            Swal.fire({
+                title: "Success!",
+                text: result.message,
+                icon: "success",
+                confirmButtonColor: "#3085d6",
+                timer: 1500
+            }).then(() => {
+                $('#editCategory' + contactCategoryId).modal('hide');
+                window.location.reload();
+            });
+        } else {
+            Swal.fire({
+                title: "Error!",
+                text: result.message,
+                icon: "error",
+                confirmButtonColor: "#3085d6",
+                allowOutsideClick: false
+            });
+        }
+    })
+    .catch(err => {
+        console.error(err);
+        Swal.fire({
+            title: "Error!",
+            text: "Something went wrong.",
+            icon: "error",
+            confirmButtonColor: "#3085d6"
+        });
+    });
+}
+</script>
+<script>
+// Delete contact category function
+function deleteContactCategory(contactCategoryId) {
+    Swal.fire({
+        title: "Are you sure?",
+        text: "This will permanently delete the category!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+    }).then((result) => {
+        if (result.isConfirmed) {
+
+            fetch('/support/delete_contact_category', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ contact_category_id: contactCategoryId })
+            })
+            .then(response => response.json())
+            .then(result => {
+                if (result.success) {
+                    Swal.fire({
+                        title: "Success!",
+                        text: result.message,
+                        icon: "success",
+                        timer: 1500,
+                        confirmButtonColor: "#3085d6"
+                    }).then(() => {
+                        window.location.reload();
+                    });
+                } else {
+                    Swal.fire({
+                        title: "Error!",
+                        text: result.message,
+                        icon: "error",
+                        confirmButtonColor: "#3085d6"
+                    });
+                }
+            })
+            .catch(err => {
+                console.error(err);
+                Swal.fire({
+                    title: "Error!",
+                    text: "Something went wrong!",
+                    icon: "error",
+                    confirmButtonColor: "#3085d6"
+                });
+            });
+
+        } else {
+            Swal.fire({
+                title: "Alright!",
+                text: "Everything is fine!",
+                icon: "info",
+                timer: 1500,
+                confirmButtonColor: "#3085d6"
+            });
+        }
+    });
+}
+</script>
+</body>
+
+</html>

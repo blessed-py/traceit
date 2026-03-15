@@ -1,0 +1,1305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TraceIt - Report Found Item</title>
+<meta name="author" content="blessedmatiko">
+<meta name="description" content="TraceIt helps you find your lost items and report found items. Smart lost and found platform for your community.">
+<meta name="keywords" content="lost and found, find lost items, report found items, trace it, lost items recovery">
+<meta name="robots" content="INDEX,FOLLOW">
+  <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='assets/img/logo_2.png') }}">
+
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="{{url_for('static', filename='assets/css/bootstrap.min.css')}}">
+    <!-- Fontawesome Icon -->
+    <link rel="stylesheet" href="{{url_for('static', filename='assets/css/fontawesome.min.css')}}">
+    <!-- Magnific Popup -->
+    <link rel="stylesheet" href="{{url_for('static', filename='assets/css/magnific-popup.min.css')}}">
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="{{url_for('static', filename='assets/css/swiper-bundle.min.css')}}">
+    <!-- Theme Custom CSS -->
+    <link rel="stylesheet" href="{{url_for('static', filename='assets/css/style.css')}}">
+        <!-- Font Awesome Pro v7.0.0 -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='fontawesome-pro/css/all.css') }}">
+<style>
+:root {
+  --navy: #0f2d52;
+  --blue: #1a4a8a;
+  --accent: #e8a020;
+  --light-bg: #f0f4fa;
+  --white: #ffffff;
+  --text: #1e2d3d;
+  --muted: #6b7f96;
+  --border: #d1dcea;
+  --success: #1a9e6e;
+  --step-inactive: #c5d3e8;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--light-bg);
+  font-family: 'DM Sans', sans-serif;
+  color: var(--text);
+  min-height: 100vh;
+}
+
+/* ── NAVBAR ── */
+.navbar {
+  background: var(--navy);
+  padding: 14px 0;
+  box-shadow: 0 2px 20px rgba(0,0,0,0.18);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.navbar-brand {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.6rem;
+  color: white !important;
+  letter-spacing: -0.5px;
+}
+
+.navbar-brand span {
+  color: var(--accent);
+}
+
+.navbar a.nav-link {
+  color: rgba(255,255,255,0.8) !important;
+  font-weight: 500;
+  font-size: 0.9rem;
+  letter-spacing: 0.3px;
+  padding: 6px 14px !important;
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+
+.navbar a.nav-link:hover {
+  color: white !important;
+  background: rgba(255,255,255,0.12);
+}
+
+/* ── PAGE HEADER ── */
+.page-header {
+  background: linear-gradient(135deg, var(--navy) 0%, var(--blue) 100%);
+  padding: 52px 0 90px;
+  position: relative;
+  overflow: hidden;
+}
+
+.page-header::before {
+  content: '';
+  position: absolute;
+  top: -60px; right: -60px;
+  width: 300px; height: 300px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.04);
+}
+
+.page-header::after {
+  content: '';
+  position: absolute;
+  bottom: -80px; left: 10%;
+  width: 200px; height: 200px;
+  border-radius: 50%;
+  background: rgba(232,160,32,0.08);
+}
+
+.page-header h1 {
+  font-family: 'Syne', sans-serif;
+  color: white;
+  font-size: 2.2rem;
+  margin-bottom: 8px;
+}
+
+.page-header p {
+  color: rgba(255,255,255,0.65);
+  font-size: 1rem;
+  max-width: 460px;
+}
+
+/* ── CARD ── */
+.form-card {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 12px 48px rgba(15,45,82,0.12);
+  padding: 40px 44px 44px;
+  margin-top: -52px;
+  position: relative;
+  z-index: 2;
+}
+
+/* ── PROGRESS STEPS ── */
+.steps-track {
+  display: flex;
+  align-items: center;
+  margin-bottom: 38px;
+}
+
+.step-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  position: relative;
+}
+
+.step-item:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  top: 18px;
+  left: 60%;
+  width: 80%;
+  height: 2px;
+  background: var(--step-inactive);
+  transition: background 0.4s;
+}
+
+.step-item.done:not(:last-child)::after,
+.step-item.active:not(:last-child)::after {
+  background: var(--blue);
+}
+
+.step-dot {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: var(--step-inactive);
+  color: white;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700;
+  font-size: 0.85rem;
+  transition: all 0.3s;
+  position: relative;
+  z-index: 1;
+}
+
+.step-item.active .step-dot {
+  background: var(--blue);
+  box-shadow: 0 0 0 5px rgba(26,74,138,0.18);
+}
+
+.step-item.done .step-dot {
+  background: var(--success);
+}
+
+.step-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--muted);
+  margin-top: 7px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  transition: color 0.3s;
+}
+
+.step-item.active .step-label,
+.step-item.done .step-label {
+  color: var(--text);
+}
+
+/* ── FORM STEPS ── */
+.form-step {
+  display: none;
+}
+
+.form-step.active {
+  display: block;
+}
+
+.step-heading {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+
+.step-subtext {
+  color: var(--muted);
+  font-size: 0.95rem;
+  margin-bottom: 30px;
+  line-height: 1.5;
+}
+
+/* ── FORM CONTROLS ── */
+.form-label {
+  font-weight: 600;
+  font-size: 0.92rem;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+.form-control {
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 0.95rem;
+  transition: all 0.2s;
+}
+
+.form-control:focus {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(26,74,138,0.1);
+  outline: none;
+}
+
+.form-select {
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 0.95rem;
+  transition: all 0.2s;
+}
+
+.form-select:focus {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(26,74,138,0.1);
+  outline: none;
+}
+
+/* ── CATEGORY PILLS ── */
+.category-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.category-pill {
+  padding: 8px 16px;
+  border: 1.5px solid var(--border);
+  border-radius: 20px;
+  background: var(--white);
+  color: var(--text);
+  font-size: 0.88rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.category-pill:hover {
+  border-color: var(--blue);
+  color: var(--blue);
+}
+
+.category-pill.selected {
+  background: var(--blue);
+  color: white;
+  border-color: var(--blue);
+}
+
+/* ── COLOR PALETTE ── */
+.color-palette {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.color-option {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  border-radius: 8px;
+  border: 2px solid var(--border);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.color-option:hover {
+  transform: translateY(-1px);
+  border-color: var(--blue);
+}
+
+.color-option:hover::after {
+  content: attr(title);
+  position: absolute;
+  bottom: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--text);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  white-space: nowrap;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.color-option.selected {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 2px rgba(26,74,138,0.3);
+}
+
+/* ── UPLOAD AREA ── */
+.upload-area {
+  border: 2px dashed var(--border);
+  border-radius: 12px;
+  padding: 30px 20px;
+  text-align: center;
+  background: var(--light-bg);
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.upload-area:hover {
+  border-color: var(--blue);
+  background: rgba(26,74,138,0.02);
+}
+
+.upload-icon {
+  font-size: 2.5rem;
+  color: var(--blue);
+  margin-bottom: 12px;
+}
+
+.upload-text {
+  color: var(--text);
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.upload-subtext {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+/* ── BUTTONS ── */
+.btn-nav {
+  background: var(--white);
+  color: var(--text);
+  border: 1.5px solid var(--border);
+  padding: 10px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.92rem;
+  transition: all 0.2s;
+}
+
+.btn-nav:hover {
+  background: var(--light-bg);
+  border-color: var(--blue);
+  color: var(--blue);
+}
+
+.btn-nav:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-primary-custom {
+  background: var(--blue);
+  color: white;
+  border: none;
+  padding: 12px 28px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.92rem;
+  transition: all 0.2s;
+}
+
+.btn-primary-custom:hover {
+  background: var(--navy);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(26,74,138,0.3);
+}
+
+/* ── REVIEW SUMMARY ── */
+.review-item {
+  background: var(--light-bg);
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 12px;
+}
+
+.review-label {
+  font-weight: 600;
+  color: var(--muted);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  margin-bottom: 4px;
+}
+
+.review-value {
+  color: var(--text);
+  font-size: 0.95rem;
+}
+
+/* ── SUCCESS SCREEN ── */
+.success-icon {
+  width: 80px;
+  height: 80px;
+  background: var(--success);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 24px;
+  color: white;
+  font-size: 2.2rem;
+}
+
+.success-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--text);
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.success-text {
+  color: var(--muted);
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  .form-card {
+    padding: 30px 24px;
+  }
+
+  .steps-track {
+    margin-bottom: 28px;
+  }
+
+  .step-label {
+    font-size: 0.65rem;
+  }
+
+  .step-dot {
+    width: 32px;
+    height: 32px;
+    font-size: 0.75rem;
+  }
+
+  .step-item:not(:last-child)::after {
+    left: 55%;
+    width: 70%;
+  }
+
+  .upload-area {
+    padding: 30px 16px;
+  }
+
+  .page-header h1 {
+    font-size: 1.8rem;
+  }
+}
+</style>
+</head>
+<body>
+
+
+<!--Header Area-->
+  <header class="th-header header-layout1">
+    <div class="sticky-wrapper">
+      <!-- Main Menu Area -->
+      <div class="menu-area">
+        <div class="container">
+          <div class="row align-items-center justify-content-between">
+            <div class="col-auto">
+              <div class="header-logo">
+                <a href="/">
+                  <img src="{{url_for('static', filename='assets/img/logo_3.png')}}" style="width: 200px; height: auto;" alt="TraceIt">
+                </a>
+              </div>
+            </div>
+<div class="col-auto">
+  <nav class="main-menu d-none d-lg-inline-block">
+    <ul>
+      <li>
+        <a class="fw-bold text-white link-primary" href="/">Home</a>
+      </li>
+            <li>
+        <a class="fw-bold text-white link-primary" href="/about">About Us</a>
+      </li>
+      <li>
+        <a class="fw-bold text-white link-primary" href="/report_lost">Report Lost Item</a>
+      </li>
+      <li>
+        <a class="fw-bold text-primary" href="/report_found">Report Found Item</a>
+      </li>
+      <li>
+        <a class="fw-bold text-white link-primary" href="/contact">Contact</a>
+      </li>
+    </ul>
+  </nav>
+
+                            <div class="header-button d-flex d-lg-none">
+                                <button type="button" class="th-menu-toggle icon-btn"><i class="far fa-bars"></i></button>
+                                
+                                <!-- Mobile Dropdown Menu -->
+                                <div class="mobile-menu-dropdown mt-2">
+                                    <div class="mobile-menu-content">
+                                        <ul>
+                                            <li><a  href="/">Home</a></li>
+                                            <li><a href="/about">About Us</a></li>
+                                            <li><a href="/report_lost">Report Lost Item</a></li>
+                                            <li><a class="text-primary" href="/report_found">Report Found Item</a></li>
+                                            <li><a href="/find_item">Find Your Item</a></li>
+                                            <li><a href="/contact">Contact Us</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+</div>
+                        <div class="col-auto d-xl-block d-none">
+                            <div class="header-button">
+                                <a href="/find_item" class="th-btn fw-bold" style="border-radius: 10px;">Find Your Item</a>
+
+                            </div>
+                        </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+<!-- PAGE HEADER -->
+<section class="page-header">
+  <div class="container text-center">
+  </div>
+</section>
+
+<!-- MAIN FORM CARD -->
+<div class="container" style="max-width:780px; padding: 60px 0 40px;">
+  <div class="mb-3">
+    <h2>Report A Found Item</h2>
+  </div>
+  <div class="form-card mt-3">
+
+    <!-- PROGRESS STEPS -->
+    <div class="steps-track" id="stepsTrack">
+      <div class="step-item active" data-step="1">
+        <div class="step-dot">1</div>
+        <span class="step-label">Item</span>
+      </div>
+      <div class="step-item" data-step="2">
+        <div class="step-dot">2</div>
+        <span class="step-label">Location</span>
+      </div>
+      <div class="step-item" data-step="3">
+        <div class="step-dot">3</div>
+        <span class="step-label">Contact</span>
+      </div>
+      <div class="step-item" data-step="4">
+        <div class="step-dot">4</div>
+        <span class="step-label">Review</span>
+      </div>
+    </div>
+
+    <form id="report_found_form" method="POST" action="/report_found" enctype="multipart/form-data" novalidate >
+
+      <!-- STEP 1: Item Details -->
+    <div class="form-step active" id="step1">
+      <div class="step-heading">What did you find?</div>
+      <div class="step-subtext">
+        Give us the details of the found item so the owner can identify it.
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label" for="item_name">
+          Item Name <span class="text-danger">*</span>
+        </label>
+
+        <input type="text" class="form-control" name="item_name" id="item_name" placeholder="e.g. Student ID Card" required>
+      </div>
+
+
+      <div class="mb-4">
+        <label class="form-label">
+          Category <span class="text-danger">*</span>
+        </label>
+
+        <div class="category-pills" id="category">
+
+          <button type="button" class="category-pill" data-category="Electronics">📱 Electronics</button>
+          <button type="button" class="category-pill" data-category="Wallet">👛 Wallet</button>
+          <button type="button" class="category-pill" data-category="Keys">🔑 Keys</button>
+          <button type="button" class="category-pill" data-category="Bag">👜 Bag</button>
+          <button type="button" class="category-pill" data-category="Documents">📄 Documents</button>
+          <button type="button" class="category-pill" data-category="Jewelry">💍 Jewelry</button>
+          <button type="button" class="category-pill" data-category="Clothing">👕 Clothing</button>
+          <button type="button" class="category-pill" data-category="ID Card">🪪 ID Card</button>
+          <button type="button" class="category-pill" data-category="Other">📦 Other</button>
+
+        </div>
+        <input type="hidden" name="category" id="category_input">
+
+      </div>
+
+
+      <div class="mb-4">
+
+        <label class="form-label">
+          Color <span class="text-danger">*</span>
+        </label>
+
+        <div class="color-palette" id="color">
+
+<div class="color-option" data-color="black" style="background:#000000">
+  <span class="color-tooltip">Black</span>
+</div>
+
+<div class="color-option" data-color="white" style="background:#FFFFFF;border:2px solid #e0e0e0">
+  <span class="color-tooltip">White</span>
+</div>
+
+<div class="color-option" data-color="red" style="background:#FF0000">
+  <span class="color-tooltip">Red</span>
+</div>
+
+<div class="color-option" data-color="blue" style="background:#0000FF">
+  <span class="color-tooltip">Blue</span>
+</div>
+
+<div class="color-option" data-color="green" style="background:#008000">
+  <span class="color-tooltip">Green</span>
+</div>
+
+<div class="color-option" data-color="yellow" style="background:#FFFF00">
+  <span class="color-tooltip">Yellow</span>
+</div>
+
+<div class="color-option" data-color="orange" style="background:#FFA500">
+  <span class="color-tooltip">Orange</span>
+</div>
+
+<div class="color-option" data-color="purple" style="background:#800080">
+  <span class="color-tooltip">Purple</span>
+</div>
+
+<div class="color-option" data-color="pink" style="background:#FFC0CB">
+  <span class="color-tooltip">Pink</span>
+</div>
+
+<div class="color-option" data-color="brown" style="background:#964B00">
+  <span class="color-tooltip">Brown</span>
+</div>
+
+<div class="color-option" data-color="gray" style="background:#808080">
+  <span class="color-tooltip">Gray</span>
+</div>
+
+<div class="color-option" data-color="silver" style="background:#C0C0C0">
+  <span class="color-tooltip">Silver</span>
+</div>
+
+<div class="color-option" data-color="gold" style="background:#FFD700">
+  <span class="color-tooltip">Gold</span>
+</div>
+
+        </div>
+        <input type="hidden" name="color" id="color_input">
+
+        <small class="text-muted">
+          Select the color of the found item
+        </small>
+
+      </div>
+
+      <div class="mb-4">
+        <label class="form-label">
+          Description <span class="text-danger">*</span>
+        </label>
+
+        <textarea class="form-control" id="description" name="description" rows="4"
+          placeholder="Describe the item in detail (brand, markings, etc.)" required></textarea>
+
+      </div>
+
+      <div class="mb-4">
+
+        <label class="form-label">
+          Upload Photo <span class="text-danger">*</span>
+        </label>
+
+        <div class="upload-area" id="uploadArea">
+
+          <div class="upload-icon">📸</div>
+          <div class="upload-text">Click to upload or drag and drop</div>
+          <div class="upload-subtext">PNG, JPG up to 10MB</div>
+
+          <input type="file" id="image" name="image" accept="image/*" style="display:none" required>
+          <p id="imageName" style="margin-top:8px;font-size:13px;color:#91a4d6;"></p>
+        </div>
+
+      </div>
+
+      <div class="d-flex justify-content-between">
+        <button type="button" class="btn-nav" disabled>
+          Previous
+        </button>
+
+        <button type="button" class="btn-primary-custom" onclick="nextStep()">
+          Next
+        </button>
+
+      </div>
+
+    </div>
+
+<!-- STEP 2: Location Details -->
+<div class="form-step" id="step2">
+
+  <div class="step-heading">Where did you find it?</div>
+  <div class="step-subtext">
+    Tell us where you found the item so the owner knows where to look.
+  </div>
+
+  <!-- GENERAL LOCATION -->
+  <div class="mb-3">
+    <label class="form-label">
+      Location <span class="text-danger">*</span>
+    </label>
+
+    <input 
+      type="text"
+      class="form-control"
+      id="buildingName"
+      name="location"
+      placeholder="e.g. University Library"
+      required
+    >
+  </div>
+
+  <!-- SPECIFIC LOCATION -->
+  <div class="mb-3">
+    <label class="form-label">
+      Specific Location <span class="text-danger">*</span>
+    </label>
+
+    <input 
+      type="text"
+      class="form-control"
+      id="specificLocation"
+      name="specific_location"
+      placeholder="e.g. Near the entrance desk"
+      required
+    >
+
+
+    <button type="button" class="btn btn-primary mt-2" style="border-radius: 10px;">
+      <i class="fa-solid fa-location-dot"></i> Current Location
+    </button>
+
+  </div>
+
+  <!-- HIDDEN GPS COORDINATES -->
+  <input type="hidden" name="latitude" id="latitude">
+  <input type="hidden" name="longitude" id="longitude">
+
+  <!-- DATE FOUND -->
+  <div class="mb-4">
+    <label class="form-label">
+      Date Found <span class="text-danger">*</span>
+    </label>
+
+    <input 
+      type="date"
+      class="form-control"
+      id="dateFound"
+      name="date_found"
+      required
+    >
+  </div>
+
+  <!-- TIME FOUND -->
+  <div class="mb-4">
+    <label class="form-label">
+      Approximate Time Found
+    </label>
+
+    <input 
+      type="time"
+      class="form-control col-6"
+      id="timeFound"
+      name="time_found"
+    >
+  </div>
+
+  <!-- NAVIGATION -->
+  <div class="d-flex justify-content-between">
+
+    <button type="button" class="btn-nav" onclick="prevStep()">
+      Previous
+    </button>
+
+    <button type="button" class="btn-primary-custom" onclick="nextStep()">
+      Next
+    </button>
+
+  </div>
+
+</div>
+
+<!-- STEP 3: Contact Details -->
+<div class="form-step" id="step3">
+
+  <div class="step-heading">How can the owner contact you?</div>
+  <div class="step-subtext">
+    Provide your contact information so the item owner can reach you.
+  </div>
+
+  <!-- FINDER NAME -->
+  <div class="mb-3">
+    <label class="form-label">
+      Your Name <span class="text-danger">*</span>
+    </label>
+
+    <input
+      type="text"
+      class="form-control"
+      id="finder_name"
+      name="finder_name"
+      placeholder="Your full name"
+      required
+    >
+  </div>
+
+  <!-- EMAIL -->
+  <div class="mb-3">
+    <label class="form-label">
+      Email Address <span class="text-danger">*</span>
+    </label>
+
+    <input
+      type="email"
+      class="form-control"
+      id="finder_email"
+      name="finder_email"
+      placeholder="your.email@example.com"
+      required
+    >
+  </div>
+
+  <!-- PHONE -->
+  <div class="mb-3">
+    <label class="form-label">
+      Phone Number <span class="text-danger">*</span>
+    </label>
+
+    <input
+      type="tel"
+      class="form-control"
+      id="finder_phone_number"
+      name="finder_phone_number"
+      placeholder="+91 98765 43210"
+      required
+    >
+  </div>
+
+  <!-- PREFERRED CONTACT METHOD -->
+  <div class="mb-4">
+    <label class="form-label">
+      Preferred Contact Method
+    </label>
+
+    <select
+      class="form-select"
+      id="preferred_contact"
+      name="preferred_contact"
+    >
+      <option value="email">Email</option>
+      <option value="phone">Phone</option>
+      <option value="whatsapp">WhatsApp</option>
+      <option value="either">Either Email or Phone</option>
+    </select>
+  </div>
+
+  <!-- ADDITIONAL NOTES -->
+  <div class="mb-4">
+    <label class="form-label">
+      Additional Notes (Optional)
+    </label>
+
+    <textarea
+      class="form-control"
+      id="additional_notes"
+      name="additional_notes"
+      rows="3"
+      placeholder="Any additional information that might help identify the owner"
+    ></textarea>
+  </div>
+
+  <!-- NAVIGATION -->
+  <div class="d-flex justify-content-between">
+
+    <button
+      type="button"
+      class="btn-nav"
+      onclick="prevStep()"
+    >
+      Previous
+    </button>
+
+<button type="button" class="btn-nav" onclick="nextStep()">
+Next
+    </button>
+
+  </div>
+
+</div>
+
+<!-- STEP 4: Review & Submit -->
+<div class="form-step" id="step4">
+
+  <div class="step-heading">Review Your Report</div>
+  <div class="step-subtext">
+    Please review all the information before submitting your report.
+  </div>
+
+  <div class="review-item">
+    <div class="review-label">Item Name</div>
+    <div class="review-value" id="review_item_name">-</div>
+  </div>
+
+  <div class="review-item">
+    <div class="review-label">Category</div>
+    <div class="review-value" id="review_category">-</div>
+  </div>
+
+  <div class="review-item">
+    <div class="review-label">Primary Color</div>
+    <div class="review-value" id="review_color">-</div>
+  </div>
+
+  <div class="review-item">
+    <div class="review-label">Description</div>
+    <div class="review-value" id="review_description">-</div>
+  </div>
+
+  <div class="review-item">
+    <div class="review-label">Location Found</div>
+    <div class="review-value" id="review_location">-</div>
+  </div>
+
+  <div class="review-item">
+    <div class="review-label">Date Found</div>
+    <div class="review-value" id="review_date_found">-</div>
+  </div>
+
+  <div class="review-item">
+    <div class="review-label">Your Name</div>
+    <div class="review-value" id="review_finder_name">-</div>
+  </div>
+
+  <div class="review-item">
+    <div class="review-label">Contact Email</div>
+    <div class="review-value" id="review_finder_email">-</div>
+  </div>
+
+  <div class="review-item">
+    <div class="review-label">Contact Phone</div>
+    <div class="review-value" id="review_finder_phone_number">-</div>
+  </div>
+
+  <!-- TERMS -->
+  <div class="mb-3">
+
+    <div class="form-check">
+
+      <input
+        class="form-check-input"
+        type="checkbox"
+        id="terms_check"
+        name="terms_check"
+        required
+      >
+
+      <label class="form-check-label" for="terms_check">
+        I confirm that this information is accurate to the best of my knowledge
+      </label>
+
+    </div>
+
+  </div>
+
+  <!-- NAVIGATION -->
+  <div class="d-flex justify-content-between">
+
+    <button
+      type="button"
+      class="btn-nav"
+      onclick="prevStep()"
+    >
+      Previous
+    </button>
+
+    <button
+      type="submit"
+      class="btn-primary-custom"
+    >
+      Submit Report
+    </button>
+
+  </div>
+
+</div>
+
+    </form>
+
+    <!-- SUCCESS SCREEN (Hidden by default) -->
+    <div id="successScreen" style="display: none;">
+      <div class="success-icon">✓</div>
+      <div class="success-title">Report Submitted Successfully!</div>
+      <div class="success-text">Thank you for helping someone find their lost item. We'll notify you if someone claims this item.</div>
+      <div class="text-center">
+        <a href="/find_item" class="btn-primary-custom">Browse Other Items</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="{{ url_for('static', filename='plugins/sweetalert2/sweetalert2.all.min.js') }}"></script>
+
+    <!-- Jquery -->
+    <script src="{{url_for('static', filename='assets/js/vendor/jquery-3.7.1.min.js')}}"></script>
+    <!-- Swiper Js -->
+    <script src="{{url_for('static', filename='assets/js/swiper-bundle.min.js')}}"></script>
+    <!-- Bootstrap -->
+    <script src="{{url_for('static', filename='assets/js/bootstrap.min.js')}}"></script>
+    <!-- Magnific Popup -->
+    <script src="{{url_for('static', filename='assets/js/jquery.magnific-popup.min.js')}}"></script>
+    <!-- Counter Up -->
+    <script src="{{url_for('static', filename='assets/js/jquery.counterup.min.js')}}"></script>
+    <!-- Range Slider -->
+    <script src="{{url_for('static', filename='assets/js/jquery-ui.min.js')}}"></script>
+    <!-- Isotope Filter -->
+    <script src="{{url_for('static', filename='assets/js/imagesloaded.pkgd.min.js')}}"></script>
+    <script src="{{url_for('static', filename='assets/js/isotope.pkgd.min.js')}}"></script>
+    <!-- Cue Js -->
+    <script src="{{url_for('static', filename='assets/js/scrollCue.min.js')}}"></script>
+    <!-- Gsap -->
+    <script src="{{url_for('static', filename='assets/js/gsap.min.js')}}"></script>
+    <!-- Scroll Trigger -->
+    <script src="{{url_for('static', filename='assets/js/ScrollTrigger.min.js')}}"></script>
+    <!-- Split Text -->
+    <script src="{{url_for('static', filename='assets/js/SplitText.min.js')}}"></script>
+    <!-- Lenis Js -->
+    <script src="{{url_for('static', filename='assets/js/lenis.min.js')}}"></script>
+
+    <!-- Perticle Js -->
+    <script src="{{url_for('static', filename='assets/js/particles.min.js')}}"></script>
+    <script src="{{url_for('static', filename='assets/js/particles-config.js')}}"></script>
+
+    <!-- Main Js File -->
+    <script src="{{url_for('static', filename='assets/js/main.js')}}"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    
+    const reportForm = document.getElementById("report_found_form");
+    const imageInput = document.getElementById("image");
+    const imageName = document.getElementById("imageName");
+    const uploadArea = document.getElementById("uploadArea");
+    
+    /* IMAGE NAME DISPLAY */
+    if (imageInput) {
+      imageInput.addEventListener("change", function () {
+        if (this.files.length > 0) {
+          imageName.textContent = "Selected: " + this.files[0].name;
+        } else {
+          imageName.textContent = "";
+        }
+      });
+    }
+    
+    /* DATE DEFAULT */
+    const dateFound = document.getElementById("dateFound");
+    if (dateFound) {
+      const today = new Date().toISOString().split("T")[0];
+      dateFound.value = today;
+      dateFound.max = today;
+    }
+    
+    /* CATEGORY SELECT */
+    const categoryPills = document.querySelectorAll(".category-pill");
+    const categoryInput = document.getElementById("category_input");
+    
+    categoryPills.forEach(pill => {
+      pill.addEventListener("click", function () {
+        categoryPills.forEach(p => p.classList.remove("selected"));
+        this.classList.add("selected");
+        if (categoryInput) categoryInput.value = this.dataset.category;
+      });
+    });
+    
+    /* COLOR SELECT */
+    const colorOptions = document.querySelectorAll(".color-option");
+    const colorInput = document.getElementById("color_input");
+    
+    colorOptions.forEach(color => {
+      color.addEventListener("click", function () {
+        colorOptions.forEach(c => c.classList.remove("selected"));
+        this.classList.add("selected");
+        if (colorInput) colorInput.value = this.dataset.color;
+      });
+    });
+    
+    /* IMAGE UPLOAD CLICK + DRAG */
+    if (uploadArea && imageInput) {
+      uploadArea.addEventListener("click", () => imageInput.click());
+      uploadArea.addEventListener("dragover", function (e) {
+        e.preventDefault();
+        uploadArea.style.borderColor = "#183d69";
+      });
+      uploadArea.addEventListener("dragleave", function () {
+        uploadArea.style.borderColor = "#ddd";
+      });
+      uploadArea.addEventListener("drop", function (e) {
+        e.preventDefault();
+        const files = e.dataTransfer.files;
+        if (files.length > 0) {
+          imageInput.files = files;
+          imageName.textContent = "📎 " + files[0].name;
+        }
+        uploadArea.style.borderColor = "#ddd";
+      });
+    }
+    
+    /* FORM SUBMIT VIA AJAX WITH SWEETALERT + REDIRECT */
+    if (reportForm) {
+      reportForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+        
+        // TERMS CHECK
+        const termsCheck = document.getElementById("terms_check");
+        if (!termsCheck.checked) {
+          Swal.fire({
+            icon: "warning",
+            title: "Confirmation Required",
+            text: "Please confirm the information is accurate."
+          });
+          return false;
+        }
+        
+        // VALIDATE CURRENT STEP BEFORE SUBMIT
+        if (!validateStep(currentStep)) return false;
+        
+        const formData = new FormData(reportForm);
+        
+        fetch("/report_item_found", {
+          method: "POST",
+          body: formData
+        })
+        .then(res => res.json())
+        .then(data => {
+          if (data.success) {
+            Swal.fire({
+              icon: "success",
+              title: "Report Submitted",
+              text: "Thank you for reporting the found item.",
+              timer: 1500,
+              confirmButtonColor: "#183d69"
+            }).then(() => {
+              window.location.href = "/report_found/thank_you";
+            });
+          } else {
+            Swal.fire({
+              icon: "error",
+              title: "Error",
+              text: data.feedback || "Something went wrong"
+            });
+          }
+        })
+        .catch(err => {
+          console.error(err);
+          Swal.fire({
+            icon: "error",
+            title: "Server Error",
+            text: "Could not submit the report."
+          });
+        });
+        
+      });
+    }
+    
+  });
+  
+  /* STEP CONTROL */
+  let currentStep = 1;
+  function nextStep() {
+    if (!validateStep(currentStep)) return;
+    if (currentStep < 4) {
+      document.querySelector(`.step-item[data-step="${currentStep}"]`).classList.remove("active");
+      document.querySelector(`.step-item[data-step="${currentStep}"]`).classList.add("done");
+      document.getElementById(`step${currentStep}`).classList.remove("active");
+      currentStep++;
+      document.querySelector(`.step-item[data-step="${currentStep}"]`).classList.add("active");
+      document.getElementById(`step${currentStep}`).classList.add("active");
+      if (currentStep === 4) updateReviewData();
+    }
+  }
+  function prevStep() {
+    if (currentStep > 1) {
+      document.querySelector(`.step-item[data-step="${currentStep}"]`).classList.remove("active");
+      document.getElementById(`step${currentStep}`).classList.remove("active");
+      currentStep--;
+      document.querySelector(`.step-item[data-step="${currentStep}"]`).classList.remove("done");
+      document.querySelector(`.step-item[data-step="${currentStep}"]`).classList.add("active");
+      document.getElementById(`step${currentStep}`).classList.add("active");
+    }
+  }
+  
+  /* VALIDATION */
+  function validateStep(step) {
+    if (step === 1) {
+      const itemName = document.getElementById("item_name").value.trim();
+      const description = document.getElementById("description").value.trim();
+      const image = document.getElementById("image");
+      if (!itemName) { Swal.fire({icon:"warning", title:"Item Name Required", text:"Please enter the name of the item."}); return false; }
+      if (!description) { Swal.fire({icon:"warning", title:"Description Required", text:"Please describe the item."}); return false; }
+      if (!image.files.length) { Swal.fire({icon:"warning", title:"Image Required", text:"Please upload an image."}); return false; }
+    }
+    if (step === 2) {
+      const building = document.getElementById("buildingName").value.trim();
+      const location = document.getElementById("specificLocation").value.trim();
+      if (!building || !location) { Swal.fire({icon:"warning", title:"Location Required", text:"Please enter where the item was found."}); return false; }
+    }
+    if (step === 3) {
+      const email = document.getElementById("finder_email").value.trim();
+      const phone = document.getElementById("finder_phone_number").value.trim();
+      if (!email) { Swal.fire({icon:"warning", title:"Email Required", text:"Please enter your email."}); return false; }
+      if (!validateEmail(email)) { Swal.fire({icon:"error", title:"Invalid Email", text:"Please enter a valid email address."}); return false; }
+      if (!phone) { Swal.fire({icon:"warning", title:"Phone Required", text:"Please enter your phone number."}); return false; }
+    }
+    return true;
+  }
+  
+  /* EMAIL VALIDATION */
+  function validateEmail(email) {
+    const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return pattern.test(email);
+  }
+  
+  /* REVIEW STEP */
+  function updateReviewData() {
+    const selectedCategory = document.querySelector(".category-pill.selected");
+    const selectedColor = document.querySelector(".color-option.selected");
+    document.getElementById("review_item_name").textContent = document.getElementById("item_name").value || "-";
+    document.getElementById("review_category").textContent = selectedCategory ? selectedCategory.textContent : "-";
+    document.getElementById("review_color").textContent = selectedColor ? selectedColor.dataset.color : "-";
+    document.getElementById("review_description").textContent = document.getElementById("description").value || "-";
+    document.getElementById("review_location").textContent = document.getElementById("buildingName").value + " - " + document.getElementById("specificLocation").value;
+    document.getElementById("review_date_found").textContent = document.getElementById("dateFound").value || "-";
+    document.getElementById("review_finder_name").textContent = document.getElementById("finder_name").value || "-";
+    document.getElementById("review_finder_email").textContent = document.getElementById("finder_email").value || "-";
+    document.getElementById("review_finder_phone_number").textContent = document.getElementById("finder_phone_number").value || "-";
+  }
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,59 @@
+/*=================================
+    TraceIt Mobile Dropdown Menu
+==================================*/
+.mobile-menu-dropdown {
+    display: block;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: white;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    z-index: 1000;
+    min-width: 250px;
+    border-radius: 8px;
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    transform: translateY(-10px);
+}
+
+.mobile-menu-dropdown.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.mobile-menu-content ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.mobile-menu-content li {
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.mobile-menu-content li:last-child {
+    border-bottom: none;
+}
+
+.mobile-menu-content a {
+    display: block;
+    padding: 12px 20px;
+    text-decoration: none;
+    color: #333;
+    font-weight: 600;
+    transition: background 0.3s ease;
+    font-size: 14px;
+}
+
+.mobile-menu-content a:hover {
+    background: #f8f9fa;
+    color: #667eea;
+}
+
+/* Position dropdown relative to header button */
+.header-button {
+    position: relative !important;
+}

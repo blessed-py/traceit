@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TraceIt | Log In</title>
+  <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='assets/img/logo_1.png') }}">
+
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome Pro v7 -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='fontawesome-pro/css/all.css') }}">
+  <!-- icheck bootstrap -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='dist/css/adminlte.min.css')}}">
+</head>
+<body class="hold-transition login-page">
+<div class="login-box">
+  <!-- /.login-logo -->
+  <div class="card card-outline card-primary">
+<div class="card-header text-center">
+  <img src="{{ url_for('static', filename='assets/img/logo_1.png')}}" 
+       style="width:150px; height:auto;" 
+       alt="Logo">
+</div>
+    <div class="card-body">
+      <p class="login-box-msg">Sign in to start your session.</p>
+
+
+      <form action="/sys/dashboard" id="login_form" method="post">
+        <div class="input-group mb-3">
+          <input type="email" class="form-control" name="email" placeholder="Email" autofocus required>
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fa-solid fa-envelope"></span>
+            </div>
+          </div>
+        </div>
+<div class="input-group mb-3">
+  <input type="password" class="form-control" id="passwordInput" name="password" placeholder="Password" required>
+  <div class="input-group-append">
+    <div class="input-group-text">
+      <span id="togglePassword" class="fa-solid fa-eye" style="cursor: pointer;"></span>
+    </div>
+  </div>
+</div>
+  
+          <div class="col-8">
+            <div class="icheck-primary form-con">
+              <input type="checkbox" id="remember">
+              <label for="remember">
+                Remember Me
+              </label>
+            </div>
+          </div>
+                        <div class="text-center mb-3">
+                <span class="text-danger" id="login-status"></span>
+
+              </div>
+       
+            <div class="d-flex justify-content-center mt-4">
+            <button type="submit" class="btn btn-primary" style="width: 120px; padding: 6px 0;">Sign In</button>
+            </div>
+           
+      </form>
+
+
+
+      <p class="mb-1 mt-3">
+        <a href="/sys/forgot_password">Forgot password?</a>
+      </p>
+
+    </div>
+    <!-- /.card-body -->
+  </div>
+  <!-- /.card -->
+</div>
+<!-- /.login-box -->
+
+<!-- jQuery -->
+<script src="{{ url_for('static', filename='plugins/jquery/jquery.min.js')}}"></script>
+<!-- Bootstrap 4 -->
+<script src="{{ url_for('static', filename='plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+<!-- AdminLTE App -->
+<script src="{{ url_for('static', filename='dist/js/adminlte.min.js')}}"></script>
+<!-- ContentPro-JS -->
+<script src="{{ url_for('static', filename='pageScript/login.js')}}"></script>
+</body>
+</html>

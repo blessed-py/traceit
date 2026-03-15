@@ -1,0 +1,77 @@
+@use 'base/variable' as *;
+@use 'base/mixin' as *;
+
+/* Food-supplements ---------------------------------- */
+.food-supplements-sec1 {
+    background: #F2EAEA;
+    position: relative;
+    padding: 175px 0 185px;
+    margin: 0 60px;
+
+    @include lg {
+        margin: 0 30px;
+    }
+
+    @include xs {
+        margin: 0 15px;
+    }
+}
+
+.food-supplements1-top {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+}
+
+.food-supplements1-bottom {
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    width: 100%;
+}
+
+.food-supplements-card {
+    text-align: center;
+
+    &:hover {
+        .box-title {
+            color: var(--theme-color);
+        }
+    }
+
+    .box-icon {
+        margin-bottom: 32px;
+    }
+
+    .box-title {
+        font-weight: 500;
+        color: #372121;
+        margin-bottom: 0;
+    }
+}
+
+@include ml {
+    .food-supplements-sec1 {
+        padding: 120px 0 120px;
+    }
+}
+
+@include lg {
+    .food-supplements-card .box-icon {
+        margin-bottom: 20px;
+    }
+}
+
+@include md {
+    .food-supplements-sec1 {
+        padding: 75px 0;
+    }
+    .food-supplements1-top {
+        display: none;
+    }
+
+    .food-supplements1-bottom {
+        display: none;
+    }
+}

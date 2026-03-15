@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TraceIt - Report Lost Item</title>
+<meta name="author" content="blessedmatiko">
+<meta name="description" content="TraceIt helps you find your lost items and report found items. Smart lost and found platform for your community.">
+<meta name="keywords" content="lost and found, find lost items, report found items, trace it, lost items recovery">
+<meta name="robots" content="INDEX,FOLLOW">
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="{{url_for('static', filename='assets/css/bootstrap.min.css')}}">
+    <!-- Fontawesome Icon -->
+    <link rel="stylesheet" href="{{url_for('static', filename='assets/css/fontawesome.min.css')}}">
+    <!-- Magnific Popup -->
+    <link rel="stylesheet" href="{{url_for('static', filename='assets/css/magnific-popup.min.css')}}">
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="{{url_for('static', filename='assets/css/swiper-bundle.min.css')}}">
+    <!-- Theme Custom CSS -->
+    <link rel="stylesheet" href="{{url_for('static', filename='assets/css/style.css')}}">
+        <!-- Font Awesome Pro v7.0.0 -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='fontawesome-pro/css/all.css') }}">
+<style>
+:root {
+  --navy: #0f2d52;
+  --blue: #1a4a8a;
+  --accent: #e8a020;
+  --light-bg: #f0f4fa;
+  --white: #ffffff;
+  --text: #1e2d3d;
+  --muted: #6b7f96;
+  --border: #d1dcea;
+  --success: #1a9e6e;
+  --step-inactive: #c5d3e8;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--light-bg);
+  font-family: 'DM Sans', sans-serif;
+  color: var(--text);
+  min-height: 100vh;
+}
+
+/* ── NAVBAR ── */
+.navbar {
+  background: var(--navy);
+  padding: 14px 0;
+  box-shadow: 0 2px 20px rgba(0,0,0,0.18);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.navbar-brand {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.6rem;
+  color: white !important;
+  letter-spacing: -0.5px;
+}
+
+.navbar-brand span {
+  color: var(--accent);
+}
+
+.navbar a.nav-link {
+  color: rgba(255,255,255,0.8) !important;
+  font-weight: 500;
+  font-size: 0.9rem;
+  letter-spacing: 0.3px;
+  padding: 6px 14px !important;
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+
+.navbar a.nav-link:hover {
+  color: white !important;
+  background: rgba(255,255,255,0.12);
+}
+
+/* ── PAGE HEADER ── */
+.page-header {
+  background: linear-gradient(135deg, var(--navy) 0%, var(--blue) 100%);
+  padding: 52px 0 90px;
+  position: relative;
+  overflow: hidden;
+}
+
+.page-header::before {
+  content: '';
+  position: absolute;
+  top: -60px; right: -60px;
+  width: 300px; height: 300px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.04);
+}
+
+.page-header::after {
+  content: '';
+  position: absolute;
+  bottom: -80px; left: 10%;
+  width: 200px; height: 200px;
+  border-radius: 50%;
+  background: rgba(232,160,32,0.08);
+}
+
+.page-header h1 {
+  font-family: 'Syne', sans-serif;
+  color: white;
+  font-size: 2.2rem;
+  margin-bottom: 8px;
+}
+
+.page-header p {
+  color: rgba(255,255,255,0.65);
+  font-size: 1rem;
+  max-width: 460px;
+}
+
+/* ── CARD ── */
+.form-card {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 12px 48px rgba(15,45,82,0.12);
+  padding: 40px 44px 44px;
+  margin-top: -52px;
+  position: relative;
+  z-index: 2;
+}
+
+/* ── PROGRESS STEPS ── */
+.steps-track {
+  display: flex;
+  align-items: center;
+  margin-bottom: 38px;
+}
+
+.step-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  position: relative;
+}
+
+.step-item:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  top: 18px;
+  left: 60%;
+  width: 80%;
+  height: 2px;
+  background: var(--step-inactive);
+  transition: background 0.4s;
+}
+
+.step-item.done:not(:last-child)::after,
+.step-item.active:not(:last-child)::after {
+  background: var(--blue);
+}
+
+.step-dot {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: var(--step-inactive);
+  color: white;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700;
+  font-size: 0.85rem;
+  transition: all 0.3s;
+  position: relative;
+  z-index: 1;
+}
+
+.step-item.active .step-dot {
+  background: var(--blue);
+  box-shadow: 0 0 0 5px rgba(26,74,138,0.18);
+}
+
+.step-item.done .step-dot {
+  background: var(--success);
+}
+
+.step-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--muted);
+  margin-top: 7px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  transition: color 0.3s;
+}
+
+.step-item.active .step-label {
+  color: var(--blue);
+}
+
+.step-item.done .step-label {
+  color: var(--success);
+}
+
+/* ── FORM STEPS ── */
+.form-step { display: none; animation: fadeSlide 0.35s ease; }
+.form-step.active { display: block; }
+
+@keyframes fadeSlide {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.step-heading {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.35rem;
+  color: var(--navy);
+  margin-bottom: 6px;
+}
+
+.step-subtext {
+  color: var(--muted);
+  font-size: 0.88rem;
+  margin-bottom: 28px;
+}
+
+/* ── FORM CONTROLS ── */
+.form-label {
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--text);
+  margin-bottom: 6px;
+  display: block;
+}
+
+.form-control, .form-select {
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 0.92rem;
+  color: var(--text);
+  background: #fafcff;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-control:focus, .form-select:focus {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 4px rgba(26,74,138,0.1);
+  background: white;
+  outline: none;
+}
+
+textarea.form-control { resize: vertical; min-height: 100px; }
+
+/* File upload */
+.file-upload-area {
+  border: 2px dashed var(--border);
+  border-radius: 10px;
+  padding: 28px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  background: #fafcff;
+  position: relative;
+}
+
+.file-upload-area:hover {
+  border-color: var(--blue);
+  background: #f0f5ff;
+}
+
+.file-upload-area input[type="file"] {
+  position: absolute; inset: 0;
+  opacity: 0; cursor: pointer; width: 100%; height: 100%;
+}
+
+.file-upload-area i { font-size: 2rem; color: var(--blue); margin-bottom: 8px; display: block; }
+.file-upload-area p { color: var(--muted); font-size: 0.85rem; margin: 0; }
+.file-upload-area strong { color: var(--text); }
+
+/* Category pills */
+.category-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 4px;
+}
+
+.category-pill {
+  border: 1.5px solid var(--border);
+  border-radius: 30px;
+  padding: 6px 16px;
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.2s;
+  background: #fafcff;
+  display: flex; align-items: center; gap: 6px;
+}
+
+.category-pill:hover { border-color: var(--blue); color: var(--blue); background: #f0f5ff; }
+.category-pill.selected { border-color: var(--blue); background: var(--blue); color: white; }
+
+.category-pill i { font-size: 1rem; }
+
+/* ── REVIEW BOX ── */
+.review-section {
+  background: var(--light-bg);
+  border-radius: 10px;
+  padding: 20px 22px;
+  margin-bottom: 18px;
+}
+
+.review-section h6 {
+  font-family: 'Syne', sans-serif;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--muted);
+  margin-bottom: 14px;
+}
+
+.review-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.88rem;
+  padding: 5px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.review-row:last-child { border-bottom: none; }
+.review-row span:first-child { color: var(--muted); }
+.review-row span:last-child { font-weight: 600; color: var(--text); }
+
+/* ── BUTTONS ── */
+.btn-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 32px;
+}
+
+.btn-primary-custom {
+  background: var(--blue);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 11px 28px;
+  font-weight: 600;
+  font-size: 0.92rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.btn-primary-custom:hover { background: var(--navy); transform: translateY(-1px); }
+
+.btn-secondary-custom {
+  background: transparent;
+  color: var(--muted);
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 22px;
+  font-weight: 600;
+  font-size: 0.92rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.btn-secondary-custom:hover { border-color: var(--navy); color: var(--navy); }
+
+.btn-success-custom {
+  background: var(--success);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 32px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s;
+  font-family: 'DM Sans', sans-serif;
+  letter-spacing: 0.3px;
+}
+
+.btn-success-custom:hover { background: #158a5e; transform: translateY(-1px); }
+
+/* ── SUCCESS STATE ── */
+.success-state {
+  text-align: center;
+  padding: 30px 20px;
+  display: none;
+}
+
+.success-icon {
+  width: 80px; height: 80px;
+  background: linear-gradient(135deg, #1a9e6e, #12c480);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 20px;
+  box-shadow: 0 8px 24px rgba(26,158,110,0.3);
+}
+
+.success-icon i { font-size: 2.5rem; color: white; }
+
+/* ── FOOTER ── */
+footer {
+  background: var(--navy);
+  color: #9eb3cc;
+  padding: 52px 0 30px;
+  margin-top: 80px;
+}
+
+footer h5 {
+  font-family: 'Syne', sans-serif;
+  color: white;
+  margin-bottom: 14px;
+}
+
+footer h5 span { color: var(--accent); }
+
+footer h6 {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: rgba(255,255,255,0.5);
+  margin-bottom: 14px;
+}
+
+footer a {
+  color: #8aa5c0;
+  text-decoration: none;
+  font-size: 0.9rem;
+  display: block;
+  margin-bottom: 8px;
+  transition: color 0.2s;
+}
+
+footer a:hover { color: white; }
+
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,0.08);
+  margin-top: 40px;
+  padding-top: 20px;
+  text-align: center;
+  font-size: 0.82rem;
+  color: rgba(255,255,255,0.3);
+}
+
+@media (max-width: 600px) {
+  .form-card { padding: 24px 18px; }
+  .step-label { display: none; }
+}
+</style>
+</head>
+
+<body>
+<div class="cursor-follower"></div>
+
+    <!--Preloader-->
+    <div class="preloader ">
+        <div class="preloader-inner">
+            <div class="bounce">
+                <img src="{{url_for('static', filename='assets/img/logo_1.png')}}" style="width: 200px; height: auto;" alt="img">
+            </div>
+            <span class="loader">
+                TraceIt
+                <span class="loading-text">TraceIt</span>
+            </span>
+        </div>
+    </div>
+
+
+<!--Header Area-->
+    <header class="th-header header-layout1">
+        <div class="sticky-wrapper">
+            <!-- Main Menu Area -->
+            <div class="menu-area">
+                <div class="container">
+                    <div class="row align-items-center justify-content-between">
+                        <div class="col-auto">
+                            <div class="header-logo">
+                                <a href="/">
+                                    <img src="{{url_for('static', filename='assets/img/logo_3.png')}}" style="width: 200px; height: auto;" alt="TraceIt">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <nav class="main-menu d-none d-lg-inline-block ">
+                                <ul>
+                                    <li>
+                                        <a href="/">Home</a>
+                                    </li>
+                                    <li><a href="/find_item">Find Your Item</a></li>
+                                    <li><a href="search-items.html">Browse Items</a></li>
+                                    <li><a href="report-found.html">Report Found Item</a></li>
+                                    <li>
+                                        <a href="/contact">Contact</a>
+                                    </li>
+                                </ul>
+                            </nav>
+                     
+                            <div class="header-button d-flex d-lg-none">
+                                <button type="button" class="th-menu-toggle icon-btn"><i class="far fa-bars"></i></button>
+                                
+                                <!-- Mobile Dropdown Menu -->
+                                <div class="mobile-menu-dropdown mt-2">
+                                    <div class="mobile-menu-content">
+                                        <ul>
+                                            <li><a  href="/">Home</a></li>
+                                            <li><a href="/about">About Us</a></li>
+                                            <li><a class="text-primary" href="/report_lost">Report Lost Item</a></li>
+                                            <li><a href="/report_found">Report Found Item</a></li>
+                                            <li><a href="/find_item">Find Your Item</a></li>
+                                            <li><a href="/contact">Contact Us</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+           
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+<!-- PAGE HEADER -->
+<section class="page-header">
+  <div class="container text-center">
+  </div>
+</section>
+
+<!-- MAIN FORM CARD -->
+<div class="container" style="max-width:780px; padding: 60px 0 40px;">
+  <div class="mb-3">
+    <h2>Report A Lost Item</h2>
+  </div>
+  <div class="form-card mt-3">
+
+    <!-- PROGRESS STEPS -->
+    <div class="steps-track" id="stepsTrack">
+      <div class="step-item active" data-step="1">
+        <div class="step-dot">1</div>
+        <span class="step-label">Item</span>
+      </div>
+      <div class="step-item" data-step="2">
+        <div class="step-dot">2</div>
+        <span class="step-label">Location</span>
+      </div>
+      <div class="step-item" data-step="3">
+        <div class="step-dot">3</div>
+        <span class="step-label">Contact</span>
+      </div>
+      <div class="step-item" data-step="4">
+        <div class="step-dot">4</div>
+        <span class="step-label">Review</span>
+      </div>
+    </div>
+
+    <form id="reportForm" novalidate>
+
+      <!-- STEP 1: Item Details -->
+      <div class="form-step active" id="step1">
+        <div class="step-heading">What did you lose?</div>
+        <div class="step-subtext">Give us the details of the lost item so the community can help identify it.</div>
+
+        <div class="mb-3">
+          <label class="form-label">Item Name <span class="text-danger">*</span></label>
+          <input type="text" class="form-control" id="itemName" placeholder="e.g. Black Leather Wallet" required>
+        </div>
+
+        <div class="mb-4">
+          <label class="form-label">Category <span class="text-danger">*</span></label>
+
+          <div class="category-pills" id="categoryPills">
+            <div class="category-pill" data-value="Electronics">📱 Electronics</div>
+            <div class="category-pill" data-value="Wallet">👛 Wallet</div>
+            <div class="category-pill" data-value="Keys">🔑 Keys</div>
+            <div class="category-pill" data-value="Documents">📄 Documents</div>
+            <div class="category-pill" data-value="Bag">🎒 Bag</div>
+            <div class="category-pill" data-value="Jewelry">💎 Jewelry</div>
+            <div class="category-pill" data-value="Clothing">👕 Clothing</div>
+            <div class="category-pill" data-value="ID Card">🪪 ID Card</div>
+            <div class="category-pill" data-value="Other">📦 Other</div>
+          </div>
+
+          <input type="hidden" id="selectedCategory">
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Description <span class="text-danger">*</span></label>
+          <textarea class="form-control" id="itemDesc" placeholder="Describe the item — color, brand, size, any distinguishing marks..." required></textarea>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Upload Image <span style="color:var(--muted); font-weight:400;">(optional)</span></label>
+          <div class="file-upload-area">
+            <input type="file" accept="image/*" id="itemImage">
+            <i class="bi bi-cloud-arrow-up"></i>
+            <p><strong>Click to upload</strong> or drag and drop</p>
+            <p>JPG, PNG or WEBP – max 5MB</p>
+          </div>
+          <div id="fileName" style="font-size:0.82rem; color:var(--muted); margin-top:6px;"></div>
+        </div>
+
+        <div class="btn-nav">
+          <span></span>
+          <button type="button" class="btn-primary-custom" onclick="goNext(1)">
+            Next <i class="bi bi-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- STEP 2: Location & Time -->
+      <div class="form-step" id="step2">
+        <div class="step-heading">Where and when?</div>
+        <div class="step-subtext">Help narrow down where your item might be found.</div>
+
+        <div class="mb-3">
+          <label class="form-label">Last Seen Location <span class="text-danger">*</span></label>
+          <div class="input-group">
+            <span class="input-group-text" style="background:#f0f4fa; border: 1.5px solid var(--border); border-right:none;">
+              <i class="bi bi-geo-alt text-primary"></i>
+            </span>
+            <input type="text" class="form-control" id="location" style="border-left:none;" placeholder="e.g. Central Park, Gate 3" required>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Date Lost <span class="text-danger">*</span></label>
+            <input type="date" class="form-control" id="dateLost" required>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Approximate Time</label>
+            <input type="time" class="form-control" id="timeLost">
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Any additional location details?</label>
+          <textarea class="form-control" id="locationExtra" placeholder="e.g. Near the north entrance, left on a bench..." style="min-height:80px;"></textarea>
+        </div>
+
+        <div class="btn-nav">
+          <button type="button" class="btn-secondary-custom" onclick="goPrev(2)">
+            <i class="bi bi-arrow-left"></i> Back
+          </button>
+          <button type="button" class="btn-primary-custom" onclick="goNext(2)">
+            Next <i class="bi bi-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- STEP 3: Contact Info -->
+      <div class="form-step" id="step3">
+        <div class="step-heading">How can we reach you?</div>
+        <div class="step-subtext">Your contact info lets finders get in touch with you directly.</div>
+
+        <div class="mb-3">
+          <label class="form-label">Full Name <span class="text-danger">*</span></label>
+          <input type="text" class="form-control" id="ownerName" placeholder="Your full name" required>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Email Address <span class="text-danger">*</span></label>
+          <input type="email" class="form-control" id="ownerEmail" placeholder="you@example.com" required>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Phone Number <span class="text-danger">*</span></label>
+          <input type="tel" class="form-control" id="ownerPhone" placeholder="+1 000 000 0000" required>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Preferred Contact Method</label>
+          <div class="d-flex gap-3 mt-1">
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="contactMethod" value="Email" id="byEmail" checked>
+              <label class="form-check-label" for="byEmail">Email</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="contactMethod" value="Phone" id="byPhone">
+              <label class="form-check-label" for="byPhone">Phone</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="contactMethod" value="Either" id="byEither">
+              <label class="form-check-label" for="byEither">Either</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="btn-nav">
+          <button type="button" class="btn-secondary-custom" onclick="goPrev(3)">
+            <i class="bi bi-arrow-left"></i> Back
+          </button>
+          <button type="button" class="btn-primary-custom" onclick="goNext(3)">
+            Review <i class="bi bi-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- STEP 4: Review & Submit -->
+      <div class="form-step" id="step4">
+        <div class="step-heading">Review your report</div>
+        <div class="step-subtext">Double-check everything before submitting. You can go back to edit any section.</div>
+
+        <div class="review-section">
+          <h6><i class="bi bi-box me-1"></i> Item Details</h6>
+          <div class="review-row"><span>Item Name</span><span id="rv-name">—</span></div>
+          <div class="review-row"><span>Category</span><span id="rv-category">—</span></div>
+          <div class="review-row"><span>Description</span><span id="rv-desc" style="max-width:55%; text-align:right;">—</span></div>
+        </div>
+
+        <div class="review-section">
+          <h6><i class="bi bi-geo-alt me-1"></i> Location & Time</h6>
+          <div class="review-row"><span>Location</span><span id="rv-location">—</span></div>
+          <div class="review-row"><span>Date Lost</span><span id="rv-date">—</span></div>
+          <div class="review-row"><span>Time Lost</span><span id="rv-time">—</span></div>
+        </div>
+
+        <div class="review-section">
+          <h6><i class="bi bi-person me-1"></i> Contact Info</h6>
+          <div class="review-row"><span>Name</span><span id="rv-owner">—</span></div>
+          <div class="review-row"><span>Email</span><span id="rv-email">—</span></div>
+          <div class="review-row"><span>Phone</span><span id="rv-phone">—</span></div>
+          <div class="review-row"><span>Preferred Contact</span><span id="rv-contact">—</span></div>
+        </div>
+
+        <div class="btn-nav">
+          <button type="button" class="btn-secondary-custom" onclick="goPrev(4)">
+            <i class="bi bi-arrow-left"></i> Back
+          </button>
+          <button type="submit" class="btn-success-custom">
+            <i class="bi bi-send"></i> Submit Report
+          </button>
+        </div>
+      </div>
+
+    </form>
+
+    <!-- SUCCESS STATE -->
+    <div class="success-state" id="successState">
+      <div class="success-icon"><i class="bi bi-check-lg"></i></div>
+      <h3 style="font-family:'Syne',sans-serif; color:var(--navy); margin-bottom:10px;">Report Submitted!</h3>
+      <p style="color:var(--muted); max-width:400px; margin:0 auto 24px;">Your lost item report has been posted to the TraceIt community. We'll notify you as soon as there's a match.</p>
+      <a href="#" class="btn-primary-custom" style="text-decoration:none; margin:0 auto;">
+        <i class="bi bi-search"></i> Browse Found Items
+      </a>
+    </div>
+
+  </div>
+</div>
+
+
+    <!--==============================
+Process Area  
+==============================-->
+    <section class="process-area-2 position-relative overflow-hidden space-top">
+        <div class="container th-container2">
+            <div class="row">
+                <div class="col-xl-9 col-lg-11">
+                    <div class="title-area mb-55">
+                        <span class="sub-title style2 text-anim" data-cue="slideInUp">Our Work Process</span>
+                        <h2 class="sec-title mb-0 text-white text-anim2" data-cue="slideInUp">4-Step Process to Report a Lost Item</h2>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="container-fluid p-0">
+            <div class="process-2-list-wrap">
+                <div class="process-card2 active" data-cue="slideInUp">
+                    <h3 class="box-title">Step 01</h3>
+                    <div class="inner-wrap ">
+<div class="process-icon">
+    <i class="fa-solid fa-list-check text-white" style="font-size:60px;"></i>
+</div>
+                        <div class="box-content">
+                            <h5 class="box-text_title">Item Details</h5>
+                            <p class="box-text">Provide basic details about the lost item. This includes the item name, category, description, and optionally an image. These details help the system identify and match the item if it is reported as found by someone else.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="process-card2 " data-cue="slideInUp">
+                    <h3 class="box-title">Step 02</h3>
+                    <div class="inner-wrap">
+                                              <div class="process-icon">
+                                                <i class="fa-solid fa-location-dot text-white" style="font-size:60px;"></i>
+                        </div>
+                        <div class="box-content">
+                            <h5 class="box-text_title">Location Information</h5>
+                            <p class="box-text">Specify where and when the item was last seen. Accurate location and time details help narrow down potential matches and assist others in locating the item.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="process-card2 " data-cue="slideInUp">
+                    <h3 class="box-title">Step 03</h3>
+                    <div class="inner-wrap">
+                      <div class="process-icon">
+                        <i class="fa-solid fa-address-book text-white" style="font-size:60px;"></i>
+                      </div>
+                        <div class="box-content">
+                            <h5 class="box-text_title">Contact Details</h5>
+                            <p class="box-text">Provide contact details so the system or a finder can reach you if a matching item is reported. Your information is kept secure and only used for communication regarding the lost item.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="process-card2 " data-cue="slideInUp">
+                    <h3 class="box-title">Step 04</h3>
+                    <div class="inner-wrap">
+                      <div class="process-icon">
+
+                        <i class="fa-solid fa-print-magnifying-glass text-white" style="font-size:60px;"></i>
+                      </div>
+                        <div class="box-content">
+                            <h5 class="box-text_title">Review</h5>
+                            <p class="box-text">Before submitting, review the information you provided to ensure all details are accurate. Once confirmed, submit the report so the item can be added to the TraceIt lost and found system.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer-wrapper footer-layout1">
+        <div class="footer-1-top-shape">
+            <img src="{{url_for('static', filename='assets/img/bg/footer-1-top-shape.png')}}" alt="img">
+        </div>
+        <div class="shape-mockup moving d-xxl-block d-none" data-top="6%" data-left="6%">
+            <img src="{{url_for('static', filename='assets/img/shape/shape1-39.png')}}" alt="img">
+        </div>
+        <div class="shape-mockup shake d-xxl-block d-none" data-top="24%" data-left="2%">
+            <img src="{{url_for('static', filename='assets/img/shape/shape1-40.png')}}" alt="img">
+        </div>
+        <div class="shape-mockup heartbeat d-xxl-block d-none" data-top="53%" data-left="5%">
+            <img src="{{url_for('static', filename='assets/img/shape/shape1-41.png')}}" alt="img">
+        </div>
+
+        <div class="container th-container2">
+            <div class="footer-bottom">
+                <div class="widget-area">
+                    <div class="row justify-content-between">
+                        <div class="col-md-6 col-xl-auto" data-cue="slideInUp">
+                            <div class="widget footer-widget">
+                                <div class="th-widget-about">
+                                    <div class="about-logo">
+                                        <a href="/"><img src="{{url_for('static', filename='assets/img/logo_1.png')}}" style="width: 100px; height: auto;" alt="TraceIt"></a>
+                                    </div>
+                                    <p class="about-text">Helping people reconnect with their lost belongings through a smarter lost and found system.</p>
+                                    <div class="th-social style7">
+                                        <a href="https://www.facebook.com/"><i class="fab fa-github"></i></a>
+                                        <a href="https://www.linkedin.com/"><i class="fab fa-linkedin-in"></i></a>
+                                        <a href="https://www.instagram.com/"><i class="fa-brands fa-instagram"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-xl-auto" data-cue="slideInUp">
+                            <div class="widget widget-contact-wrap footer-widget">
+                                <div class="info-box">
+                                    <div class="info-box_icon">
+                                        <i class="fas fa-phone"></i>
+                                    </div>
+                                    <div class="box-content">
+                                        <p class="info-box_title">Help For Call</p>
+                                        <p class="info-box_text">
+                                            <a href="tel:+917696912420" class="info-box_link">+91 7696912420</a>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="info-box">
+                                    <div class="info-box_icon">
+                                        <i class="fas fa-location"></i>
+                                    </div>
+                                    <div class="box-content">
+                                        <p class="info-box_title">Our Address</p>
+                                        <p class="info-box_text text-white">
+                                            Phagwara, LPU
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="info-box">
+                                    <div class="info-box_icon">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                    </div>
+                                    <div class="box-content">
+                                        <p class="info-box_title">WhatsApp</p>
+                                        <p class="info-box_text">
+                                            <a href="https://wa.me/+917696912420" target="_blank" class="info-box_link">+917696912420</a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xl-auto" data-cue="slideInUp">
+                            <div>
+
+        <h4 class="text-white">Quick Links</h4>
+        <a href="/">Home</a>
+        <a href="/report_lost">Report Lost</a>
+        <a href="/report_found">Report Found</a>
+        <a href="/browse_item">Browse Items</a>
+
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="container">
+            <div class="copyright-wrap ">
+                <div class="row gy-2">
+                    <div class="col-lg-4 col-xl-4" data-cue="slideInUp">
+                        <p class="copyright-text">Copyright &copy; 2026 <a href="/">TraceIt.</a> All Rights Reserved.</p>
+                    </div>
+                    <div class="col-lg-8 col-xl-6 text-center text-lg-end" data-cue="slideInUp">
+                        <div class="footer-links">
+                            <ul>
+                                <li>
+                                    <a href="/about">Terms and Conditions.</a>
+                                </li>
+                                <li>
+                                    <a href="/about">Privacy Policy</a>
+                                </li>
+
+                                <li>
+                                    <a href="/contact">Get Support</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Scroll To Top -->
+    <div class="scroll-top">
+        <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+            <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" style="transition: stroke-dashoffset 10ms linear 0s; stroke-dasharray: 307.919, 307.919; stroke-dashoffset: 307.919;"></path>
+        </svg>
+    </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Jquery -->
+    <script src="{{url_for('static', filename='assets/js/vendor/jquery-3.7.1.min.js')}}"></script>
+    <!-- Swiper Js -->
+    <script src="{{url_for('static', filename='assets/js/swiper-bundle.min.js')}}"></script>
+    <!-- Bootstrap -->
+    <script src="{{url_for('static', filename='assets/js/bootstrap.min.js')}}"></script>
+    <!-- Magnific Popup -->
+    <script src="{{url_for('static', filename='assets/js/jquery.magnific-popup.min.js')}}"></script>
+    <!-- Counter Up -->
+    <script src="{{url_for('static', filename='assets/js/jquery.counterup.min.js')}}"></script>
+    <!-- Range Slider -->
+    <script src="{{url_for('static', filename='assets/js/jquery-ui.min.js')}}"></script>
+    <!-- Isotope Filter -->
+    <script src="{{url_for('static', filename='assets/js/imagesloaded.pkgd.min.js')}}"></script>
+    <script src="{{url_for('static', filename='assets/js/isotope.pkgd.min.js')}}"></script>
+    <!-- Cue Js -->
+    <script src="{{url_for('static', filename='assets/js/scrollCue.min.js')}}"></script>
+    <!-- Gsap -->
+    <script src="{{url_for('static', filename='assets/js/gsap.min.js')}}"></script>
+    <!-- Scroll Trigger -->
+    <script src="{{url_for('static', filename='assets/js/ScrollTrigger.min.js')}}"></script>
+    <!-- Split Text -->
+    <script src="{{url_for('static', filename='assets/js/SplitText.min.js')}}"></script>
+    <!-- Lenis Js -->
+    <script src="{{url_for('static', filename='assets/js/lenis.min.js')}}"></script>
+
+    <!-- Perticle Js -->
+    <script src="{{url_for('static', filename='assets/js/particles.min.js')}}"></script>
+    <script src="{{url_for('static', filename='assets/js/particles-config.js')}}"></script>
+
+    <!-- Main Js File -->
+    <script src="{{url_for('static', filename='assets/js/main.js')}}"></script>
+
+<script>
+let currentStep = 1;
+const totalSteps = 4;
+
+// Category pills
+document.querySelectorAll('.category-pill').forEach(pill => {
+  pill.addEventListener('click', () => {
+    document.querySelectorAll('.category-pill').forEach(p => p.classList.remove('selected'));
+    pill.classList.add('selected');
+    document.getElementById('selectedCategory').value = pill.dataset.value;
+  });
+});
+
+// File name display
+document.getElementById('itemImage').addEventListener('change', function () {
+  const f = this.files[0];
+  document.getElementById('fileName').textContent = f ? '📎 ' + f.name : '';
+});
+
+function updateStepsUI(step) {
+  document.querySelectorAll('.step-item').forEach((el, i) => {
+    el.classList.remove('active', 'done');
+    if (i + 1 === step) el.classList.add('active');
+    else if (i + 1 < step) el.classList.add('done');
+  });
+  // Update dot icons for done steps
+  document.querySelectorAll('.step-item.done .step-dot').forEach(dot => {
+    dot.innerHTML = '<i class="bi bi-check-lg"></i>';
+  });
+  document.querySelectorAll('.step-item:not(.done) .step-dot').forEach((dot, i) => {
+    const num = [...document.querySelectorAll('.step-item')].indexOf(dot.closest('.step-item')) + 1;
+    dot.innerHTML = num;
+  });
+}
+
+function validate(step) {
+  if (step === 1) {
+    const name = document.getElementById('itemName').value.trim();
+    const cat  = document.getElementById('selectedCategory').value;
+    const desc = document.getElementById('itemDesc').value.trim();
+    if (!name) { alert('Please enter the item name.'); return false; }
+    if (!cat)  { alert('Please select a category.'); return false; }
+    if (!desc) { alert('Please describe the item.'); return false; }
+  }
+  if (step === 2) {
+    const loc  = document.getElementById('location').value.trim();
+    const date = document.getElementById('dateLost').value;
+    if (!loc)  { alert('Please enter the last seen location.'); return false; }
+    if (!date) { alert('Please select the date the item was lost.'); return false; }
+  }
+  if (step === 3) {
+    const name  = document.getElementById('ownerName').value.trim();
+    const email = document.getElementById('ownerEmail').value.trim();
+    const phone = document.getElementById('ownerPhone').value.trim();
+    if (!name)  { alert('Please enter your name.'); return false; }
+    if (!email) { alert('Please enter your email.'); return false; }
+    if (!phone) { alert('Please enter your phone number.'); return false; }
+  }
+  return true;
+}
+
+function populateReview() {
+  document.getElementById('rv-name').textContent     = document.getElementById('itemName').value || '—';
+  document.getElementById('rv-category').textContent = document.getElementById('selectedCategory').value || '—';
+  document.getElementById('rv-desc').textContent     = document.getElementById('itemDesc').value || '—';
+  document.getElementById('rv-location').textContent = document.getElementById('location').value || '—';
+  document.getElementById('rv-date').textContent     = document.getElementById('dateLost').value || '—';
+  document.getElementById('rv-time').textContent     = document.getElementById('timeLost').value || '—';
+  document.getElementById('rv-owner').textContent    = document.getElementById('ownerName').value || '—';
+  document.getElementById('rv-email').textContent    = document.getElementById('ownerEmail').value || '—';
+  document.getElementById('rv-phone').textContent    = document.getElementById('ownerPhone').value || '—';
+  document.getElementById('rv-contact').textContent  = document.querySelector('input[name="contactMethod"]:checked').value || '—';
+}
+
+function goNext(from) {
+  if (!validate(from)) return;
+  document.getElementById('step' + from).classList.remove('active');
+  currentStep = from + 1;
+  document.getElementById('step' + currentStep).classList.add('active');
+  updateStepsUI(currentStep);
+  if (currentStep === 4) populateReview();
+}
+
+function goPrev(from) {
+  document.getElementById('step' + from).classList.remove('active');
+  currentStep = from - 1;
+  document.getElementById('step' + currentStep).classList.add('active');
+  updateStepsUI(currentStep);
+}
+
+// Submit
+document.getElementById('reportForm').addEventListener('submit', function (e) {
+  e.preventDefault();
+  this.style.display = 'none';
+  document.getElementById('stepsTrack').style.display = 'none';
+  document.getElementById('successState').style.display = 'block';
+});
+</script>
+
+</body>
+</html>

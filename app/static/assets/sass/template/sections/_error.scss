@@ -1,0 +1,71 @@
+@use 'base/variable' as *;
+@use 'base/mixin' as *;
+
+
+.error-page-wrap {
+	display: flex;
+	align-items: center;
+	gap: 30px;
+}
+
+.error-content {
+	text-align: start;
+	flex: 1;
+	align-self: center;
+
+	.error-text {
+		max-width: 580px;
+	}
+
+	.error-title {
+		font-size: 300px;
+		color: var(--theme-color);
+		margin-bottom: 0;
+	}
+}
+
+.error-img {
+	text-align: center;
+}
+
+@include xxl {
+	.error-content .error-title {
+		font-size: 230px;
+	}
+}
+
+@include xl {
+	.error-content .error-title {
+		font-size: 200px;
+	}
+}
+@include lg {
+	.error-content .error-title {
+		font-size: 140px;
+	}
+}
+
+@include md {
+	.error-page-wrap {
+		flex-wrap: wrap-reverse;
+		justify-content: center;
+	}
+	.error-content {
+		align-self: center;
+		text-align: center;
+		margin: 30px;
+	}
+        
+}
+
+@include xs {
+	.error-content .error-title {
+		font-size: 100px;
+	}
+}
+
+@include vxs {
+	.error-content .error-title {
+		font-size: 85px;
+	}
+}

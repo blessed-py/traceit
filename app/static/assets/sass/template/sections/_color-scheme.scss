@@ -1,0 +1,69 @@
+@use 'base/variable' as *;
+@use 'base/mixin' as *;
+
+/* color scheme ---------------------------------- */
+.color-scheme-wrap {
+    position: fixed;
+    right: 0;
+    top: 50%;
+    z-index: 99;
+    background: $black-color2;
+    padding: 20px;
+    border-radius: 10px 0 0 10px;
+    display: inline-block;
+    transition: 0.4s;
+    .switchIcon {
+        position: absolute;
+        left: 0;
+        top: 10px;
+        border: 0;
+        background: $theme-color;
+        color: $white-color;
+        height: 45px;
+        width: 45px;
+        border-radius: 5px 0 0 5px;
+        transform: translate(-100%, 0);        
+    }
+    .color-scheme-wrap-title {
+        font-size: 22px;
+        border-bottom: 2px solid $border-color;
+        padding-bottom: 6px;
+        color: $white-color;
+        margin-bottom: 20px;
+        i {
+            font-size: 18px;
+            margin-right: 3px;
+        }
+    }
+    .color-scheme-wrap-subtitle {
+        font-size: 18px;
+        color: $white-color;
+        margin-bottom: 20px;
+        i {
+            font-size: 18px;
+            margin-right: 3px;
+        }
+    }
+    .secondary-color-switch-btns,
+    .color-switch-btns {
+        display: inline-flex;
+        flex-wrap: wrap;
+        gap: 18px;
+        button {
+            padding: 0;
+            border: 0;
+            background: transparent;
+            font-size: 24px;
+            color: $theme-color;
+            text-align: left;
+        }
+    }
+    .secondary-color-switch-btns {
+        button {
+            color: $theme-color2;
+        }
+    }
+    &.active {
+        transform: translate(100%, 0);
+    }
+}

@@ -1,0 +1,355 @@
+@use 'base/variable' as *;
+@use 'base/mixin' as *;
+
+/* Work Area 1---------------------------------- */
+.work-slider1 {
+    margin-right: -140px;
+	@include hd {
+        margin-right: 0;
+    }
+    @include xxl {
+        margin-right: 0;
+    }
+}
+.work-card {
+	background: $title-color;
+	padding: 40px;
+	position: relative;
+	overflow: hidden;
+	z-index: 1;
+	.card-bg-shape {
+		position: absolute;
+		inset: 0;
+		transition: 0.4s;
+		opacity: 0;
+		transform: scale(0.6);
+		z-index: -1;
+	}
+	.box-icon {
+		display: inline-block;
+		margin-bottom: 56px;
+		position: relative;
+		&:after {
+			content: '';
+			position: absolute;
+			inset: 0;
+			border-radius: 8px;
+			border: 1px solid transparent;
+			background: linear-gradient(0, transparent 0%, var(--theme-color) 100%) border-box;
+			-webkit-mask: -webkit-linear-gradient(#fff 0 0) padding-box, -webkit-linear-gradient(#fff 0 0);
+			-webkit-mask-composite: destination-out;
+			mask-composite: exclude;
+		}
+		img {
+			border-radius: 8px;
+		}
+	}
+	.box-title {
+		color: $white-color;
+		font-size: 40px;
+		font-weight: 600;
+		margin-top: -0.5em;
+		margin-bottom: 10px;
+	}
+	.box-text {
+		color: $light-color;
+	}
+	.th-btn {
+		margin-top: 56px;
+	}
+	&:hover {
+		.card-bg-shape {
+			transform: scale(1);
+			opacity: 1;
+		}
+	}
+	@include lg {
+		.box-title {
+			font-size: 30px;
+		}
+	}
+	@include md {
+		.box-icon {
+			margin-bottom: 40px;
+		}
+		.box-title {
+			font-size: 24px;
+		}
+		.th-btn {
+			margin-top: 40px;
+		}
+	}
+	@include vxs {
+		padding: 30px;
+	}
+}
+
+/* Work Area 2---------------------------------- */
+.work-thumb2-1 {
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	width: 32%;
+	img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+	@include lg {
+		position: relative;
+		right: 0;
+		width: 100%;
+		top: -150px;
+	}
+	@include md {
+		top: -80px;
+	}
+}
+.work-card-wrap {
+    $counter-list-border: 3;
+    $counter-twocolumn: 2;
+    --space-x: 45px;
+    --space-y: 50px;
+    --th-border-color: rgba(206, 208, 211, 0.5);
+    // Reset All
+    &:not(:nth-child(#{$counter-list-border}n)) {
+        border-right: unset;
+    }
+    // For 2 Column
+    &:not(:nth-last-child(-n + #{$counter-twocolumn})) {
+        padding-bottom: var(--space-y);
+    }
+    &:not(:nth-child(-n + #{$counter-twocolumn})) {
+        padding-top: var(--space-y);    
+        border-top: 1px solid $border-color;
+    }
+    &:nth-child(odd) {
+        padding-right: var(--space-x);
+    }
+    &:nth-child(even) {
+        padding-left: var(--space-x);
+        border-left: 1px solid $border-color;
+    }
+    &:not(:nth-last-child(-n + 4)) {
+        border-top: 0;
+    }
+    @include xxl {
+        --space-x: 40px;
+    }
+    @include xl {
+        --space-x: 30px;
+        --space-y: 30px;
+    }
+    @include lg {
+        --space-x: 40px;
+        --space-y: 40px;
+    }
+    @include md {
+        --space-x: 30px;
+        --space-y: 30px;
+    }
+    @include sm {
+        &:nth-child(even) {
+            padding-left: 12px;
+            border-left: 0;
+        }
+        &:not(:nth-child(-n + 2)) {
+            border-top: 0;
+            padding-top: 0;
+			padding-bottom: var(--space-x);
+        }
+        &:nth-child(odd) {
+            padding-left: 12px;
+            padding-right: 12px;
+            padding-top: 0;
+        }
+		&:last-child {
+            padding-bottom: 0;
+        }
+    }
+}
+.work-card2 {
+	.box-content {
+		display: flex;
+		gap: 16px;
+		align-items: center;
+	}
+	.box-icon {
+        width: 64px;
+        height: 64px;
+        border-radius: 8px;
+        background: $title-color;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex: none;
+        margin: 9px 0 0 9px;
+        position: relative;
+        &:after {
+            content: '';
+            position: absolute;
+            inset: -9px 9px 9px -9px;
+            border: 1px dashed $title-color;
+            border-radius: 8px;
+        }
+    }
+	.box-title {
+		margin-bottom: -0.3em;
+		font-size: 24px;
+		font-weight: 600;
+	}
+	.box-text {
+		margin-top: 16px;
+	}
+	@include xs {
+		.box-title {
+			font-size: 20px;
+		}
+	}
+}
+
+/* Work Area 3---------------------------------- */
+.work-card-wrap3 {
+	position: relative;
+	.center-line {
+		position: absolute;
+		height: 100%;
+		width: 1px;
+		background: rgba($color: #ffffff, $alpha: 0.2);
+		top: 0;
+		left: 50%;
+		opacity: 0;
+    	animation: heightanim 1.3s forwards 1;
+		@include md {
+			display: none;
+		}
+	}
+}
+@keyframes heightanim {
+    0% {
+        height: 0;
+		opacity: 0;
+    }
+
+    100% {
+        height: 100%;
+		opacity: 1;
+    }
+}
+.work-card3 {
+	max-width: 495px;
+	margin: 0 auto;
+	.box-title {
+		color: $white-color;
+		font-size: 40px;
+		font-weight: 600;
+		@include xs {
+			font-size: 30px;
+		}
+	}
+	.box-text {
+		color: $light-color;
+		margin-top: 16px;
+	}
+	.work-tools-wrap {
+		display: inline-flex;
+		gap: 40px;
+		margin-top: 40px;
+		flex-wrap: wrap;
+		justify-content: center;
+	}
+}
+.work-grid-content-wrap {
+	position: relative;
+	.top-line {
+		position: absolute;
+		height: 1px;
+		width: 100%;
+		background: rgba($color: #ffffff, $alpha: 0.2);
+		top: 0;
+		left: 50%;
+		opacity: 0;
+    	animation: widthanim 1.3s forwards 1;
+	}
+}
+@keyframes widthanim {
+    0% {
+        width: 0;
+		opacity: 0;
+    }
+
+    100% {
+        width: 100%;
+		opacity: 1;
+		left: 0;
+    }
+}
+.work-grid-content {
+	display: flex;
+	justify-content: center;
+	gap: 160px;
+	@include xxl {
+		gap: 30px;
+	}
+	@include md {
+		flex-wrap: wrap;
+		gap: 0 30px;
+		padding: 25px 0;
+	}
+	.work-grid-card {
+		display: flex;
+		gap: 28px;
+		align-items: center;
+		padding: 33px 0;
+		position: relative;
+		&:after {
+			content: '';
+			position: absolute;
+			height: 130px;
+			width: 1px;
+			background: rgba($color: #ffffff, $alpha: 0.2);
+			right: -80px;
+			@include xxl {
+				display: none;
+			}
+		}
+		.box-icon {
+			width: 64px;
+			height: 64px;
+			border-radius: 50%;
+			border: 1px solid $light-color;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			flex: none;
+			@include xl {
+				width: 55px;
+				height: 55px;
+			}
+		}
+		.box-title {
+			color: $white-color;
+			margin-bottom: -0.32em;
+			font-size: 24px;
+			font-weight: 600;
+			@include ml {
+				font-size: 20px;
+			}
+		}
+		&:last-child {
+			&:after {
+				display: none;
+			}
+		}
+		@include md {
+			display: block;
+			text-align: center;
+			padding: 15px 0;
+			.box-icon {
+				display: inline-flex;
+				margin-bottom: 25px;
+			}
+		}
+	}
+}

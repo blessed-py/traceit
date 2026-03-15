@@ -1,0 +1,243 @@
+@use 'base/variable' as *;
+@use 'base/mixin' as *;
+
+//Call to action 1---------------------------------------
+.cta-wrap1 {
+    margin: 0 30px;
+    border-radius: 30px;
+    padding: 95px 0;
+    padding-bottom: 120px;
+    overflow: hidden;
+
+    &::before {
+        background-color: #28211D;
+        opacity: .4;
+    }
+
+    &::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #02000F;
+        opacity: .6;
+    }
+
+    .sub-title {
+        border-color: var(--white-color);
+    }
+
+    .sec-title {
+        font-weight: 600;
+    }
+
+    .title-text {
+        font-size: 18px;
+        font-weight: 500;
+        text-transform: capitalize;
+    }
+
+    .th-btn {
+        background: var(--white-color);
+        color: var(--theme-color);
+
+        &:hover {
+            background: var(--white-color);
+            color: var(--theme-color);
+        }
+
+        &::after,
+        &::before {
+            background: var(--white-color);
+        }
+    }
+}
+
+@include md {
+    .cta-wrap1 {
+        padding: 70px 0;
+        padding-bottom: 85px;
+    }
+}
+
+@include xs {
+    .cta-wrap1 {
+        margin: 0 12px;
+    }
+}
+
+//Call to action 2---------------------------------------
+.cta2-content-wrap {
+    display: flex;
+    align-items: center;
+    padding: 10px 10px 10px 40px;
+    border-radius: 30px;
+    justify-content: space-between;
+
+    .left-content {
+        .subtitle {
+            font-size: 24px;
+            color: var(--theme-color2);
+            margin-bottom: 14px;
+            display: block;
+        }
+
+        .box-title {
+            font-size: 32px;
+            color: var(--white-color);
+            line-height: 1.25;
+            margin-bottom: 30px;
+        }
+
+        .th-btn.style3 {
+            border: 0;
+            padding: 19px 37px;
+        }
+    }
+}
+
+@media (max-width: 425px) {
+    .cta2-content-wrap {
+        flex-wrap: wrap-reverse;
+        padding: 20px;
+    }
+
+    .cta2-content-wrap .left-content {
+        margin-top: 25px;
+    }
+}
+
+//Call to action 2---------------------------------------
+
+
+.cta-sec3 {
+    padding: 0 0px 0 25px;
+}
+
+.cta-content3 {
+    .cta3-top-title {
+        font-size: 18px;
+        margin-bottom: 9px;
+        color: var(--white-color);
+        font-weight: 700;
+    }
+
+    .box-title {
+        font-size: 48px;
+        font-weight: 500;
+        line-height: 1.22;
+    }
+
+    .box-text {
+        color: var(--title-color);
+    }
+
+    .cta3-top-title span {
+        color: var(--title-color);
+    }
+}
+
+@media (max-width: 1600px) {
+    .cta-content3 .box-title {
+        font-size: 38px;
+    }
+}
+
+@include lg {
+    .cta-content3 .box-title {
+        font-size: 32px;
+    }
+}
+
+@include md {
+    .cta-sec3 {
+        padding: 20px 20px 115px 20px;
+        text-align: center;
+        margin-bottom: -70px;
+        margin-top: -20px;
+    }
+
+    .cta-wrap3 {
+        margin-bottom: 20px;
+    }
+
+    .cta-content3 .box-title {
+        font-size: 38px;
+        margin-bottom: 5px;
+    }
+
+    .cta-content3 .box-text {
+        margin-bottom: 20px;
+    }
+}
+
+@include sm {
+    .cta-content3 .box-title {
+        font-size: 32px;
+        margin-bottom: 5px;
+    }
+}
+
+@include vxs {
+    .cta-content3 .box-title {
+        font-size: 28px;
+        margin-bottom: 5px;
+    }
+}
+
+
+//Call to action 2---------------------------------------
+
+.cta-sec4 {
+    background: #F2EAEA;
+    background-image: none;
+    border-radius: 20px;
+    padding: 0 30px 0 18px;
+}
+
+.cta-content4 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+
+    .box-title {
+        font-weight: 500;
+    }
+
+    .th-btn.style3.th-btn-sm {
+        min-width: 130px;
+        padding: 13px 21px;
+    }
+}
+
+.cta-img4 {
+    text-align: end;
+}
+
+
+@include md {
+    .cta-sec4.background-image {
+        background-image: none !important;
+    }
+
+    .cta-sec4 {
+        padding: 30px;
+    }
+
+    .cta-content4 {
+        flex-wrap: wrap;
+    }
+
+    .cta-img4 {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .cta-content4 .box-title {
+        font-weight: 500;
+        text-align: center;
+    }
+}

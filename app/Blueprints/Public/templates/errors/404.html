@@ -1,0 +1,174 @@
+<!doctype html>
+<html class="no-js" lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>TraceIt | 404 Error</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <link rel="stylesheet" href="{{ url_for('static', filename='dist/css/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tabler-icons/3.34.1/tabler-icons.min.css" >
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+        <style>
+            :root {
+                --primary-color: #1a1a1a;
+                --accent-color: #3b82f6; /* Professional Blue */
+                --text-muted: #64748b;
+            }
+
+            body, html {
+                margin: 0;
+                padding: 0;
+                height: 100%;
+                font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            }
+
+            .error-wrapper {
+                min-height: 100vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                /* Using your requested background image */
+                background-image: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), 
+                                  url("{{ url_for('static', filename='assets/img/slider_bg.jpg') }}");
+                background-size: cover;
+                background-position: center;
+                padding: 20px;
+            }
+
+            .error-card {
+                max-width: 600px;
+                width: 100%;
+                text-align: center;
+                background: #ffffff;
+                padding: 3.5rem 2rem;
+                border-radius: 8px;
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+                border: 1px solid #f1f5f9;
+            }
+
+            .logo-area {
+                margin-bottom: 2.5rem;
+            }
+
+            .logo-area img {
+                max-height: 200px; /* Adjust based on your logo proportions */
+                width: auto;
+            }
+
+            .error-code {
+                font-size: 120px;
+                font-weight: 800;
+                line-height: 1;
+                color: var(--primary-color);
+                margin-bottom: 1rem;
+                letter-spacing: -2px;
+            }
+
+            .error-divider {
+                width: 50px;
+                height: 3px;
+                background: var(--accent-color);
+                margin: 1.5rem auto;
+            }
+
+            .error-title {
+                font-size: 1.5rem;
+                font-weight: 600;
+                color: #334155;
+                margin-bottom: 1rem;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+            }
+
+            .error-msg {
+                color: var(--text-muted);
+                font-size: 1.1rem;
+                margin-bottom: 2.5rem;
+                line-height: 1.6;
+            }
+
+            .button-group {
+                display: flex;
+                gap: 15px;
+                justify-content: center;
+            }
+
+            .btn-formal {
+                padding: 12px 28px;
+                font-weight: 600;
+                border-radius: 4px;
+                transition: all 0.2s ease;
+                text-decoration: none !important;
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+                font-size: 14px;
+            }
+
+            .btn-primary-formal {
+                background-color: var(--primary-color);
+                color: #fff;
+            }
+
+            .btn-primary-formal:hover {
+                background-color: #000;
+                color: #fff;
+                transform: translateY(-1px);
+            }
+
+            .btn-outline-formal {
+                background-color: transparent;
+                color: var(--primary-color);
+                border: 1px solid #e2e8f0;
+            }
+
+            .btn-outline-formal:hover {
+                background-color: #f8fafc;
+                border-color: #cbd5e1;
+            }
+
+            @media (max-width: 576px) {
+                .button-group {
+                    flex-direction: column;
+                }
+                .error-code {
+                    font-size: 80px;
+                }
+            }
+        </style>
+    </head>
+    <body>
+
+        <main class="error-wrapper">
+            <div class="error-card animate__animated animate__fadeIn">
+                <div class="logo-area">
+                    <img src="{{ url_for('static', filename='assets/img/logo_1.png') }}" style="width: 150px; height: auto;" alt="TraceIt Logo">
+                </div>
+
+                <div class="error-code">404</div>
+                <h1 class="error-title">Page Not Found</h1>
+                <div class="error-divider"></div>
+                
+                <p class="error-msg">
+                    The resource you are looking for might have been removed, had its name changed, or is temporarily unavailable. Please use the navigation below to return to safety.
+                </p>
+
+                <div class="button-group">
+                    <a href="/" class="btn-formal btn-primary-formal">
+                        <i class="ti ti-arrow-left"></i>
+                        Return to Homepage
+                    </a>
+                    <a href="/contact" class="btn-formal btn-outline-formal">
+                        <i class="ti ti-headset"></i>
+                        Contact Support
+                    </a>
+                </div>
+            </div>
+        </main>
+
+        <script src="{{ url_for('static', filename='dist/js/mobile-sticky-header.js') }}"></script>
+
+    </body>
+</html>

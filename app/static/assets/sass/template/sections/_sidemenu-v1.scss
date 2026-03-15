@@ -1,0 +1,139 @@
+@use 'base/variable' as *;
+@use 'base/mixin' as *;
+
+.sidemenu-wrapper {
+    position: fixed;
+    z-index: 99999;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: 0;
+    background-color: rgba(0, 0, 0, 0.75);
+    opacity: 0;
+    visibility: hidden;
+    transition: all ease 0.8s;
+
+    .info-box_link {
+        color: $title-color;
+
+        &:hover {
+            color: $theme-color;
+        }
+    }
+
+    .th-newsletter-widget .newsletter-form input {
+        color: $title-color;
+    }
+
+    .newsletter-widget .newsletter-form .th-btn {
+        &:hover {
+            color: $title-color;
+        }
+    }
+
+    .th-social {
+        a {
+            box-shadow: none;
+        }
+    }
+
+    .closeButton {
+        display: inline-block;
+        border: 2px solid;
+        @include equal-size(50px);
+        line-height: 48px;
+        font-size: 24px;
+        padding: 0;
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        background-color: $white-color;
+        border-radius: 50%;
+        transform: rotate(0);
+        transition: all ease 0.4s;
+
+        &:hover {
+            color: $theme-color;
+            border-color: $theme-color;
+            transform: rotate(90deg);
+        }
+    }
+
+    .sidemenu-content {
+        background-color: $white-color;
+        width: 450px;
+        margin-left: auto;
+        padding: 80px 30px;
+        height: 100%;
+        overflow: scroll;
+        position: relative;
+        right: -500px;
+        cursor: auto;
+        transition-delay: 1s;
+        transition: right ease 1s;
+
+        &::-webkit-scrollbar-track {
+            -webkit-box-shadow: inset 0 0 1px rgba(0, 0, 0, 0.1);
+            box-shadow: inset 0 0 1px rgba(0, 0, 0, 0.1);
+            background-color: #f5f5f5;
+        }
+
+        &::-webkit-scrollbar {
+            width: 2px;
+            background-color: #f5f5f5;
+        }
+    }
+
+    .widget {
+        padding: 0;
+        border: none;
+        background-color: transparent;
+    }
+
+    &.show {
+        opacity: 1;
+        visibility: visible;
+        width: 100%;
+        transition: all ease 0.8s;
+
+        .sidemenu-content {
+            right: 0;
+            opacity: 1;
+            visibility: visible;
+        }
+    }
+}
+
+@include xs {
+    .sidemenu-wrapper {
+        background: transparent;
+
+        .sidemenu-content {
+            width: 100%;
+
+            .widget_shopping_cart .th-btn {
+                margin-bottom: 10px;
+            }
+        }
+    }
+}
+
+.sidemenu-wrapper.show .th-widget-about .about-text {
+    color: var(--body-color);
+}
+
+.sidemenu-wrapper .widget.th-newsletter-widget .widget_title {
+    padding-bottom: 10px;
+}
+
+.sidemenu-wrapper .th-newsletter-widget {
+    .newsletter-form .form-group input {
+        background: var(--smoke-color3);
+        border: 1px solid var(--title-color);
+        height: 54px;
+    }
+
+    .th-newsletter-widget .newsletter-form .th-btn.style2 {
+        top: 8px;
+    }
+}

@@ -1,0 +1,68 @@
+@use 'base/variable' as *;
+@use 'base/mixin' as *;
+
+.video-box-center {
+    position: relative;
+    .play-btn {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+}
+/* Video Area 1 -------------------------------*/
+.video-wrap1 {
+    margin: 0 32px;
+    position: relative;
+    @include xs {
+        margin: 0 15px;
+    }
+    .video-btn {
+        position: absolute;
+        right: 64px;
+        bottom: 64px;
+        text-align: center;
+        .video-text {
+            display: block;
+            color: $white-color;
+            font-size: 24px;
+            position: relative;
+            z-index: 1;
+            margin-top: 24px;
+        }
+        @include md {
+            right: 40px;
+            bottom: 40px;
+            .play-btn {
+                &:hover {
+                    --icon-font-size: 34px;
+                }
+            }
+        }
+        @include sm {
+            .play-btn {
+                --icon-size: 60px;
+                --icon-font-size: 18px;
+                &:hover {
+                    --icon-font-size: 24px;
+                }
+            }
+            .video-text {
+                font-size: 18px;
+            }
+        }
+    }
+}
+.video-thumb1-1 {
+    position: relative;
+    border-radius: 32px;
+    overflow: hidden;
+    img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+    }
+    @include md {
+        height: 300px;
+    }
+}

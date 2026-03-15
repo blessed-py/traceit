@@ -1,0 +1,319 @@
+/*
+Template Name: Babet
+Template URL: https://themeholy.com/html/babet/
+Description: Pet Care & Shop HTML Template
+Author: themeholy
+Author URI: https://themeforest.net/user/themeholy
+Version: 1.0.0
+*/
+/*=================================
+    CSS Index Here
+==================================*/
+/*
+
+01. Theme Base
+    1.1. Mixin
+    1.2. Function
+    1.3. Variable
+    1.4. Typography
+    1.5. Wordpress Default
+02. Reset
+    2.1. Container
+    2.2. Grid
+    2.3. Input
+    2.4. Slider
+    2.5. Mobile Menu
+03. Utilities
+    3.1. Preloader
+    3.2. Buttons
+    3.3. Titles
+    3.4. Common
+    3.6. Font
+    3.7. Background
+    3.8. Text Color
+    3.9. Overlay
+    3.10. Animation
+    
+04. Template Style
+    4.1. Widget
+    4.2. Header
+    4.3. Footer
+    4.4. Breadcumb
+    4.5. Pagination
+    4.6. Blog
+    4.7. Comments
+    4.8. Hero Area
+    4.9. Error    
+    4.00. Popup Search
+    4.00. Popup Side Menu
+    4.00. Wocommerce
+    4.00. Products
+    4.00. Cart
+    4.00. Checkout
+    4.00. Wishlist
+    4.00. Contact
+    4.00. About
+    4.00. Team
+    4.00. Testimonial
+    4.00. Counter
+    4.00. Blog
+    4.00. Brand
+    4.00. Simple Sections
+    4.00. Why
+    4.00. Faq
+    4.00. Service
+    4.00. Process
+    4.00. Pricing
+    4.00. Feature
+    4.00. Project
+    4.00. Category
+    4.00. Color Scheme
+    4.00. CTA
+    4.00. Appointment
+    4.00. Video
+    4.00. Tab Menu
+    4.00. Schedule
+
+05. Spacing
+
+*/
+/*=================================
+    CSS Index End
+==================================*/
+
+
+/*=================================
+   01. Theme Base
+==================================*/
+/*------------------- 1.1. Mixin -------------------*/
+@forward 'base/mixin';
+
+/*------------------- 1.2. Function -------------------*/
+@forward 'base/function';
+
+/*------------------- 1.3. Variable-------------------*/
+@forward 'base/variable';
+
+/*------------------- 1.4. Typography -------------------*/
+@forward 'base/typography';
+
+/*------------------- 1.5. Wordpress Default -------------------*/
+@forward 'base/wpdefault';
+
+
+/*=================================
+    02. Reset
+==================================*/
+/*------------------- 2.1. Container -------------------*/
+@forward 'reset/container';
+
+/*------------------- 2.2. Grid -------------------*/
+@forward 'reset/grid';
+
+/*------------------- 2.3. Input -------------------*/
+@forward 'reset/input';
+
+/*------------------- 2.4. Slick Slider -------------------*/
+@forward 'reset/slider';
+
+/*------------------- 2.5. Mobile Menu -------------------*/
+@forward 'reset/mobilemenu';
+
+
+/*=================================
+    03. Utilities
+==================================*/
+/*------------------- 3.1. Preloader -------------------*/
+@forward 'utilities/preloader';
+
+/*------------------- 3.2. Buttons -------------------*/
+@forward 'utilities/btns';
+
+/*------------------- 3.3. Titles -------------------*/
+@forward 'utilities/titles';
+
+/*------------------- 3.4. Common -------------------*/
+@forward 'utilities/common';
+
+/*------------------- 3.6. Font -------------------*/
+@forward 'utilities/font';
+
+/*------------------- 3.7. Background -------------------*/
+@forward 'utilities/background';
+
+/*------------------- 3.8. Text Color -------------------*/
+@forward 'utilities/text-color';
+
+/*------------------- 3.9. Overlay -------------------*/
+@forward 'utilities/overlay';
+
+/*------------------- 3.10. Animation -------------------*/
+@forward 'utilities/animation';
+
+
+/*=================================
+    04. Template Style
+==================================*/
+/*------------------- 4.1. Widget  -------------------*/
+@forward 'template/widgets/widget-default-list';
+@forward 'template/widgets/widget-sidebar';
+@forward 'template/widgets/widget-footer';
+
+/* ---------------- Scroll Cue Plugin --------------------*/
+@forward 'scrollCue';
+
+
+/*------------------- 4.2. Header  -------------------*/
+@forward 'template/headers/header';
+
+/*------------------- 4.3. Footer  -------------------*/
+@forward 'template/footers/footer';
+
+/*------------------- 4.4. Breadcumb  -------------------*/
+@forward 'template/breadcumb/breadcumb-v1';
+
+/*------------------- 4.5. Pagination  -------------------*/
+@forward 'template/sections/pagination-v1';
+
+/*------------------- 4.6. Blog  -------------------*/
+@forward 'template/sections/blog';
+
+/*------------------- 4.7. Comments  -------------------*/
+@forward 'template/sections/comments';
+
+/*------------------- 4.8. Hero Area  -------------------*/
+@forward 'template/sections/hero';
+
+/*------------------- 4.9. Error  -------------------*/
+@forward 'template/sections/error';
+
+/*------------------- 4.00. Popup Search  -------------------*/
+@forward 'template/sections/popupsearch-v1';
+
+/*------------------- 4.00. Popup Side Menu  -------------------*/
+@forward 'template/sections/sidemenu-v1';
+
+/*------------------- 4.00. Wocommerce  -------------------*/
+@forward 'template/sections/woocommerce';
+
+/*------------------- 4.00. Products  -------------------*/
+@forward 'template/sections/products';
+
+/*------------------- 4.00. Cart  -------------------*/
+@forward 'template/sections/cart';
+
+/*------------------- 4.00. Checkout  -------------------*/
+@forward 'template/sections/checkout';
+
+/*------------------- 4.00. Wishlist  -------------------*/
+@forward 'template/sections/wishlist';
+
+/*------------------- 4.00. Contact  -------------------*/
+@forward 'template/sections/contact';
+
+/*------------------- 4.00. About  -------------------*/
+@forward 'template/sections/about';
+
+/*------------------- 4.00. Deals  -------------------*/
+@forward 'template/sections/deals';
+
+/*------------------- 4.00. Trending Week Product  -------------------*/
+@forward 'template/sections/trending-week-product';
+
+/*------------------- 4.00. Trending Week Product  -------------------*/
+@forward 'template/sections/food-supplements';
+
+/*------------------- 4.00. Team  -------------------*/
+@forward 'template/sections/team';
+
+/*------------------- 4.00. Testimonial  -------------------*/
+@forward 'template/sections/testimonial';
+
+/*------------------- 4.00. Counter  -------------------*/
+@forward 'template/sections/counter';
+
+/*------------------- 4.00. Blog  -------------------*/
+@forward 'template/sections/blog-extra';
+
+/*------------------- 4.00. Brand  -------------------*/
+@forward 'template/sections/brand';
+
+/*------------------- 4.00. Simple Sections  -------------------*/
+@forward 'template/sections/simple-sections';
+
+/*------------------- 4.00. Why -------------------*/
+@forward 'template/sections/why';
+
+/*------------------- 4.00. Faq -------------------*/
+@forward 'template/sections/faq';
+
+/*------------------- 4.00. Service -------------------*/
+@forward 'template/sections/service';
+
+/*------------------- 4.00. Process -------------------*/
+@forward 'template/sections/process';
+
+/*------------------- 4.00. Pricing -------------------*/
+@forward 'template/sections/pricing';
+
+/*------------------- 4.00. Feature -------------------*/
+@forward 'template/sections/feature';
+
+/*------------------- 4.00. Project -------------------*/
+@forward 'template/sections/project';
+
+/*------------------- 4.00. Category -------------------*/
+@forward 'template/sections/category';
+
+/*------------------- 4.00. CTA -------------------*/
+@forward 'template/sections/cta';
+
+/*------------------- 4.00. Color Scheme -------------------*/
+@forward 'template/sections/color-scheme';
+
+/*------------------- 4.00. Appointment -------------------*/
+@forward 'template/sections/appointment';
+
+/*------------------- 4.00. Video -------------------*/
+@forward 'template/sections/video';
+
+/*------------------- 4.00. Client -------------------*/
+@forward 'template/sections/client';
+
+/*------------------- 4.00. Tab Menu -------------------*/
+@forward 'template/sections/tabmenu';
+
+/*------------------- 4.00. Marquee -------------------*/
+@forward 'template/sections/marquee';
+
+/*------------------- 4.00. Class -------------------*/
+@forward 'template/sections/class';
+
+/*------------------- 4.00. Gallery -------------------*/
+@forward 'template/sections/gallery';
+
+/*------------------- 4.00. MegaMenu -------------------*/
+@forward 'template/sections/megamenu';
+
+/*------------------- 4.00. Award -------------------*/
+@forward 'template/sections/award';
+
+/*------------------- 4.00. Work -------------------*/
+@forward 'template/sections/work';
+
+/*------------------- 4.00. Event -------------------*/
+@forward 'template/sections/event';
+
+
+/*=================================
+    05. Spacing
+==================================*/
+@forward 'spacing/spacing'; 
+
+/*=================================
+    Update 1
+==================================*/
+@forward 'update1/global'; 
+
+/*------------------- RTL -------------------*/
+// @forward 'rtl';

@@ -1,0 +1,176 @@
+@use 'base/variable' as *;
+@use 'base/mixin' as *;
+
+/* Deals 1 ---------------------------------- */
+
+.deals-sec1 {
+	padding: 60px 0 172px;
+	position: relative;
+	background: linear-gradient(to right, #E99D2B 20%, #E99D2B 100%);
+
+	.deals-3-top {
+		position: absolute;
+		top: 0;
+		width: 100%;
+	}
+
+	.deals-3-bottom {
+		position: absolute;
+		bottom: -1px;
+		width: 100%;
+	}
+}
+
+
+.deals3-img-box {
+	margin-right: -152px;
+	text-align: end;
+	margin-bottom: -159px;
+	margin-top: -77px;
+}
+
+.countdown-wrapp {
+	.subtitle {
+		color: var(--white-color);
+		font-size: 24px;
+		font-weight: 600;
+		margin-bottom: 21px;
+		display: block;
+	}
+
+	.box-title {
+		font-size: 48px;
+		line-height: 1.25;
+		color: #372121;
+		margin-bottom: 10px;
+	}
+
+	.box-text {
+		color: #000000;
+		margin-bottom: 34px;
+		width: 70%;
+	}
+}
+
+.time-counter-box {
+	margin-top: 40px;
+
+	.offer-title {
+		font-size: 32px;
+		color: var(--white-color);
+	}
+
+	.timer-counter {
+		display: grid;
+		grid-template-columns: auto auto auto auto;
+		margin-bottom: 0;
+		border-radius: 8px;
+		position: relative;
+		z-index: 9;
+		width: 392px;
+		padding-left: 0px;
+		gap: 22px;
+
+
+		@include xs {
+			gap: 20px;
+		}
+
+		li {
+			position: relative;
+			list-style: none;
+
+			.count-number {
+				height: 80px;
+				width: 80px;
+				line-height: 80px;
+				text-align: center;
+				background: #372121;
+				border-radius: 30px;
+				font-size: 32px;
+				font-weight: 600;
+				color: var(--white-color);
+				margin-bottom: 5px;
+				font-family: var(--title-font);
+			}
+
+			.count-name {
+				color: var(--title-color);
+				font-size: 20px;
+				font-weight: 500;
+				padding-left: 8px;
+			}
+		}
+	}
+}
+
+
+@include ml {
+	.deals-sec1 {
+		padding: 140px 0 190px;
+	}
+}
+
+@include lg {
+	.deals-sec1 {
+		padding: 111px 0 180px;
+	}
+}
+
+@include md {
+	.deals3-img-box {
+		margin-right: 0px;
+		text-align: start;
+		margin-bottom: 0px;
+		margin-top: 0px;
+	}
+	.deals-sec1 {
+	padding: 75px 0 75px;
+	.deals-3-top {
+		display: none;
+	}
+
+	.deals-3-bottom {
+		display: none;
+	}
+}
+
+}
+
+@include sm {
+	.countdown-wrapp .box-title {
+		font-size: 40px;
+	}
+}
+
+@media (max-width: 425px) {
+	.time-counter-box .timer-counter {
+		width: 320px;
+		gap: 10px;
+	}
+
+	.countdown-wrapp .box-title {
+		font-size: 30px;
+	}
+	.time-counter-box .timer-counter li .count-number {
+		height: 70px;
+		width: 70px;
+		line-height: 70px;
+		border-radius: 26px;
+		font-size: 26px;
+		margin-bottom: 5px;
+		;
+	}
+}
+
+@media (max-width: 350px) {
+	.time-counter-box .timer-counter {
+		width: 300px;
+		gap: 6px;
+	}
+
+	.time-counter-box .timer-counter li .count-name {
+		font-size: 16px;
+		padding-left: 5px;
+	}
+}

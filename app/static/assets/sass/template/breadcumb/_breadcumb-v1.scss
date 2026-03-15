@@ -1,0 +1,209 @@
+@use 'base/variable' as *;
+@use 'base/mixin' as *;
+
+.breadcumb-menu {
+    max-width: 100%;
+    min-width: 619px;
+    padding: 26px 200px 18px;
+    margin: 157px 0 0 0;
+    list-style-type: none;
+    display: inline-block;
+    position: relative;
+
+    &:before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-color: $white-color;
+        mask-image: url(../img/bg/breadcumb-menu-bg-mask.png);
+        mask-size: 100% 100%;
+    }
+
+    &.style-white {
+        &:before {
+            background-color: $white-color;
+        }
+    }
+
+    li {
+        display: inline-block;
+        margin-right: 3px;
+        padding-right: 3px;
+        list-style: none;
+        position: relative;
+
+        &:after {
+            content: "/";
+            position: relative;
+            margin-left: 10px;
+            font-weight: 700;
+            font-size: 18px;
+            color: $title-color;
+            font-family: $icon-font;
+
+            @include lg {
+                font-size: 12px;
+            }
+        }
+
+        &:last-child {
+            padding-right: 0;
+            margin-right: 0;
+            color: $theme-color;
+
+            &:after {
+                display: none;
+            }
+        }
+    }
+
+    li,
+    a,
+    span {
+        white-space: normal;
+        word-break: break-word;
+        font-weight: 500;
+        font-size: 24px;
+        font-family: $title-font;
+        color: $title-color;
+    }
+
+    a:hover {
+        color: $theme-color;
+    }
+
+    @include lg {
+        margin-top: 127px;
+        min-width: 500px;
+    }
+
+    @include md {
+        min-width: auto;
+        padding: 26px 150px 18px;
+    }
+
+    @include sm {
+        margin-top: 107px;
+        padding: 20px 100px 12px;
+    }
+
+    @include xs {
+        margin-top: 100px;
+        padding: 20px 60px 12px;
+    }
+}
+
+.bg-smoke2 {
+    .breadcumb-menu:before {
+        background: $smoke-color2;
+    }
+}
+
+.breadcumb-title {
+    margin: -0.28em 0 -0.28em 0;
+    font-size: 56px;
+    font-weight: 600;
+    line-height: 1.285;
+    color: $white-color;
+}
+
+.breadcumb-wrapper {
+    background-color: transparent;
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+    text-align: center;
+
+    .breadcumb-bg-thumb {
+        position: absolute;
+        inset: 32px 32px 0;
+        z-index: -1;
+        mask-size: 100% 100%;
+        border-radius: 32px;
+        overflow: hidden;
+
+        @include xl {
+            inset: 16px 16px 0;
+        }
+
+        @include lg {
+            border-radius: 24px;
+        }
+
+        @include xs {
+            inset: 0;
+            border-radius: 0 0 24px 24px;
+        }
+    }
+
+    .breadcumb-content {
+        --space: 262px;
+        padding: var(--space) 0 0;
+        position: relative;
+        z-index: 1;
+    }
+}
+
+/*  When not  present breadcumb-menu */
+.breadcumb-wrapper:has(.breadcumb-content):not(:has(.breadcumb-menu)) .breadcumb-content {
+    padding: var(--space) 0 170px;
+}
+
+@include lg {
+    .breadcumb-wrapper {
+        .breadcumb-content {
+            --space: 200px;
+        }
+    }
+
+    .breadcumb-menu {
+
+        li,
+        a,
+        span {
+            font-size: 16px;
+        }
+    }
+
+    .breadcumb-title {
+        font-size: 48px;
+    }
+}
+
+@include md {
+    .breadcumb-title {
+        font-size: 46px;
+    }
+
+    .breadcumb-wrapper:has(.breadcumb-content):not(:has(.breadcumb-menu)) .breadcumb-content {
+        padding: var(--space) 0 150px;
+    }
+}
+
+@include sm {
+    .breadcumb-title {
+        font-size: 40px;
+    }
+
+    .breadcumb-wrapper {
+        .breadcumb-content {
+            --space: 190px;
+        }
+    }
+}
+
+@include xs {
+    .breadcumb-title {
+        font-size: 34px;
+    }
+
+    .breadcumb-wrapper {
+        .breadcumb-content {
+            --space: 170px;
+        }
+    }
+
+    .breadcumb-wrapper:has(.breadcumb-content):not(:has(.breadcumb-menu)) .breadcumb-content {
+        padding: var(--space) 0 150px;
+    }
+}

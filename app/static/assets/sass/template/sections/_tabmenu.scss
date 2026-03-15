@@ -1,0 +1,20 @@
+@use 'base/variable' as *;
+@use 'base/mixin' as *;
+
+/* Tab Menu 1 ------------------------------------*/
+.tab-menu1 {
+    gap: 10px;
+    justify-content: center;
+    .tab-btn {
+        font-size: 14px;
+        padding: 4px 12px;
+        background-color: $smoke-color2;
+        border: 1px solid $border-color;
+        border-radius: 6px;
+        &.active {
+            background-color: $theme-color;
+            border-color: $theme-color;
+            color: $white-color;
+        }
+    }
+}

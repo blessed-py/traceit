@@ -1,0 +1,207 @@
+@use 'base/variable' as *;
+
+@use "sass:math";
+
+@mixin background-content($repeat: no-repeat, $size: cover, $position: center center) {
+	background-repeat: $repeat;
+	background-size: $size;
+	background-position: $position;
+}
+
+@mixin overlay($opacity: $opacity, $z-index: 0) {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	opacity: $opacity;
+	z-index: $z-index;
+}
+
+@mixin equal-size($width, $height: $width) {
+	width: $width;
+	height: $height;
+}
+
+@mixin height-lh($height, $lineheight: $height) {
+	height: $height;
+	line-height: $lineheight;
+}
+
+@mixin equal-size-lineHeight($width, $height: $width, $Lheight: $width) {
+	width: $width;
+	height: $height;
+	line-height: $Lheight;
+}
+
+@mixin flex-position($display, $contet, $items) {
+	display: $display;
+	justify-content: $contet;
+	align-items: $items;
+}
+
+@mixin center-position($top: $top, $left: $top) {
+	position: absolute;
+	top: $top;
+	left: $top;
+	transform: translate(-#{$top}, -#{$top});
+}
+
+@mixin inputPlaceholder() {
+	$selector: '';
+	$prefixes: (moz: "::-moz",
+			webkit: "::-webkit",
+			ie: ":-ms"
+		);
+
+	@each $prop,
+	$value in $prefixes {
+		@if $prop !="moz" {
+			$selector: #{$value}-input-placeholder;
+		}
+
+		@else {
+			$selector: #{$value}-placeholder;
+		}
+
+		@if & {
+			&#{$selector} {
+				@content;
+			}
+		}
+
+		@else {
+			#{$selector} {
+				@content;
+			}
+		}
+	}
+
+	&::placeholder {
+		@content;
+	}
+}
+
+
+
+// Mixin to place items on a circle
+@mixin on-circle($item-count, $circle-size, $item-size, $rotCount: 0, $angleCount: 360) {
+	
+
+	>* {
+		display: block;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		width: $item-size;
+		height: $item-size;
+		line-height: $item-size;
+		margin: -($item-size * 0.5);
+
+		$angle: #{$angleCount / $item-count};
+		$rot: $rotCount;
+
+		@for $i from 1 through $item-count {
+			&:nth-of-type(#{$i}) {
+				transform:
+					rotate($rot * 1deg) 
+					translate($circle-size * 0.5) 
+					rotate($rot * -1deg);
+			}
+
+			$rot: $rot+$angle;
+		}
+	}
+}
+
+
+
+@mixin transition-delay($itemcount: 1, $transitionCount: 0.0s) {
+	$transition: $transitionCount;
+
+	@for $i from 1 through $itemcount {
+		&:nth-of-type(#{$i}) {
+			transition-delay: ($transition + $transitionCount);
+		}
+		$transition: $transition+0.1s;
+	}
+}
+
+// Responsive Query
+@mixin hd {
+
+	/* Hight Resoulation devices */
+	@media (min-width: #{$hd + 1}) {
+		@content;
+	}
+}
+
+@mixin xxl {
+	
+	/* Extra large devices */
+	@media (max-width: #{$xxl}) {
+		@content;
+	}
+}
+
+@mixin ml {
+
+	/* Medium Large devices */
+	@media (max-width: #{$ml}) {
+		@content;
+	}
+}
+
+@mixin xl {
+
+	/* Medium Large devices */
+	@media (max-width: #{$xl}) {
+		@content;
+	}
+}
+
+@mixin lg {
+
+	/* Large devices */
+	@media (max-width: #{$lg}) {
+		@content;
+	}
+}
+
+@mixin md {
+
+	/* Medium devices */
+	@media (max-width: #{$md}) {
+		@content;
+	}
+}
+
+@mixin sm {
+
+	/* Small devices */
+	@media (max-width: #{$sm}) {
+		@content;
+	}
+}
+
+@mixin xs {
+
+	/* Extra small devices */
+	@media (max-width: #{$xs}) {
+		@content;
+	}
+}
+
+@mixin vxs {
+	/* Extra small devices */
+	@media (max-width: #{$vxs}) {
+		@content;
+	}
+}
+
+@mixin rtl {
+	/* rtl Support */
+	[dir="rtl"] {
+		@content;
+	}
+}

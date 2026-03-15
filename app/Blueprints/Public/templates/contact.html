@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Item Details - TraceIt</title>
+    <meta name="author" content="blessedmatiko">
+    <meta name="description" content="TraceIt helps you find your lost items and report found items. Smart lost and found platform for your community.">
+    <meta name="keywords" content="lost and found, find lost items, report found items, trace it, lost items recovery">
+    <meta name="robots" content="INDEX,FOLLOW">
+    <!-- Mobile Specific Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Favicons-->
+    <link rel="icon" type="image/png" href="{{url_for('static', filename='assets/img/logo_2.png')}}">
+    <link rel="manifest" href="{{url_for('static', filename='assets/img/favicons/manifest.json')}}">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="theme-color" content="#ffffff">
+
+    <!--==============================
+	  Google Fonts
+	============================== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&family=Fredoka:wght@300..700&family=Onest:wght@100..900&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="{{url_for('static', filename='assets/css/bootstrap.min.css')}}">
+    <!-- Fontawesome Icon -->
+    <link rel="stylesheet" href="{{url_for('static', filename='assets/css/fontawesome.min.css')}}">
+    <!-- Magnific Popup -->
+    <link rel="stylesheet" href="{{url_for('static', filename='assets/css/magnific-popup.min.css')}}">
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="{{url_for('static', filename='assets/css/swiper-bundle.min.css')}}">
+    <!-- Theme Custom CSS -->
+    <link rel="stylesheet" href="{{url_for('static', filename='assets/css/style.css')}}">
+            <!-- Font Awesome Pro v7.0.0 -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='fontawesome-pro/css/all.css') }}">
+    
+    <!-- Custom CSS -->
+    <style>
+        :root {
+            --primary-color: #183d69;
+            --secondary-color: #667eea;
+            --accent-color: #3e61c3;
+            --success-color: #28a745;
+            --danger-color: #dc3545;
+            --light-bg: #f8f9fa;
+            --border-color: #e9ecef;
+            --text-muted: #6c757d;
+            --title-font: "Inter", sans-serif;
+            --body-font: "Onest", sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+
+        /* Header Styles */
+        .header {
+            background: white;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-logo img {
+            width: 150px;
+            height: auto;
+        }
+
+        .main-menu ul {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .main-menu ul li {
+            margin-left: 30px;
+        }
+
+        .main-menu ul li a {
+            font-family: 'Onest', sans-serif;
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: #333;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .main-menu ul li a:hover,
+        .main-menu ul li a.active {
+            color: var(--primary-color);
+        }
+
+
+
+        /* Hero Section */
+        .hero-section {
+            background: #F6F2ED;
+            color: white;
+            padding-top: 150px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffffff" fill-opacity="0.1" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,133.3C960,128,1056,96,1152,90.7C1248,85,1344,107,1392,117.3L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') no-repeat bottom;
+            background-size: cover;
+        }
+
+        .hero-title {
+            font-family: var(--title-font);
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 30px;
+        }
+
+        /* Search Section */
+        .search-section {
+            background: white;
+            padding: 40px 0;
+            margin: -30px 0 60px;
+            border-radius: 20px 20px 0 0;
+            box-shadow: 0 -10px 30px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 10;
+        }
+
+        .search-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border: 1px solid var(--border-color);
+        }
+
+        .search-form {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .search-input-group {
+            flex: 1;
+            min-width: 250px;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 15px 20px 15px 50px;
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            font-family: var(--body-font);
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        .category-filter {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 25px;
+        }
+
+        .category-btn {
+            padding: 10px 20px;
+            border: 2px solid var(--border-color);
+            background: white;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            font-size: 0.9rem;
+            font-family: var(--body-font);
+        }
+
+        .category-btn:hover {
+            border-color: var(--secondary-color);
+            color: var(--secondary-color);
+        }
+
+        .category-btn.active {
+            background: linear-gradient(135deg, var(--secondary-color) 0%, var(--accent-color) 100%);
+            color: white;
+            border-color: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .search-btn {
+            padding: 15px 35px;
+            background: linear-gradient(135deg, var(--secondary-color) 0%, var(--accent-color) 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: var(--body-font);
+        }
+
+        .search-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        /* Results Section */
+        .results-section {
+            padding: 0 0 80px;
+            background-color: #F6F2ED;
+        }
+
+        .results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .results-count {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .sort-dropdown {
+            padding: 10px 20px;
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            background: white;
+            font-family: var(--body-font);
+            font-weight: 600;
+        }
+
+        .items-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .item-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .item-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .item-image {
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .item-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .item-card:hover .item-image img {
+            transform: scale(1.05);
+        }
+
+
+        .item-content {
+            padding: 25px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .item-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #333;
+            font-family: var(--title-font);
+        }
+
+        .item-description {
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            flex: 1;
+        }
+
+        .item-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .item-meta span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .item-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: auto;
+        }
+
+
+
+        .btn-primary-custom {
+            background: linear-gradient(135deg, var(--secondary-color) 0%, var(--accent-color) 100%);
+            color: white;
+        }
+
+        .btn-primary-custom:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+            color: white;
+        }
+
+        .btn-outline-custom {
+            background: transparent;
+            color: var(--secondary-color);
+            border: 2px solid var(--secondary-color);
+        }
+
+        .btn-outline-custom:hover {
+            background: var(--secondary-color);
+            color: white;
+        }
+
+        /* No Results */
+        .no-results {
+            text-align: center;
+            padding: 80px 20px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .no-results-icon {
+            font-size: 4rem;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+
+        .no-results-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .no-results-text {
+            color: var(--text-muted);
+            margin-bottom: 30px;
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 40px;
+        }
+
+        .page-btn {
+            padding: 10px 15px;
+            border: 2px solid var(--border-color);
+            background: white;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            min-width: 45px;
+            text-align: center;
+        }
+
+        .page-btn:hover {
+            border-color: var(--secondary-color);
+            color: var(--secondary-color);
+        }
+
+        .page-btn.active {
+            background: var(--secondary-color);
+            color: white;
+            border-color: var(--secondary-color);
+        }
+
+        /* Loading State */
+        .loading {
+            text-align: center;
+            padding: 40px;
+        }
+
+        .spinner {
+            border: 3px solid var(--border-color);
+            border-top: 3px solid var(--secondary-color);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+
+    </style>
+</head>
+<body>
+<!--Header Area-->
+    <header class="th-header header-layout1">
+        <div class="sticky-wrapper">
+            <!-- Main Menu Area -->
+            <div class="menu-area">
+                <div class="container">
+                    <div class="row align-items-center justify-content-between">
+                        <div class="col-auto">
+                            <div class="header-logo">
+                                <a href="/">
+                                    <img src="{{url_for('static', filename='assets/img/logo_3.png')}}" style="width: 150px; height: auto;" alt="TraceIt">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <nav class="main-menu d-none d-lg-inline-block ms-5">
+                                <ul>
+                                    <li>
+                                        <a class="fw-bold" href="/">Home</a>
+                                    </li>
+                                    <li><a class="fw-bold" href="/about">About Us</a></li>
+                                    <li><a class="fw-bold" href="/report_lost">Report Lost Item</a></li>
+                                    <li><a class="fw-bold" href="/report_found">Report Found Item</a></li>
+                                    <li>
+                                        <a class="fw-bold" href="/contact">Contact</a>
+                                    </li>
+                                </ul>
+                            </nav>
+                     
+                            <div class="header-button d-flex d-lg-none">
+                                <button type="button" class="th-menu-toggle icon-btn"><i class="far fa-bars"></i></button>
+                            </div>
+           
+                        </div>
+                        <div class="col-auto d-xl-block d-none">
+                            <div class="header-button">
+                                <a href="/find_item" class="th-btn fw-bold" style="border-radius: 10px;">Find Your Item</a>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h1 class="hero-title text-primary">View Item Details</h1>
+                    <p class="hero-subtitle text-secondary">Search through our database of lost and found items to reunite with your belongings</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+<section class="py-5 results-section">
+  <div class="container">
+
+    <div class="row justify-content-center">
+      <div class="col-lg-10">
+
+        <div class="card bg-transparent border-0 p-4">
+          <div class="row align-items-center">
+
+            <!-- Image (Left) -->
+            <div class="col-md-5">
+              <img src="{{url_for('static', filename='assets/img/dataset/wallet.jpg')}}"
+                   alt="Lost Wallet"
+                   class="img-fluid rounded-10 w-100">
+            </div>
+
+            <!-- Gap -->
+            <div class="col-md-1"></div>
+
+            <!-- Item Details (Right) -->
+            <div class="col-md-6">
+
+              <label>Item Name</label>
+              <h3 class="fw-bold mb-3">iPhone</h3>
+  
+
+
+              <label for="description">Description</label>
+              <p class="text-muted mb-4">
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Velit fugiat consequuntur praesentium culpa deserunt ex cumque officia quam iure quasi. Unde consequuntur rem corrupti veniam doloribus vero porro ea officiis.
+              </p>
+
+              <!-- Meta Info -->
+              <div class="row g-3 mb-4">
+
+                <div class="col-sm-6">
+                    <label for="category" class="d-block">Category</label>
+                  <div class="border rounded-10 p-3">
+                    <span class="fw-semibold">Category</span>
+                  </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <label class=" d-block">Date Found</label>
+                  <div class="border rounded-10 p-3">
+                    <span class="fw-semibold">Date</span>
+                  </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <label class="d-block">Location</label>
+                  <div class="border rounded-10 p-3">
+                    <span class="fw-semibold">Location</span>
+                  </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <label class="d-block">Status</label>
+                  <div class="border rounded-10 p-3">
+                    <span class="fw-semibold">Status</span>
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- Buttons -->
+              <div class="d-flex gap-2">
+                <button class="btn btn-primary px-4">Claim Item</button>
+                <a href="/find_item" class="btn btn-outline-secondary">Back to Items</a>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+<div class="alert alert-secondary mt-4">
+  <strong>Note:</strong> If this item belongs to you, click <b> <a href="/claim_item">Claim Item</a> </b> and provide proof of ownership.
+</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+
+    <!---Footer-->
+        <footer class="footer-wrapper footer-layout1">
+        <div class="footer-1-top-shape">
+            <img src="{{url_for('static', filename='assets/img/bg/footer-1-top-shape.png')}}" alt="img">
+        </div>
+
+
+        <div class="container th-container2">
+            <div class="footer-bottom">
+                <div class="widget-area">
+                    <div class="row justify-content-between">
+                        <div class="col-md-6 col-xl-auto" data-cue="slideInUp">
+                            <div class="widget footer-widget">
+                                <div class="th-widget-about">
+                                    <div class="about-logo">
+                                        <a href="/"><img src="{{url_for('static', filename='assets/img/logo_3.png')}}" style="width: 230px; height: auto;" alt="TraceIt"></a>
+                                    </div>
+                                    <p class="about-text">Helping people reconnect with their lost belongings through a smarter lost and found system.</p>
+                                    <div class="th-social style7">
+                                        <a href="https://www.facebook.com/"><i class="fab fa-github"></i></a>
+                                        <a href="https://www.linkedin.com/"><i class="fab fa-linkedin-in"></i></a>
+                                        <a href="https://www.instagram.com/"><i class="fa-brands fa-instagram"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-xl-auto" data-cue="slideInUp">
+                            <div class="widget widget-contact-wrap footer-widget">
+                                <div class="info-box">
+                                    <div class="info-box_icon">
+                                        <i class="fas fa-phone"></i>
+                                    </div>
+                                    <div class="box-content">
+                                        <p class="info-box_title">Help For Call</p>
+                                        <p class="info-box_text">
+                                            <a href="tel:+917696912420" class="info-box_link">+91 7696912420</a>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="info-box">
+                                    <div class="info-box_icon">
+                                        <i class="fas fa-location"></i>
+                                    </div>
+                                    <div class="box-content">
+                                        <p class="info-box_title">Our Address</p>
+                                        <p class="info-box_text text-white">
+                                            Phagwara, LPU
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="info-box">
+                                    <div class="info-box_icon">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                    </div>
+                                    <div class="box-content">
+                                        <p class="info-box_title">WhatsApp</p>
+                                        <p class="info-box_text">
+                                            <a href="https://wa.me/+917696912420" target="_blank" class="info-box_link">+917696912420</a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xl-auto" data-cue="slideInUp">
+                            <div >
+                                       <h4 class="text-white">Quick Links</h4>
+                                       <p><a href="/">Home</a></p>
+                                       <p><a href="/report_lost">Report Lost</a> </p>
+                                       <p><a href="/report_found">Report Found</a></p>
+                                       <p><a href="/browse_item">Browse Items</a></p>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="container">
+            <div class="copyright-wrap ">
+                <div class="row gy-2">
+                    <div class="col-lg-4 col-xl-4" data-cue="slideInUp">
+                        <p class="copyright-text">Copyright &copy; 2026 <a href="/">TraceIt.</a> All Rights Reserved.</p>
+                    </div>
+                    <div class="col-lg-8 col-xl-6 text-center text-lg-end" data-cue="slideInUp">
+                        <div class="footer-links">
+                            <ul>
+                                <li>
+                                    <a href="/about">Terms and Conditions.</a>
+                                </li>
+                                <li>
+                                    <a href="/about">Privacy Policy</a>
+                                </li>
+
+                                <li>
+                                    <a href="/contact">Get Support</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Scroll To Top -->
+    <div class="scroll-top">
+        <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+            <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" style="transition: stroke-dashoffset 10ms linear 0s; stroke-dasharray: 307.919, 307.919; stroke-dashoffset: 307.919;"></path>
+        </svg>
+    </div>
+    <!-- Jquery -->
+    <script src="{{url_for('static', filename='assets/js/vendor/jquery-3.7.1.min.js')}}"></script>
+    <!-- Swiper Js -->
+    <script src="{{url_for('static', filename='assets/js/swiper-bundle.min.js')}}"></script>
+    <!-- Bootstrap -->
+    <script src="{{url_for('static', filename='assets/js/bootstrap.min.js')}}"></script>
+    <!-- Magnific Popup -->
+    <script src="{{url_for('static', filename='assets/js/jquery.magnific-popup.min.js')}}"></script>
+    <!-- Counter Up -->
+    <script src="{{url_for('static', filename='assets/js/jquery.counterup.min.js')}}"></script>
+    <!-- Range Slider -->
+    <script src="{{url_for('static', filename='assets/js/jquery-ui.min.js')}}"></script>
+    <!-- Isotope Filter -->
+    <script src="{{url_for('static', filename='assets/js/imagesloaded.pkgd.min.js')}}"></script>
+    <script src="{{url_for('static', filename='assets/js/isotope.pkgd.min.js')}}"></script>
+    <!-- Cue Js -->
+    <script src="{{url_for('static', filename='assets/js/scrollCue.min.js')}}"></script>
+    <!-- Gsap -->
+    <script src="{{url_for('static', filename='assets/js/gsap.min.js')}}"></script>
+    <!-- Scroll Trigger -->
+    <script src="{{url_for('static', filename='assets/js/ScrollTrigger.min.js')}}"></script>
+    <!-- Split Text -->
+    <script src="{{url_for('static', filename='assets/js/SplitText.min.js')}}"></script>
+    <!-- Lenis Js -->
+    <script src="{{url_for('static', filename='assets/js/lenis.min.js')}}"></script>
+
+    <!-- Perticle Js -->
+    <script src="{{url_for('static', filename='assets/js/particles.min.js')}}"></script>
+    <script src="{{url_for('static', filename='assets/js/particles-config.js')}}"></script>
+
+    <!-- Main Js File -->
+    <script src="{{url_for('static', filename='assets/js/main.js')}}"></script>
+    
+</body>
+</html>

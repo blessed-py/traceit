@@ -1,0 +1,190 @@
+@use 'base/variable' as *;
+@use 'base/mixin' as *;
+
+/* Gallery Area 1 -------------------------------*/
+
+
+.gallery-1-wrap {
+    margin: 0 32px;
+    display: grid;
+    grid-template-columns: 1.9fr 1fr 1.9fr 1fr;
+    gap: 24px;
+
+    .gallery-card-wrap {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 24px;
+    }
+
+    .gallery-card {
+        position: relative;
+        overflow: hidden;
+        display: inline-block;
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+
+        &:hover {
+            .gallery-img {
+                &:after {
+                    opacity: 0.7;
+                }
+            }
+
+            .icon-btn {
+                transform: translate(-50%, -50%);
+                opacity: 1;
+            }
+        }
+
+        .gallery-img {
+            position: relative;
+            border-radius: 24px;
+            overflow: hidden;
+
+            img {
+                width: 100%;
+            }
+
+            &:after {
+                content: '';
+                position: absolute;
+                inset: 0px;
+                background: $title-color;
+                opacity: 0;
+                border-radius: 0px;
+                transition: 0.4s;
+            }
+        }
+
+        .icon-btn {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -20%);
+            border-radius: 50%;
+            color: $theme-color;
+            background-color: transparent;
+            z-index: 1;
+            opacity: 0;
+            --btn-size: 60px;
+            --btn-font-size: 24px;
+
+            &:hover {
+                color: $white-color;
+            }
+        }
+
+        @include md {
+            .icon-btn {
+                --btn-size: 50px;
+                --btn-font-size: 24px;
+            }
+        }
+    }
+
+}
+
+@include xxl {
+    .gallery-1-wrap .gallery-card-wrap {
+        gap: 18px;
+    }
+}
+
+@include md {
+    .gallery-1-wrap {
+        grid-template-columns: 1fr;
+    }
+}
+
+@include xs {
+    .gallery-1-wrap {
+        margin: 0 10px;
+    }
+}
+
+/* Gallery Area 2 -------------------------------*/
+
+.gallery-1-wrap.style2 {
+    grid-template-columns: 1fr 1.9fr;
+    gap: 24px;
+
+    &.style1 {
+        grid-template-columns: 1.9fr 1fr;
+    }
+
+
+    .gallery-card {
+        &:hover {
+            .gallery-img {
+                &:before {
+                    opacity: 1;
+                    visibility: visible;
+                }
+            }
+        }
+    }
+
+
+
+    .gallery-card {
+        position: relative;
+
+        .gallery-img {
+            &:before {
+                content: "";
+                position: absolute;
+                inset: 20px;
+                background: transparent;
+                opacity: 0;
+                visibility: hidden;
+                border-radius: 24px;
+                -webkit-transition: 0.4s;
+                transition: 0.4s;
+                width: calc(100% - 40px);
+                height: calc(100% - 40px);
+                border: 1px dashed var(--theme-color);
+                z-index: 1;
+
+                @include xs {
+                    inset: 15px;
+                    width: calc(100% - 30px);
+                    height: calc(100% - 30px);
+                }
+            }
+        }
+
+        .icon-btn {
+            background: rgba(255, 255, 255, 0.3);
+            color: $white-color;
+            backdrop-filter: blur(5px);
+            --btn-size: 60px;
+            --btn-font-size: 20px;
+
+            &:hover {
+                background: $theme-color;
+                border-color: $theme-color;
+                color: $white-color;
+            }
+        }
+
+        @include md {
+            .icon-btn {
+                --btn-size: 40px;
+                --btn-font-size: 18px;
+            }
+        }
+    }
+}
+
+@include md {
+    .gallery-1-wrap.style2 {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+
+    .gallery-1-wrap.style2.style1 {
+        grid-template-columns: 1fr;
+    }
+}

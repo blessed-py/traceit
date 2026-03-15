@@ -1,0 +1,69 @@
+@use 'base/variable' as *;
+@use 'base/mixin' as *;
+
+.space,
+.space-top {
+  padding-top: $space;
+}
+
+.space,
+.space-bottom {
+  padding-bottom: $space;
+}
+
+.space-extra,
+.space-extra-top {
+  padding-top: $space-extra;
+}
+
+.space-extra,
+.space-extra-bottom {
+  padding-bottom: $space-extra;
+}
+
+.space-extra2,
+.space-extra2-top {
+  padding-top: $space-extra2;
+}
+
+.space-extra2,
+.space-extra2-bottom {
+  padding-bottom: $space-extra2;
+}
+
+
+@include md {
+  .space,
+  .space-top {
+    padding-top: $space-mobile;
+  }
+
+  .space,
+  .space-bottom {
+    padding-bottom: $space-mobile;
+  }
+
+  .space-extra,
+  .space-extra-top {
+    padding-top: $space-mobile-extra;
+  }
+
+  .space-extra,
+  .space-extra-bottom {
+    padding-bottom: $space-mobile-extra;
+  }
+
+  .space-top-md-none {
+    padding-top: 0;
+  }
+
+  .space-extra2,
+  .space-extra2-top {
+    padding-top: $space-mobile-extra;
+  }
+
+  .space-extra2,
+  .space-extra2-bottom {
+    padding-bottom: $space-mobile-extra;
+  }
+}

@@ -1,0 +1,171 @@
+:root {
+  --theme-color         : #F8721F;
+  --theme-color2        : #F4E11B;
+  --title-color         : #02000F;
+  --body-color          : #6C6D71;
+  --smoke-color         : #F6F6F6;
+  --smoke-color2        : #F6F2ED;
+  --black-color         : #000000;
+  --black-color2        : #13182B;
+  --black-color3        : #4E4E4E;
+  --black-color4        : #1F1F1F;
+  --th-border-color     : #E4E4E5;
+  --th-border-color2    : rgba(78, 78, 78, 0.2);
+  --th-border-color3    : rgba(56, 61, 70, 0.1);
+  --light-color         : #A1A4B1;
+  
+  --gray-color          : #141414;
+  --gray-color2         : #F4F3E6;
+  --gray-color3         : #A1A1A1;
+  --gray-color4         : #F4F1FC;
+  --gray-color5         : #FFF5F1;
+  --smoke-color3        : #FFF3E0;
+  --smoke-color4        : #F2F2F2;
+  --black-color5        : #22272E;
+  --black-color6        : #2D333D;
+  --black-color7        : #0E0E13;
+  --white-color         : #ffffff;
+  --yellow-color        : #FFB539;
+  --success-color       : #28a745;
+  --error-color         : #dc3545;
+  --th-border-color4    : rgba(198, 201, 212, 0.5);
+  --th-border-color5    : #49515C;
+  --th-border-color6    : #383D46;
+  --title-font          : "Fredoka", sans-serif;
+  --body-font           : "Onest", sans-serif;
+  --icon-font           : "Font Awesome 6 Pro";
+  --main-container      : 1320px;
+  --container-gutters   : 24px;
+  --section-space       : 120px;
+  --section-space-mobile: 80px;
+  --section-title-space : 60px;
+  --ripple-ani-duration : 5s;
+  --th-body-background  : #ffffff;
+}
+
+// Color Variation
+$theme-color          : var(--theme-color);
+$theme-color2         : var(--theme-color2);
+$title-color          : var(--title-color);
+$body-color           : var(--body-color);
+$smoke-color          : var(--smoke-color);
+$smoke-color2         : var(--smoke-color2);
+$smoke-color3         : var(--smoke-color3);
+$smoke-color4         : var(--smoke-color4);
+$white-color          : var(--white-color);
+$light-color          : var(--light-color);
+$black-color          : var(--black-color);
+$black-color2         : var(--black-color2);
+$black-color3         : var(--black-color3);
+$black-color4         : var(--black-color4);
+$black-color5         : var(--black-color5);
+$black-color6         : var(--black-color6);
+$black-color7         : var(--black-color7);
+$gray-color           : var(--gray-color);
+$gray-color2          : var(--gray-color2);
+$gray-color3          : var(--gray-color3);
+$gray-color4          : var(--gray-color4);
+$gray-color5          : var(--gray-color5);
+$yellow-color         : var(--yellow-color);
+$success-color        : var(--success-color);
+$error-color          : var(--error-color);
+$border-color         : var(--th-border-color);
+$border-color2        : var(--th-border-color2);
+$border-color3        : var(--th-border-color3);
+$border-color4        : var(--th-border-color4);
+$border-color5        : var(--th-border-color5);
+$border-color6        : var(--th-border-color6);
+$body-background      : var(--th-body-background);
+
+// Font Variation
+$icon-font   : var(--icon-font);
+
+// Typography
+$title-font      : var(--title-font);
+$body-font       : var(--body-font);
+$body-font-size  : 16px;
+$body-line-Height: 26px;
+$body-font-weight: 400;
+$p-line-Height   : 1.75;
+
+// Device Variation
+$hd: 1921px; // Large Device Than 1920
+$xxl: 1500px; // Extra large Device
+$ml: 1399px; // Medium Large Device
+$xl: 1299px; // Medium Large Device
+$lg: 1199px; // Large Device (Laptop)
+$md: 991px; // Medium Device (Tablet)
+$sm: 767px; // Small Device
+$xs: 575px; // Extra Small Device
+$vxs: 375px; // Extra Small Device
+
+// Spacing Count with 5x
+$space-count: 10;
+
+// Section Space  For large Device
+$space         : var(--section-space);
+$space-extra   : calc(var(--section-space) - 30px);
+$space-extra2   : calc(var(--section-space) - 40px);
+
+// Section Space On small Device
+$space-mobile         : var(--section-space-mobile);
+$space-mobile-extra: calc(var(--section-space-mobile) - 30px);
+
+
+// BG Color Mapping 
+$bgcolorMap  : (
+  "theme"    : $theme-color,
+  "theme2"   : $theme-color2,
+  "smoke"    : $smoke-color,
+  "smoke2"   : $smoke-color2,
+  "gray"     : $gray-color,
+  "gray2"    : $gray-color2,
+  "gray3"    : $gray-color3,
+  "gray4"    : $gray-color4,
+  "white"    : $white-color,
+  "light"    : $light-color,
+  "black"    : $black-color,
+  "black2"   : $black-color2,
+  "black3"   : $black-color3,
+  "black4"   : $black-color4,
+  "title"    : $title-color,
+  "body"     : $body-color,
+);
+
+
+// Overlay Color Mapping
+$overlaycolorMap : (
+  "theme"        : $theme-color,
+  "theme2"       : $theme-color2,
+  "title"        : $title-color,
+  "smoke"        : $smoke-color,
+  "gray"         : $gray-color,
+  "white"        : $white-color,
+  "black"        : $black-color,
+  "black4"       : $black-color4,
+  "black7"       : $black-color7,
+);
+
+
+// Text Color Mapping
+$textColorsMap : (
+  "theme"      : $theme-color,
+  "theme2"     : $theme-color2,
+  "title"      : $title-color,
+  "body"       : $body-color,
+  "white"      : $white-color,
+  "light"      : $light-color,
+  "gray"       : $gray-color,
+  "gray3"      : $gray-color3,
+  "yellow"     : $yellow-color,
+  "success"    : $success-color,
+  "error"      : $error-color
+);
+
+
+// Font Mapping 
+$fontsMap    : (
+  "icon"     : $icon-font,
+  "title"    : $title-font,
+  "body"     : $body-font,
+);

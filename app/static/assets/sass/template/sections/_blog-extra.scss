@@ -1,0 +1,117 @@
+@use 'base/variable' as *;
+@use 'base/mixin' as *;
+
+/* Blog Card ---------------------------------- */
+.blog-title {
+    font-size: 30px;
+}
+.blog-card {
+    .blog-img {
+        margin-bottom: 28px;
+        border-radius: 30px;
+        overflow: hidden;
+        img {
+            width: 100%;
+            height: 283px;
+            object-fit: cover;
+            transition: 0.4s;
+        }
+    }
+    .blog-meta {
+        margin-bottom: 12px;
+    }
+    .box-title {
+        margin-bottom: 24px;
+        font-size: 24px;
+        font-weight: 600;
+        line-height: 1.333;
+        a {
+            color: $title-color;
+            background-image: linear-gradient(to left, $theme-color, $theme-color);
+            background-repeat: no-repeat;
+            background-position: bottom left;
+            background-size: 0 2px;
+            transition: 0.5s ease-in-out;
+            text-transform: capitalize;
+            &:hover {
+                color: $theme-color;
+                background-size: 100% 2px;
+            }
+        }
+        @include ml {
+            font-size: 24px;
+        }
+        @include xs {
+            font-size: 22px;
+        }
+    }
+    .btn-wrap {
+        border-top: 1px solid $border-color2;
+        padding-top: 32px;
+    }
+    &:hover {
+        .blog-img {
+            img {
+                transform: scale(1.05);
+            }
+        }
+    }
+}
+
+/* Blog Card 2---------------------------------- */
+.blog-card.style-2 {
+    background-color: var(--white-color);
+    border-radius: 30px;
+    padding: 10px 11px 20px 11px;
+    .blog-meta {
+        span, 
+        a {
+            color: #74787C;          
+            &:hover {
+                color: $theme-color;
+            }
+        }
+    }
+    .box-title {
+        margin-bottom: 23px;
+        font-size: 22px;
+        a {
+            background-image: linear-gradient(to left, $theme-color, $theme-color);
+            background-repeat: no-repeat;
+            background-position: bottom left;
+            background-size: 0 2px;
+            transition: 0.5s ease-in-out;
+            &:hover {
+                color: $theme-color;
+                background-size: 100% 2px;
+            }
+        }
+    }
+    .blog-content {
+        padding-left: 25px;
+        @include vxs {
+            padding-left: 5px;
+        }
+    }
+    
+    .btn-wrap .link-btn.th-btn-icon {
+        color: var(--theme-color);
+        &:after {
+            content: "\f324";
+            mask-image: none;
+            background: transparent;
+            width: auto;
+            height: auto;
+            font-family: Font Awesome\ 6 Pro;
+            font-weight: 900;
+            color: var(--theme-color);
+        }
+        &:hover {
+            color: var(--title-color);
+            &:after {
+                color: var(--title-color);
+            }
+        }
+    }
+}
+

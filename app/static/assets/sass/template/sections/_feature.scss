@@ -1,0 +1,122 @@
+@use 'base/variable' as *;
+@use 'base/mixin' as *;
+
+/* Feature card ---------------------------------- */
+.feature-card {
+    position: relative;
+    border-radius: 30px;
+    z-index: 1;
+    overflow: hidden;
+    transition: 0.4s;
+    background: var(--smoke-color2);
+    text-align: start;
+    .top-wrap {
+        padding: 30px;
+    }
+    .box-icon {
+        display: inline-block;
+        margin-bottom: 35px;
+        height: 100px;
+        width: 100px;
+        line-height: 100px;
+        text-align: center;
+        background-color: $white-color;
+        border-radius: 100px;
+        img {
+            transition: 0.4s ease-in-out;
+        }
+    }
+    .box-title {
+        font-size: 24px;
+        font-weight: 600;
+        transition: 0.4s;
+        margin-bottom: 8px;
+        color: $title-color;
+        @include xl {
+            font-size: 22px;
+        } 
+        @include lg {
+            font-size: 24px;
+        } 
+    }
+    .box-text {
+        margin-bottom: -0.5em;
+        transition: 0.4s;
+        color: $black-color3;
+    }
+    &:hover {
+        .box-icon {
+            img {
+                transform: scale(-1) rotate(180deg);
+            }
+        }
+    }
+    @include lg {
+        .box-title {
+            font-size: 24px;
+        }
+    }
+}
+
+.feature-card {
+    .bottom-text {
+        background: var(--white-color);
+        margin: 1px;
+        border-radius: 30px;
+        padding: 30px 25px;
+        .checklist.style2 {
+            ul {
+                list-style: none;
+                margin-bottom: 25px;
+                li {
+                    list-style: none;
+                    padding-left: 0;
+                    gap: 10px;
+                }
+            }
+        }
+    }
+}
+
+
+/* Feature card 2---------------------------------- */
+.feature-card.style2 {
+    padding: 16px;
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    background-color: transparent;
+    border: 2px solid #372121;
+    .box-img {
+        margin-bottom: 0px;
+        height: 64px;
+        width: 64px;
+        line-height: 64px;
+        border-radius: 20px;
+        background-color: #372121;
+        text-align: center;
+        img {
+            transition: 0.4s;
+        }
+    }
+    .box-title {
+        font-size: 24px;
+        font-weight: 500;
+        margin-bottom: 0px;
+        @include ml {
+            font-size: 24px;
+            margin-bottom: 22px;
+        }
+    }
+    .box-text {
+        color: #6E7070;
+    }
+    &:hover {
+        .box-img {
+            img {
+                transform: scale(1.1) ;
+            }
+        }
+    }
+}
+

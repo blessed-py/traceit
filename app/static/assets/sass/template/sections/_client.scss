@@ -1,0 +1,21 @@
+@use 'base/variable' as *;
+@use 'base/mixin' as *;
+
+/* Client Card -------------------------------------*/
+.client-area-1 {
+    padding-bottom: 538px;
+    @include md {
+        padding-bottom: 498px;
+    }
+}
+.client-slider1 {
+    border-bottom: 1px solid #B7B7B7;
+    .swiper-slide {
+        border-right: 1px solid #B7B7B7;
+    }
+}
+.client-card {
+    text-align: center;
+    padding: 70px 0;
+    display: block;
+}
