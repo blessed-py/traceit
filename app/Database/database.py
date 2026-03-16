@@ -11,20 +11,23 @@ import os
 # Encryption instance
 cryptographer = Cryptography()
 
-'''
-        //Connect to the database and initialize one user(email and password) when user.count==0
-DB_HOST = 'os.environ.get("DB_HOST")'
+
+
+  #Connect to the database and initialize one user(email and password) when user.count==0
 DB_USER = os.environ.get("DB_USER")
+DB_HOST = os.environ.get("DB_HOST")
+
 DB_NAME = os.environ.get("DB_NAME")
-EMAIL_PWD = os.environ.get("EMAIL_PWD")
-'''
 DB_PWD = os.environ.get("DB_PWD")
 
+EMAIL = os.environ.get("EMAIL")
+EMAIL_PWD = os.environ.get("EMAIL_PWD")
+
 db_config = {
-    'host': '127.0.0.1',
-    'user': 'root',
+    'host': DB_HOST,
+    'user': DB_USER,
     'password': DB_PWD,
-    'database': 'lost_found_db',
+    'database': DB_NAME,
 }
 
 class DatabaseManager():
@@ -33,16 +36,18 @@ class DatabaseManager():
         try:
             # Connect to the database
             connection = connect(
-                host='localhost',
-                user='root',
+                host=DB_HOST,
+                user=DB_USER,
                 password=DB_PWD,
-                database='lost_found_db'
+                database=DB_NAME
             )
 
-            # Create a cursor
             cursor = connection.cursor()
+            # Create a cursor
+            '''
             cursor.execute('CREATE DATABASE IF NOT EXISTS lost_found_db')
             cursor.execute('USE lost_found_db')
+            '''
 
             
             # CREATE Tables
@@ -222,7 +227,7 @@ class DatabaseManager():
                 admin_user_id = cryptographer.generate_unique_id()
 
                 # Generate hashed password
-                password_hash = cryptographer.generate_key('0311Matiko.!')
+                password_hash = cryptographer.generate_key(EMAIL_PWD)
 
                 # Insert into user table
                 cursor.execute(
@@ -233,7 +238,7 @@ class DatabaseManager():
                 # Insert into user_profile
                 cursor.execute(
                     'INSERT INTO user_profile (user_id, email, profile_picture) VALUES (%s, %s, %s)',
-                    (admin_user_id, "blessed.kichuki@gmail.com", "sys.png")
+                    (admin_user_id, EMAIL, "sys.png")
                 )
 
                 # Insert into user_auth
