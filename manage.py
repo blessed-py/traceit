@@ -24,10 +24,6 @@ STORAGE_DIR = os.path.join(BASE_DIR, "app", "Storage")
 
 @app.route('/Storage/<path:filename>')
 def serve_storage(filename):
-    import os
-    full_path = os.path.join(STORAGE_DIR, filename)
-    print("Looking for:", full_path)
-    print("Exists:", os.path.exists(full_path))
     return send_from_directory(STORAGE_DIR, filename)
 
 
@@ -59,5 +55,5 @@ app.register_blueprint(support_bp)
 
 # Main route
 if __name__ == '__main__':
-   #app.run(debug=True, host='0.0.0.0', port=1234)
-   app.run()
+   app.run(debug=True, host='0.0.0.0', port=1234)
+   #app.run()

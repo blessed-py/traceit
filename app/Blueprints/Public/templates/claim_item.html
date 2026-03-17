@@ -386,6 +386,7 @@
                         <h3 class="text-center mb-4" style="color: var(--primary-color); font-family: var(--title-font); font-weight: 700;">Claim Form</h3>
                         
                         <form id="claim_item_form">
+                            <input type="hidden" name="item_found_id" value="{{ item.item_found_id }}">
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
@@ -396,7 +397,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="form-label">Email Address <span class="text-danger" >*</span></label>
-                                        <input type="email" class="form-control" name="claimant_email" required placeholder="your.email@example.com">
+                                        <input type="email" class="form-control" name="email" required placeholder="your.email@example.com">
                                     </div>
                                 </div>
                             </div>
@@ -405,25 +406,25 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="form-label">Phone Number <span class="text-danger" >*</span></label>
-                                        <input type="tel" class="form-control" name="claimant_phone" required placeholder="Enter your Phone Number">
+                                        <input type="tel" class="form-control" name="phone_number" required placeholder="Enter your Phone Number">
                                     </div>
                                 </div>
                             </div>
                             
                             <div class="form-group">
-                                <label class="form-label">Detailed Description of Item <span class="text-danger" >*</span></label>
+                                <label class="form-label" for="item_description">Detailed Description of Item <span class="text-danger" >*</span></label>
                                 <textarea class="form-control form-textarea" name="item_description" required placeholder="Please describe the item in detail, including any unique features, markings, or distinguishing characteristics..."></textarea>
                             </div>
                             
                             <div class="form-group">
-                                <label class="form-label">When and Where You Lost It <span class="text-danger" >*</span></label>
-                                <textarea class="form-control form-textarea" name="loss_details" required placeholder="Describe when and where you lost the item, what you were doing at the time..."></textarea>
+                                <label class="form-label" for="loss_detail">When and Where You Lost It <span class="text-danger" >*</span></label>
+                                <textarea class="form-control form-textarea" name="loss_detail" required placeholder="Describe when and where you lost the item, what you were doing at the time..."></textarea>
                             </div>
                             
                             <div class="form-group">
-                                <label class="form-label">Upload Proof Documents (Optional)</label>
-                                <input type="file" class="form-control" name="proof_documents" accept="image/*,.pdf">
-                                <small class="text-muted">Upload receipts, photos, or other supporting documents</small>
+                                <label class="form-label">Upload Proof Image (Optional)</label>
+                                <input type="file" class="form-control" name="image" accept="image/*">
+                                <small class="text-muted">Upload receipts, or supporting image</small>
                             </div>
                             
                             <div class="form-group">
@@ -516,7 +517,7 @@ I confirm that the information provided is accurate and that I am the rightful o
                                        <p><a href="/">Home</a></p>
                                        <p><a href="/report_lost">Report Lost</a> </p>
                                        <p><a href="/report_found">Report Found</a></p>
-                                       <p><a href="/browse_item">Browse Items</a></p>
+                                       <p><a href="/find_item">Find Your Item</a></p>
 
 
                             </div>
@@ -590,6 +591,76 @@ I confirm that the information provided is accurate and that I am the rightful o
 
     <!-- Main Js File -->
     <script src="{{url_for('static', filename='assets/js/main.js')}}"></script>
+
+    <script src="{{ url_for('static', filename='plugins/sweetalert2/sweetalert2.all.min.js') }}"></script>
+    <script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const form = document.getElementById("claim_item_form");
+
+    form.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        const formData = new FormData(form);
+
+        // Attach item_found_id 
+        const itemFoundId = form.getAttribute("data-item-id");
+        if (itemFoundId) {
+            formData.append("item_found_id", itemFoundId);
+        }
+
+        const submitBtn = form.querySelector("button[type='submit']");
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = "Submitting...";
+
+        fetch("/add_claim_item", {
+            method: "POST",
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = `<i class="fas fa-paper-plane me-2"></i> Submit Claim`;
+
+            if (data.success) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Claim Submitted!',
+                    text: 'Your claim is under review. We will contact you soon.',
+                    confirmButtonColor: '#28a745'
+                });
+
+                form.reset();
+
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Submission Failed',
+                    text: data.feedback || 'Something went wrong!',
+                    confirmButtonColor: '#dc3545'
+                });
+            }
+
+        })
+        .catch(error => {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = `<i class="fas fa-paper-plane me-2"></i> Submit Claim`;
+
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Something went wrong. Please try again.',
+                confirmButtonColor: '#dc3545'
+            });
+
+            console.error(error);
+        });
+
+    });
+
+});
+</script>
     
 </body>
 </html>

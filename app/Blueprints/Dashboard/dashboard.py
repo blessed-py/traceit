@@ -280,7 +280,6 @@ def item_found():
     current_user = g.current_user
     sys_items_found = db_manager.get_system_items_found()
     items_found_count = db_manager.get_total_items_found_count()
-    print(sys_items_found)
     return render_template('item_found.html',
                            current_user = current_user,
                            sys_items_found=sys_items_found,
@@ -316,10 +315,10 @@ def add_item_found():
         print("[ERROR] Saving item found image:", e)
         return jsonify({'success': False, 'feedback': 'Failed to save item found image'}), 500
 
-    # Generate partner ID
+    # Generate unique ID
     item_found_id = cryptographer.generate_unique_id()
 
-    # Add partner to the database
+    # Add to the database
     success, feedback = db_manager.add_item_found(
                     item_found_id = item_found_id, 
                     item_name = item_name, 
@@ -338,3 +337,34 @@ def add_item_found():
     )
 
     return jsonify({'success': success, 'feedback': feedback})
+
+
+@dashboard_bp.route('/sys/item_claimed')
+@login_required
+def item_claimed():
+    current_user = g.current_user
+    sys_items_claimed = db_manager.get_system_claimed_items()
+    items_claimed_count = db_manager.get_total_items_claimed_count()
+    return render_template('item_claimed.html',
+                           current_user = current_user,
+                           sys_items_claimed=sys_items_claimed,
+                           items_claimed_count = items_claimed_count
+                           ) 
+
+@dashboard_bp.route('/sys/delete_claim_item', methods=['POST'])
+def delete_claim_item():
+    try:
+        data = request.get_json()
+        claim_item_id = data.get('claim_item_id')
+
+        if not claim_item_id:
+            return jsonify({'success': False, 'feedback': 'Claim Item ID is required.'}), 400
+
+        # Call DB function
+        success, feedback = db_manager.delete_claim_item(claim_item_id)
+
+        return jsonify({'success': success, 'feedback': feedback}), (200 if success else 400)
+
+    except Exception as e:
+        print("[ERROR] Deleting item claim:", e)
+        return jsonify({'success': False, 'feedback': 'Unexpected error occurred.'}), 500    

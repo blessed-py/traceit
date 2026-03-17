@@ -42,12 +42,10 @@ class DatabaseManager():
                 database=DB_NAME
             )
 
-            cursor = connection.cursor()
             # Create a cursor
-            '''
+            cursor = connection.cursor()
             cursor.execute('CREATE DATABASE IF NOT EXISTS lost_found_db')
             cursor.execute('USE lost_found_db')
-            '''
 
             
             # CREATE Tables
@@ -196,7 +194,22 @@ class DatabaseManager():
                 );
             ''')
 
-
+            cursor.execute('''
+                CREATE TABLE IF NOT EXISTS claim_item (
+                    id INT AUTO_INCREMENT NOT NULL UNIQUE,
+                    claimant_name VARCHAR(255) NOT NULL,
+                    email VARCHAR(255) NOT NULL,
+                    phone_number VARCHAR(255) NOT NULL,
+                    item_description TEXT NOT NULL,
+                    loss_detail TEXT NOT NULL,
+                    image VARCHAR(255),
+                    item_found_id VARCHAR(255) NOT NULL,
+                    status ENUM('pending','approved','rejected') DEFAULT 'pending',
+                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                    claim_item_id VARCHAR(255) PRIMARY KEY
+                );
+            ''')
 
             cursor.execute('CREATE TABLE IF NOT EXISTS user_auth (id INT AUTO_INCREMENT UNIQUE NOT NULL, password VARCHAR(255), user_id VARCHAR(255), FOREIGN KEY(user_id) REFERENCES user(user_id) ON DELETE CASCADE)') 
             
@@ -1210,7 +1223,17 @@ class DatabaseManager():
         except Error as e:
             print("[ERROR] Fetching latest items found:", e)
             return [] 
-
+        
+    def get_total_items_found_count(self):
+        try:
+            connection = connect(**db_config)
+            cursor = connection.cursor()
+            cursor.execute("SELECT COUNT(*) FROM item_found")
+            return cursor.fetchone()[0]
+        except Error as e:
+            print("[ERROR] Fetching total items found:", e)
+            return 0
+        
     def get_item_found_by_id(self, item_found_id):
         try:
             connection = connect(**db_config)
@@ -1239,3 +1262,72 @@ class DatabaseManager():
         except Error as e:
             print("[ERROR] An error occurred while adding item found:", e)
             return False, "An unexpected error occurred."
+        
+    def get_system_claimed_items(self):
+        try:
+            connection = connect(**db_config)
+            cursor = connection.cursor(dictionary=True)
+
+            cursor.execute("""
+                SELECT 
+                    claim_item.*,
+                    item_found.item_name,
+                    item_found.category,
+                    item_found.image AS item_image,
+                    item_found.location,
+                    item_found.status AS item_status
+                FROM claim_item
+                JOIN item_found 
+                ON claim_item.item_found_id = item_found.item_found_id
+            """)
+
+            result = cursor.fetchall()
+            return result
+
+        except Error as e:
+            print("[ERROR] An error occurred while fetching system claim items:", e)
+            return [] 
+
+    def get_total_items_claimed_count(self):
+        try:
+            connection = connect(**db_config)
+            cursor = connection.cursor()
+            cursor.execute("SELECT COUNT(*) FROM claim_item")
+            return cursor.fetchone()[0]
+        except Error as e:
+            print("[ERROR] Fetching total items claimed:", e)
+            return 0  
+
+        except Error as e:
+            print("[ERROR] Fetching item by ID:", e)
+            return None                        
+
+    def add_claim_item(self, claim_item_id, item_found_id, claimant_name, email, phone_number, item_description, loss_detail, image):
+        try:
+            connection = connect(**db_config)
+            cursor = connection.cursor(dictionary = True)  
+            cursor.execute(
+                '''INSERT INTO claim_item (claim_item_id, item_found_id, claimant_name, email, phone_number, item_description, loss_detail, image, created_at)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, CURDATE())''',
+                (claim_item_id, item_found_id, claimant_name, email, phone_number, item_description, loss_detail, image)
+            )
+            connection.commit()
+            return True, "Item claimed Successfully!"
+        except Error as e:
+            print("[ERROR] An error occurred while adding claim to item:", e)
+            return False, "An unexpected error occurred." 
+
+    def delete_claim_item(self, claim_item_id):
+        try:
+            connection = connect(**db_config)
+            cursor = connection.cursor()
+
+            cursor.execute("DELETE FROM claim_item WHERE claim_item_id = %s", (claim_item_id,))
+            connection.commit()
+
+            return True, "Claim deleted successfully"
+
+        except Error as e:
+            print("[ERROR] Deleting item claim:", e)
+            return False, "Failed to delete claim"             
+   

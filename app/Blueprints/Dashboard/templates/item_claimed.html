@@ -62,7 +62,7 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fa-solid fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="javascript:void(0);" class="nav-link">Manage Items Found</a>
+        <a href="javascript:void(0);" class="nav-link">Manage Items Claimed</a>
       </li>
     </ul>
 
@@ -181,7 +181,7 @@
             </a>
           </li>
             <li class="nav-item">
-            <a href="/sys/item_found" class="nav-link active">
+            <a href="/sys/item_found" class="nav-link">
               <i class="nav-icon fa-solid fa-layer-group"></i>
               <p>
                 Items Found
@@ -190,7 +190,7 @@
           </li>
            <li class="nav-header">CLAIMS</li>
                        <li class="nav-item">
-            <a href="/sys/item_claimed" class="nav-link">
+            <a href="/sys/item_claimed" class="nav-link active">
               <i class="nav-icon fa-solid fa-layer-group"></i>
               <p>
                 Items Claimed
@@ -315,12 +315,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Manage Items Found</h1>
+            <h1 class="m-0">Manage Items Claimed</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Manage Items Found</li>
+              <li class="breadcrumb-item active">Manage Items Claimed</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -338,8 +338,8 @@
               <span class="info-box-icon bg-gradient-blue elevation-1"><i class="fa-solid fa-comments"></i></span>
 
               <div class="info-box-content">
-                <span class="info-box-text">Total Items Reported</span>
-                <span class="info-box-number">{{items_found_count}}</span>
+                <span class="info-box-text">Total Claim Reports</span>
+                <span class="info-box-number">{{items_claimed_count}}</span>
               </div>
               <!-- /.info-box-content -->
             </div>
@@ -397,12 +397,7 @@
     <div class="card">
         <div class="card-header">
             <h3 class="card-title">Available Items</h3>
-                      <div class="d-flex justify-content-end">
-                        <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#addItemFound">
-                          <i class="fa-solid fa-circle-plus"></i> Add Item
-                        </a>
-      
-                      </div>
+
          
         </div>
 <div class="card-body">
@@ -418,19 +413,19 @@
       </tr>
     </thead>
     <tbody>
-      {% for item in sys_items_found %}
+      {% for item in sys_items_claimed %}
       <tr>
         <td>{{ loop.index }}</td>
         <td>{{ item.item_name }}</td>
         <td>{{ item.category}}</td>
-        <td>{{ item.finder_email}}</td>
+        <td>{{ item.email}}</td>
                 <td>
-          {% if item.status == 'available' %}
-            <span class="badge bg-secondary">AVAILABLE</span>
-          {% elif item.status == 'claimed' %}
-            <span class="badge bg-info">CLAIMED</span>  
-          {% elif item.status == 'returned' %}
-            <span class="badge bg-success">RETURNED</span>
+          {% if item.status == 'pending' %}
+            <span class="badge bg-info">PENDING</span>
+          {% elif item.status == 'approved' %}
+            <span class="badge bg-success">APPROVED</span>  
+          {% elif item.status == 'rejected' %}
+            <span class="badge bg-rejected">RETURNED</span>
           {% else %}
             <span class="badge bg-secondary">{{ item.status }}</span>
           {% endif %}
@@ -438,7 +433,7 @@
         <td>
         <button type="button" class="btn btn-sm btn-outline-info" 
                 data-toggle="modal" 
-                data-target="#viewItemFound{{item.item_found_id}}">
+                data-target="#viewItemFound{{item.claim_item_id}}">
             <i class="fa fa-eye"></i> View
         </button>
 
@@ -453,14 +448,14 @@
           <button
             type="button"
             class="btn btn-sm btn-default"
-            onclick="deleteItemFound('{{ item.item_found_id }}')">
+            onclick="deleteClaimItem('{{ item.claim_item_id }}')">
             <i class="fa-regular fa-trash-can"></i> Delete
           </button>
         </td>
       </tr>
 
         <!-- View Item Found Modal -->
-        <div class="modal fade" id="viewItemFound{{ item.item_found_id }}" tabindex="-1" role="dialog"
+        <div class="modal fade" id="viewItemFound{{ item.claim_item_id }}" tabindex="-1" role="dialog"
           aria-hidden="true">
           <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
@@ -489,10 +484,6 @@
 
                   <div class="form-row">
 
-                    <div class="col-md-6 mt-3">
-                      <label class="form-label">Color</label>
-                      <input type="text" id="color" name="color" class="form-control" value="{{item.color}}" readonly>
-                    </div>
                     
                     <div class="col-12 col-md-6 mt-3">
                       <label class="form-label" for="location">Location</label>
@@ -500,40 +491,59 @@
                     </div>
                   </div>
 
-                  <div class="form-group">
-                    <label>Description</label>
-                    <textarea class="form-control" rows="3" readonly style="resize:none;">{{item.description}}</textarea>
+                  <div class="form-group mt-3">
+                    <label>Description of Item</label>
+                    <textarea class="form-control" rows="3" readonly style="resize:none;">{{item.item_description}}</textarea>
+                  </div>
+                   <div class="form-group mt-3">
+                    <label>When and Where it was Lost</label>
+                    <textarea class="form-control" rows="3" readonly style="resize:none;">{{item.loss_detail}}</textarea>
                   </div>
 
                   <div class="form-row">
 
-                    <div class="col-12 col-md-6 mt-3">
-                      <label class="form-label" for="finder_name">Finder Name</label>
-                      <input type="text" id="finder_name" name="finder_name" class="form-control" value="{{item.finder_name}}" readonly>
+                    <div class="col-12 col-md-6 mt-2">
+                      <label class="form-label" for="claimant_name">Claimant Name</label>
+                      <input type="text" id="claimant_name" name="claimant_name" class="form-control" value="{{item.claimant_name}}" readonly>
                     </div>
-                    <div class="col-12 col-md-6 mt-3">
-                      <label class="form-label" for="finder_email">Finder Email</label>
-                      <input type="text" id="finder_email" name="finder_email" class="form-control" value="{{item.finder_email}}" readonly>
+                    <div class="col-12 col-md-6 mt-2">
+                      <label class="form-label" for="email">Email</label>
+                      <input type="text" id="email" name="email" class="form-control" value="{{item.email}}" readonly>
                     </div>
                   </div>
                   <div class="form-row">
 
                     <div class="col-12 col-md-6 mt-3">
-                      <label class="form-label" for="finder_phone_number">Finder Phone Number</label>
-                      <input type="text" id="finder_phone_number" name="finder_phone_number" class="form-control" value="{{item.finder_phone_number}}" readonly>
+                      <label class="form-label" for="phone_number">Phone Number</label>
+                      <input type="text" id="phone_number" name="phone_number" class="form-control" value="{{item.phone_number}}" readonly>
                     </div>
                     <div class="col-12 col-md-6 mt-3">
-                      <label class="form-label" for="date_found">Date Found</label>
-                      <input type="date" id="date_found" name="date_found" class="form-control" value="{{item.date_found}}" readonly>
+                      <label class="form-label" for="created_at">Claim Date</label>
+                      <input type="text" id="created_at" name="created_at" class="form-control" value="{{(item.created_at).strftime('%B %d, %Y')}}" readonly>
                     </div>
                   </div>
 
         <div class="form-group col-12 mt-3">
-          <label class="form-label">Image</label>
+          <label class="form-label">Uploaded Image</label>
           <div>
             {% if item.image %}
             <img 
-              src="/Storage/item_found/{{ item.image }}" 
+              src="/Storage/claim_item/{{ item.image }}" 
+              alt="{{item.item_name}} Image" 
+              class="img-fluid" 
+              style="max-height: 300px; object-fit: contain; border: 2px solid #ccc; padding: 5px;">
+            {% else %}
+            <div class="text-muted">No image available</div>
+            {% endif %}
+          </div>
+        </div>
+
+                <div class="form-group col-12 mt-3">
+          <label class="form-label">Item Image</label>
+          <div>
+            {% if item.item_image %}
+            <img 
+              src="/Storage/item_found/{{ item.item_image }}" 
               alt="{{item.item_name}} Image" 
               class="img-fluid" 
               style="max-height: 300px; object-fit: contain; border: 2px solid #ccc; padding: 5px;">
@@ -964,6 +974,65 @@ function deleteTestimonial(testimonialId) {
     });
 }
 </script>
-
+<script>
+function deleteClaimItem(claimId) {
+    Swal.fire({
+        title: "Are you sure?",
+        text: "This will permanently delete the claim!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Send delete request to Flask
+            fetch('/sys/delete_claim_item', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ claim_item_id: claimId })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    Swal.fire({
+                        title: "Deleted!",
+                        text: data.feedback,
+                        icon: "success",
+                        timer: 1500,
+                        confirmButtonColor: "#3085d6"
+                    }).then(() => {
+                        window.location.reload();
+                    });
+                } else {
+                    Swal.fire({
+                        title: "Error!",
+                        text: data.feedback,
+                        icon: "error",
+                        confirmButtonColor: "#3085d6"
+                    });
+                }
+            })
+            .catch(err => {
+                console.error(err);
+                Swal.fire({
+                    title: "Error!",
+                    text: "Something went wrong!",
+                    icon: "error",
+                    confirmButtonColor: "#3085d6"
+                });
+            });
+        } else {
+            Swal.fire({
+                title: "Cancelled",
+                text: "Your testimonial is safe.",
+                icon: "info",
+                timer: 1500,
+                confirmButtonColor: "#3085d6"
+            });
+        }
+    });
+}
+</script>
 </body>
 </html>

@@ -27,11 +27,13 @@ BASE_DIR = os.path.abspath(
 STORAGE_DIR = os.path.join(BASE_DIR, "Storage")
 
 UPLOAD_ITEM_FOUND_FOLDER = os.path.join(STORAGE_DIR, "item_found")
+UPLOAD_CLAIM_ITEM_FOLDER = os.path.join(STORAGE_DIR, "claim_item")
 UPLOAD_PFP_FOLDER = os.path.join(STORAGE_DIR, "pfp")
 
 
 
 os.makedirs(UPLOAD_ITEM_FOUND_FOLDER, exist_ok=True)
+os.makedirs(UPLOAD_CLAIM_ITEM_FOLDER, exist_ok=True)
 os.makedirs(UPLOAD_PFP_FOLDER, exist_ok=True)
 
 
@@ -66,11 +68,6 @@ def testimonial():
 def contact():
     return render_template('contact.html')
 
-@public_bp.route('/claim_item/<item_id>')
-def claim_item(item_id):
-    item = db_manager.get_item_found_by_id(item_id)
-    return render_template('claim_item.html',
-                           item = item)
 
 @public_bp.route('/view_detail/<item_id>')
 def view_detail(item_id):
@@ -143,3 +140,54 @@ def report_item_found():
 @public_bp.route('/report_found/thank_you')
 def thank_you_report_found():
     return render_template('thankyou_report_found.html')
+
+
+
+@public_bp.route('/claim_item/<item_id>')
+def claim_item(item_id):
+    item = db_manager.get_item_found_by_id(item_id)
+    return render_template('claim_item.html',
+                           item = item)
+
+@public_bp.route('/add_claim_item', methods=['POST'])
+def add_claim_item():
+
+    claimant_name = request.form.get('claimant_name')
+    email = request.form.get('email')
+    phone_number = request.form.get('phone_number')
+    item_description = request.form.get('item_description')
+
+    loss_detail = request.form.get('loss_detail')
+
+    item_found_id = request.form.get('item_found_id')
+
+    image = request.files.get('image')
+
+    unique_filename = None
+
+    if image and image.filename != "":
+        ext = os.path.splitext(image.filename)[1]
+        unique_filename = f"{uuid4().hex}{ext}"
+
+        image_path = os.path.join(UPLOAD_CLAIM_ITEM_FOLDER, unique_filename)
+
+        try:
+            image.save(image_path)
+        except Exception as e:
+            print("[ERROR] Saving item image:", e)
+            return jsonify({'success': False, 'feedback': 'Failed to save image'}), 500
+
+    claim_item_id = cryptographer.generate_unique_id()
+
+    success, feedback = db_manager.add_claim_item(
+    claim_item_id = claim_item_id, 
+    item_found_id = item_found_id, 
+    claimant_name = claimant_name, 
+    email = email, 
+    phone_number = phone_number, 
+    item_description = item_description, 
+    loss_detail = loss_detail, 
+    image = unique_filename
+    )
+
+    return jsonify({'success': success, 'feedback': feedback})
