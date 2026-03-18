@@ -149,6 +149,20 @@ def report_item_found():
 
     return jsonify({'success': success, 'feedback': feedback})
 
+@public_bp.route('/detect_image', methods=['POST'])
+def detect_image_api():
+    image = request.files.get('image')
+
+    if not image:
+        return jsonify({'success': False})
+
+    label, confidence = detect_image(image.stream, image.filename)
+
+    return jsonify({
+        'success': True,
+        'label': label,
+        'confidence': round(confidence * 100, 2)
+    })
 
 @public_bp.route('/report_found/thank_you')
 def thank_you_report_found():

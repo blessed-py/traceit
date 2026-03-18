@@ -318,7 +318,6 @@
             transform: scale(1.05);
         }
 
-
         .item-content {
             padding: 25px;
             flex: 1;
@@ -361,8 +360,6 @@
             gap: 10px;
             margin-top: auto;
         }
-
-
 
         .btn-primary-custom {
             background: linear-gradient(135deg, var(--secondary-color) 0%, var(--accent-color) 100%);
@@ -465,7 +462,265 @@
             100% { transform: rotate(360deg); }
         }
 
+        /* Contact Hero Section */
+        .contact-hero {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            padding: 120px 0 80px;
+            position: relative;
+            overflow: hidden;
+        }
 
+        .contact-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        .contact-hero h1 {
+            color: white;
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .contact-hero p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.2rem;
+            margin-bottom: 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Contact Info Cards */
+        .contact-info-card {
+            background: white;
+            border-radius: 15px;
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            height: 100%;
+            border: 2px solid transparent;
+        }
+
+        .contact-info-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            border-color: var(--secondary-color);
+        }
+
+        .contact-info-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--secondary-color) 0%, var(--accent-color) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            color: white;
+            font-size: 2rem;
+        }
+
+        .contact-info-card h3 {
+            color: var(--primary-color);
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .contact-info-card p {
+            color: var(--text-muted);
+            margin-bottom: 0;
+            line-height: 1.6;
+        }
+
+        .contact-info-card a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .contact-info-card a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Contact Form */
+        .contact-form-section {
+            padding: 80px 0;
+            background: var(--light-bg);
+        }
+
+        .contact-form-card {
+            background: white;
+            border-radius: 20px;
+            padding: 50px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+        }
+
+        .contact-form-title {
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .contact-form-subtitle {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .form-control {
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            padding: 12px 20px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: var(--light-bg);
+        }
+
+        .form-control:focus {
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+            background: white;
+        }
+
+        .btn-submit {
+            background: linear-gradient(135deg, var(--secondary-color) 0%, var(--accent-color) 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            padding: 80px 0;
+            background: white;
+        }
+
+        .faq-title {
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .faq-subtitle {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-bottom: 50px;
+            text-align: center;
+        }
+
+        .faq-item {
+            background: white;
+            border: 2px solid var(--border-color);
+            border-radius: 15px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item:hover {
+            border-color: var(--secondary-color);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .faq-question {
+            background: white;
+            border: none;
+            padding: 25px 30px;
+            width: 100%;
+            text-align: left;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .faq-question:hover {
+            background: var(--light-bg);
+        }
+
+        .faq-question::after {
+            content: '\f078';
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            position: absolute;
+            right: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            transition: transform 0.3s ease;
+            color: var(--secondary-color);
+        }
+
+        .faq-question.active::after {
+            transform: translateY(-50%) rotate(180deg);
+        }
+
+        .faq-answer {
+            padding: 0 30px;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .faq-answer.show {
+            padding: 0 30px 25px;
+            max-height: 500px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .contact-hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .contact-form-card {
+                padding: 30px 20px;
+            }
+
+            .contact-info-card {
+                margin-bottom: 30px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -515,177 +770,191 @@
         </div>
     </header>
 
-    <!-- Hero Section -->
-    <section class="hero-section">
+    <!-- Contact Hero Section -->
+    <section class="contact-hero">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h1 class="hero-title text-primary">View Item Details</h1>
-                    <p class="hero-subtitle text-secondary">Search through our database of lost and found items to reunite with your belongings</p>
+                    <h1>Contact Us</h1>
+                    <p>Get in touch with the TraceIt team for any questions or support</p>
                 </div>
             </div>
         </div>
     </section>
 
-
-<section class="py-5 results-section">
-  <div class="container">
-
-    <div class="row justify-content-center">
-      <div class="col-lg-10">
-
-        <div class="card bg-transparent border-0 p-4">
-          <div class="row align-items-center">
-
-            <!-- Image (Left) -->
-            <div class="col-md-5">
-              <img src="{{url_for('static', filename='assets/img/dataset/wallet.jpg')}}"
-                   alt="Lost Wallet"
-                   class="img-fluid rounded-10 w-100">
+    <!-- Contact Info Section -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="contact-info-card">
+                        <div class="contact-info-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <h3>Visit Us</h3>
+                        <p>123 TraceIt Street<br>Tech City, TC 12345<br>United States</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contact-info-card">
+                        <div class="contact-info-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <h3>Call Us</h3>
+                        <p>Mon-Fri: 9:00 AM - 6:00 PM<br>
+                        <a href="tel:+1234567890">+1 (234) 567-890</a><br>
+                        <a href="tel:+0987654321">+0 (987) 654-321</a></p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contact-info-card">
+                        <div class="contact-info-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <h3>Email Us</h3>
+                        <p>General Inquiries:<br>
+                        <a href="mailto:info@traceit.com">info@traceit.com</a><br>
+                        Support:<br>
+                        <a href="mailto:support@traceit.com">support@traceit.com</a></p>
+                    </div>
+                </div>
             </div>
-
-            <!-- Gap -->
-            <div class="col-md-1"></div>
-
-            <!-- Item Details (Right) -->
-            <div class="col-md-6">
-
-              <label>Item Name</label>
-              <h3 class="fw-bold mb-3">iPhone</h3>
-  
-
-
-              <label for="description">Description</label>
-              <p class="text-muted mb-4">
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Velit fugiat consequuntur praesentium culpa deserunt ex cumque officia quam iure quasi. Unde consequuntur rem corrupti veniam doloribus vero porro ea officiis.
-              </p>
-
-              <!-- Meta Info -->
-              <div class="row g-3 mb-4">
-
-                <div class="col-sm-6">
-                    <label for="category" class="d-block">Category</label>
-                  <div class="border rounded-10 p-3">
-                    <span class="fw-semibold">Category</span>
-                  </div>
-                </div>
-
-                <div class="col-sm-6">
-                    <label class=" d-block">Date Found</label>
-                  <div class="border rounded-10 p-3">
-                    <span class="fw-semibold">Date</span>
-                  </div>
-                </div>
-
-                <div class="col-sm-6">
-                    <label class="d-block">Location</label>
-                  <div class="border rounded-10 p-3">
-                    <span class="fw-semibold">Location</span>
-                  </div>
-                </div>
-
-                <div class="col-sm-6">
-                    <label class="d-block">Status</label>
-                  <div class="border rounded-10 p-3">
-                    <span class="fw-semibold">Status</span>
-                  </div>
-                </div>
-
-              </div>
-
-              <!-- Buttons -->
-              <div class="d-flex gap-2">
-                <button class="btn btn-primary px-4">Claim Item</button>
-                <a href="/find_item" class="btn btn-outline-secondary">Back to Items</a>
-              </div>
-
-            </div>
-
-          </div>
         </div>
-<div class="alert alert-secondary mt-4">
-  <strong>Note:</strong> If this item belongs to you, click <b> <a href="/claim_item">Claim Item</a> </b> and provide proof of ownership.
-</div>
-      </div>
-    </div>
+    </section>
 
-  </div>
-</section>
+    <!-- Contact Form Section -->
+    <section class="contact-form-section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="contact-form-card">
+                        <h2 class="contact-form-title">Send Us a Message</h2>
+                        <p class="contact-form-subtitle">We'll get back to you as soon as possible</p>
+                        
+                        <form id="contactForm">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="firstName">First Name *</label>
+                                        <input type="text" class="form-control" id="firstName" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="lastName">Last Name *</label>
+                                        <input type="text" class="form-control" id="lastName" required>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="email">Email Address *</label>
+                                        <input type="email" class="form-control" id="email" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="phone">Phone Number</label>
+                                        <input type="tel" class="form-control" id="phone">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="subject">Subject *</label>
+                                <select class="form-control" id="subject" required>
+                                    <option value="">Select a subject</option>
+                                    <option value="general">General Inquiry</option>
+                                    <option value="support">Technical Support</option>
+                                    <option value="feedback">Feedback</option>
+                                    <option value="partnership">Partnership</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="message">Message *</label>
+                                <textarea class="form-control" id="message" rows="6" required placeholder="Tell us how we can help you..."></textarea>
+                            </div>
+                            
+                            <button type="submit" class="btn-submit">
+                                <i class="fas fa-paper-plane me-2"></i>Send Message
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <h2 class="faq-title">Frequently Asked Questions</h2>
+                    <p class="faq-subtitle">Find answers to common questions about TraceIt</p>
+                    
+                    <div class="faq-item">
+                        <button class="faq-question">How do I report a lost item?</button>
+                        <div class="faq-answer">
+                            <p>To report a lost item, click on "Report Lost Item" from the main menu, fill out the form with details about your item including description, location where it was lost, and contact information. Our system will then help match it with found items.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <button class="faq-question">Is TraceIt free to use?</button>
+                        <div class="faq-answer">
+                            <p>Yes, TraceIt is completely free for individuals to use. You can report lost items, browse found items, and claim your belongings without any charges. We believe in helping people reunite with their belongings.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <button class="faq-question">How do I claim an item that belongs to me?</button>
+                        <div class="faq-answer">
+                            <p>If you find an item that matches yours, click the "Claim Item" button and provide proof of ownership. This may include photos, receipts, or specific details about the item that only the owner would know. Our team will review your claim.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <button class="faq-question">How long do you keep found items?</button>
+                        <div class="faq-answer">
+                            <p>Found items are typically kept for 90 days. After this period, if not claimed, items may be donated to charity or disposed of according to local regulations. We encourage users to check back regularly.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <button class="faq-question">Can I edit my report after submitting?</button>
+                        <div class="faq-answer">
+                            <p>Yes, you can edit your report within 24 hours of submission. After that, please contact our support team for any changes to ensure the integrity of our database.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!---Footer-->
         <footer class="footer-wrapper footer-layout1">
         <div class="footer-1-top-shape">
-            <img src="{{url_for('static', filename='assets/img/bg/footer-1-top-shape.png')}}" alt="img">
+            <img src="{{url_for('static', filename='assets/img/shape/footer-top.png')}}" alt="Footer Shape">
         </div>
-
-
-        <div class="container th-container2">
-            <div class="footer-bottom">
-                <div class="widget-area">
-                    <div class="row justify-content-between">
-                        <div class="col-md-6 col-xl-auto" data-cue="slideInUp">
-                            <div class="widget footer-widget">
-                                <div class="th-widget-about">
-                                    <div class="about-logo">
-                                        <a href="/"><img src="{{url_for('static', filename='assets/img/logo_3.png')}}" style="width: 230px; height: auto;" alt="TraceIt"></a>
-                                    </div>
-                                    <p class="about-text">Helping people reconnect with their lost belongings through a smarter lost and found system.</p>
-                                    <div class="th-social style7">
-                                        <a href="https://www.facebook.com/"><i class="fab fa-github"></i></a>
-                                        <a href="https://www.linkedin.com/"><i class="fab fa-linkedin-in"></i></a>
-                                        <a href="https://www.instagram.com/"><i class="fa-brands fa-instagram"></i></a>
-                                    </div>
-                                </div>
+        <div class="footer-top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-4 col-md-6">
+                        <div class="footer-widget footer-about">
+                            <div class="footer-logo mb-25">
+                                <a href="/"><img src="{{url_for('static', filename='assets/img/logo_3.png')}}" alt="TraceIt"></a>
                             </div>
-                        </div>
-                        <div class="col-sm-6 col-xl-auto" data-cue="slideInUp">
-                            <div class="widget widget-contact-wrap footer-widget">
-                                <div class="info-box">
-                                    <div class="info-box_icon">
-                                        <i class="fas fa-phone"></i>
-                                    </div>
-                                    <div class="box-content">
-                                        <p class="info-box_title">Help For Call</p>
-                                        <p class="info-box_text">
-                                            <a href="tel:+917696912420" class="info-box_link">+91 7696912420</a>
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="info-box">
-                                    <div class="info-box_icon">
-                                        <i class="fas fa-location"></i>
-                                    </div>
-                                    <div class="box-content">
-                                        <p class="info-box_title">Our Address</p>
-                                        <p class="info-box_text text-white">
-                                            Phagwara, LPU
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="info-box">
-                                    <div class="info-box_icon">
-                                        <i class="fas fa-map-marker-alt"></i>
-                                    </div>
-                                    <div class="box-content">
-                                        <p class="info-box_title">WhatsApp</p>
-                                        <p class="info-box_text">
-                                            <a href="https://wa.me/+917696912420" target="_blank" class="info-box_link">+917696912420</a>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-xl-auto" data-cue="slideInUp">
-                            <div >
-                                       <h4 class="text-white">Quick Links</h4>
-                                       <p><a href="/">Home</a></p>
-                                       <p><a href="/report_lost">Report Lost</a> </p>
-                                       <p><a href="/report_found">Report Found</a></p>
-                                       <p><a href="/browse_item">Browse Items</a></p>
-
-
+                            <p class="footer-text mb-20">TraceIt is your trusted platform for finding lost items and reporting found belongings. We help reunite people with their precious items.</p>
+                            <div class="footer-social">
+                                <a href="#" class="footer-social-link"><i class="fab fa-facebook-f"></i></a>
+                                <a href="#" class="footer-social-link"><i class="fab fa-twitter"></i></a>
+                                <a href="#" class="footer-social-link"><i class="fab fa-instagram"></i></a>
+                                <a href="#" class="footer-social-link"><i class="fab fa-linkedin-in"></i></a>
                             </div>
                         </div>
                     </div>

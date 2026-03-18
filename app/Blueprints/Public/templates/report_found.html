@@ -1300,6 +1300,49 @@ Next
   }
 </script>
 
+<script>
+  const imageInput = document.getElementById("image");
+
+imageInput.addEventListener("change", function () {
+  const file = this.files[0];
+  if (!file) return;
+
+  const formData = new FormData();
+  formData.append("image", file);
+
+  //Loading
+  Swal.fire({
+    title: "Analyzing image...",
+    text: "AI is processing...",
+    allowOutsideClick: false,
+    didOpen: () => {
+      Swal.showLoading();
+    }
+  });
+
+  fetch("/detect_image", {
+    method: "POST",
+    body: formData
+  })
+    .then(res => res.json())
+    .then(data => {
+      if (data.success) {
+        Swal.fire({
+          icon: "info",
+          title: "AI Result",
+          text: `Detected: ${data.label} (${data.confidence}%)`
+        });
+
+        document.getElementById("item_name").value = data.label;
+      } else {
+        Swal.fire("Error", "Detection failed", "error");
+      }
+    })
+    .catch(() => {
+      Swal.fire("Error", "Something went wrong", "error");
+    });
+});
+</script>
 
 </body>
 </html>
