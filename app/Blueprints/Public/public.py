@@ -5,6 +5,7 @@ from app.API.SMTP import MAIL_SERVER
 import os
 from uuid import uuid4
 from app.Blueprints.Authentications.decorators import time_ago
+from app.Blueprints.Utils.ai_detector import detect_image, map_category
 
 
 
@@ -109,11 +110,23 @@ def report_item_found():
 
         image_path = os.path.join(UPLOAD_ITEM_FOUND_FOLDER, unique_filename)
 
-        try:
-            image.save(image_path)
-        except Exception as e:
-            print("[ERROR] Saving item image:", e)
-            return jsonify({'success': False, 'feedback': 'Failed to save image'}), 500
+    try:
+        image.save(image_path)
+
+        # Ai Detection
+        detected_class, confidence = detect_image(image_path)
+        ai_category = map_category(detected_class)
+
+        print("AI:", detected_class, confidence, ai_category)
+
+        # OPTIONAL: Override user input
+        if detected_class != "Unknown" and confidence > 0.5:
+            item_name = detected_class
+            category = ai_category
+
+    except Exception as e:
+        print("[ERROR] Saving item image:", e)
+        return jsonify({'success': False, 'feedback': 'Failed to save image'}), 500
 
     item_found_id = cryptographer.generate_unique_id()
 
