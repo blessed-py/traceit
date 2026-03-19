@@ -375,61 +375,7 @@
                             </div>
                         </div>
 
-                        <div class="swiper-slide">
-                            <div class="row gx-30 gy-40 align-items-center">
-                                <div class="col-xxl-6 col-xl-6">
-                                    <div class="img-box2 me-xl-3" data-cue="slideInLeft">
-                                        <div class="img1" data-mask-src="assets/img/shape/about-2-1_mask.jpg">
-                                            <img class="w-100" src="{{url_for('static', filename='assets/img/normal/about-thumb2-3.jpg')}}" alt="About">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xxl-6 col-xl-6">
-                                    <div class="about-wrap2">
-                                        <h4 class="box-title">Our Mission</h4>
-                                        <p class="sec-text mb-25" data-cue="slideInUp"> we believe pets are more than just animals — they’re family. Founded with a deep love for animals and a passion for providing top-tier care, Babet is your pet’s home away from home. Whether youre a busy pet parent in need of reliable daycare. </p>
-                                        <div class="icon-box-wrap" data-cue="slideInUp">
-                                            <div class="icon-box-item">
-                                                <div class="icon-box">
-                                                    <img src="{{url_for('static', filename='assets/img/icon/check.svg')}}" alt="img">
-                                                </div>
-                                                <div class="content">
-                                                    <p class="box-text"><span>Safe & Supervised Environment – </span> Your pet’s safety is our top priority. All play and care areas are professionally supervised and sanitized daily.</p>
-                                                </div>
-                                            </div>
-                                            <div class="icon-box-item">
-                                                <div class="icon-box">
-                                                    <img src="{{url_for('static', filename='assets/img/icon/check.svg')}}" alt="img">
-                                                </div>
-                                                <div class="content">
-                                                    <p class="box-text"><span>Personalized Attention – </span> We treat every pet as an individual, tailoring care, feeding, and activities to their specific needs and temperament.</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="pet-care-wrap" data-cue="slideInUp">
-                                            <div class="item">
-                                                <div class="box-title">Pet Care Progress</div>
-                                                <div class="prog-wrap">
-                                                    <h2 class="box-number"><span class="counter-number">85</span>%</h2>
-                                                    <div class="button-wrap">
-                                                        <a class="th-btn th-btn-sm" href="contact.html">View Graph</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="item">
-                                                <div class="box-title">Pet Care Progress</div>
-                                                <div class="prog-wrap">
-                                                    <h2 class="box-number"><span class="counter-number">95</span>%</h2>
-                                                    <div class="button-wrap">
-                                                        <a class="th-btn th-btn-sm" href="contact.html">View Graph</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+
 
                     </div>
                 </div>
@@ -441,9 +387,9 @@
         </div>
 
     </div>
-    <!--======== / Hero Section ========--><!--==============================
-Feature Area  
-==============================-->
+    <!-- Hero Section -->
+     
+    <!--Feature Area-->
     <section class="feature-area-1 position-relative space overflow-hidden" id="service-sec">
         <div class="why-bg-shape1-2 shape-mockup moving d-xxl-block d-none" data-top="12%" data-right="6%">
             <img src="{{url_for('static', filename='assets/img/shape/shape1-30.png')}}" alt="img">
@@ -520,7 +466,7 @@ Feature Area
                                     <li>Location-based search</li>
                                 </ul>
                             </div>
-                            <a class="th-btn th-btn-sm w-100" href="search-items.html">Browse Items </a>
+                            <a class="th-btn th-btn-sm w-100" href="/find_item">Find Your Item </a>
                         </div>
                     </div>
                 </div>
@@ -528,7 +474,7 @@ Feature Area
                     <div class="feature-card" data-cue="slideInUp">
                         <div class="top-wrap">
                             <div class="box-icon">
-                                <img src="{{url_for('static', filename='assets/img/icon/feature-icon1-4.svg')}}" alt="icon">
+                                <img src="{{url_for('static', filename='assets/img/icon/check.svg')}}" alt="icon">
                             </div>
                             <h3 class="box-title">Get Notified</h3>
                             <p class="box-text">Receive instant notifications when matching items are reported. Stay updated on the status of your reports.</p>
@@ -541,7 +487,7 @@ Feature Area
                                     <li>Smart matching alerts</li>
                                 </ul>
                             </div>
-                            <a class="th-btn th-btn-sm w-100" href="contact.html">Learn More </a>
+                            <a class="th-btn th-btn-sm w-100" href="/about">Learn More </a>
                         </div>
                     </div>
                 </div>
@@ -581,7 +527,7 @@ Feature Area
                                 <span class="location"><i class="fas fa-map-marker-alt"></i> Downtown</span>
                                 <span class="date"><i class="fas fa-calendar"></i> 2 days ago</span>
                             </div>
-                            <a href="item-details.html" class="item-link">View Details</a>
+                            <a href="/find_item" class="item-link">View Details</a>
                         </div>
                     </div>
                 </div>
@@ -599,7 +545,7 @@ Feature Area
                                 <span class="location"><i class="fas fa-map-marker-alt"></i> Mall Parking</span>
                                 <span class="date"><i class="fas fa-calendar"></i> 1 day ago</span>
                             </div>
-                            <a href="item-details.html" class="item-link">View Details</a>
+                            <a href="/find_item" class="item-link">View Details</a>
                         </div>
                     </div>
                 </div>
@@ -617,7 +563,7 @@ Feature Area
                                 <span class="location"><i class="fas fa-map-marker-alt"></i> Auditorium</span>
                                 <span class="date"><i class="fas fa-calendar"></i> 3 days ago</span>
                             </div>
-                            <a href="item-details.html" class="item-link">View Details</a>
+                            <a href="/find_item" class="item-link">View Details</a>
                         </div>
                     </div>
                 </div>
@@ -632,9 +578,7 @@ Feature Area
 
 
 
-    <!--==============================
-Process Area  
-==============================-->
+    <!--Process Area -->
     <section class="process-area-2 position-relative overflow-hidden space-top">
         <div class="container th-container2">
             <div class="row">
