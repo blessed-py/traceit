@@ -1,7 +1,7 @@
 # flask_app_1/docker-compose.yml
 services:
-  portf_app:
-    container_name: portf_app_container
+  trace_it_app:
+    container_name: trace_it_app_container
     build: .
     restart: always
     expose:
@@ -14,8 +14,8 @@ services:
     networks:
       - nginx-proxy
 
-  nginx_portf_app:
-    container_name: portf_app_nginx
+  nginx_trace_it_app:
+    container_name: trace_it_app_nginx
     image: nginx:latest
     restart: always
     volumes:
@@ -25,7 +25,7 @@ services:
       # Give Nginx access to the public folder for serving root files.
       - ./public:/app/public
     depends_on:
-      - portf_app
+      - trace_it_app
     networks:
       - nginx-proxy
 
