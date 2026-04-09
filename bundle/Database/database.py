@@ -14,14 +14,14 @@ cryptographer = Cryptography()
 
 
   #Connect to the database and initialize one user(email and password) when user.count==0
-DB_USER = os.environ.get("DB_USER")
-DB_HOST = os.environ.get("DB_HOST")
+DB_USER = os.getenv("DB_USER")
+DB_HOST = os.getenv("DB_HOST")
 
-DB_NAME = os.environ.get("DB_NAME")
-DB_PWD = os.environ.get("DB_PWD")
+DB_NAME = os.getenv("DB_NAME")
+DB_PWD = os.getenv("DB_PWD")
 
-EMAIL = os.environ.get("EMAIL")
-EMAIL_PWD = os.environ.get("EMAIL_PWD")
+EMAIL = os.getenv("EMAIL")
+EMAIL_PWD = os.getenv("EMAIL_PWD")
 
 db_config = {
     'host': DB_HOST,
