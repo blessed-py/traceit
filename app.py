@@ -1,16 +1,20 @@
 from flask import Flask
 from flask import send_from_directory, abort, render_template
-from app.Blueprints.Dashboard.dashboard import dashboard_bp
-from app.Blueprints.Authentications.auth import auth_bp
-from app.Blueprints.Public.public import public_bp
-from app.Blueprints.Settings.settings import settings_bp
-from app.Blueprints.Support.support import support_bp
-from app.Database.database import DatabaseManager
-from app.Blueprints.Authentications.decorators import login_required
-from app.Blueprints.Authentications.decorators import time_ago
-
-
+from dotenv import load_dotenv
 import os
+
+load_dotenv('.env')
+
+from bundle.Blueprints.Authentications.decorators import login_required
+from bundle.Blueprints.Authentications.decorators import time_ago
+
+from bundle.Blueprints.Dashboard.dashboard import dashboard_bp
+from bundle.Blueprints.Authentications.auth import auth_bp
+from bundle.Blueprints.Public.public import public_bp
+from bundle.Blueprints.Settings.settings import settings_bp
+from bundle.Blueprints.Support.support import support_bp
+from bundle.Database.database import DatabaseManager
+
 
 
 app = Flask(__name__, static_folder='app/static/')
@@ -29,12 +33,10 @@ def serve_storage(filename):
 
 # Initialize database automatically
 
-try:
-    db_manager = DatabaseManager()
-    db_manager.initialize()
-except Exception as e:
-    print(f"❌ Database initialization failed: {e}")
-    exit(1)
+
+db_manager = DatabaseManager()
+db_manager.initialize()
+
 
 
 
@@ -53,7 +55,3 @@ app.register_blueprint(settings_bp)
 app.register_blueprint(support_bp)
 
 
-# Main route
-if __name__ == '__main__':
-   app.run(debug=True, host='0.0.0.0', port=1234)
-   #app.run()

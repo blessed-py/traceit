@@ -1,6 +1,6 @@
 from functools import wraps
 from flask import session, redirect, url_for, request, flash, g
-from app.Database.database import DatabaseManager
+from bundle.Database.database import DatabaseManager
 from datetime import datetime
 
 db_manager = DatabaseManager()

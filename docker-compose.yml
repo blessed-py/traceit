@@ -1,0 +1,34 @@
+# flask_app_1/docker-compose.yml
+services:
+  portf_app:
+    container_name: portf_app_container
+    build: .
+    restart: always
+    expose:
+      - "8000"
+    volumes:
+      # This "live links" the host files to the container.
+      # Changes to app.py will take effect after a restart (no rebuild needed).
+      - ./app.py:/app/app.py
+      - ./bundle/static/:/app/bundle/static
+    networks:
+      - nginx-proxy
+
+  nginx_portf_app:
+    container_name: portf_app_nginx
+    image: nginx:latest
+    restart: always
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+      # The Nginx container ALSO needs live access to static files to serve them.
+      - ./bundle/static:/app/bundle/static
+      # Give Nginx access to the public folder for serving root files.
+      - ./public:/app/public
+    depends_on:
+      - portf_app
+    networks:
+      - nginx-proxy
+
+networks:
+  nginx-proxy:
+    external: true

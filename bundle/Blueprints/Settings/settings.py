@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, g, redirect, url_for, jsonify
-from app.Blueprints.Authentications.decorators import login_required, roles_required, flash
-from app.Database.database import DatabaseManager
-from app.Database.encrypter import Cryptography
+from bundle.Blueprints.Authentications.decorators import login_required, roles_required, flash
+from bundle.Database.database import DatabaseManager
+from bundle.Database.encrypter import Cryptography
 import os
 from uuid import uuid4
 from werkzeug.utils import secure_filename

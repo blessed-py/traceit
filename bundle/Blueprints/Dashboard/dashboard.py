@@ -1,8 +1,8 @@
 from flask import Blueprint, render_template, request, g, redirect, url_for, jsonify, session, current_app
-from app.Blueprints.Authentications.decorators import login_required, roles_required, flash
-from app.Database.database import DatabaseManager
-from app.Database.encrypter import Cryptography
-from app.API.SMTP import MAIL_SERVER
+from bundle.Blueprints.Authentications.decorators import login_required, roles_required, flash
+from bundle.Database.database import DatabaseManager
+from bundle.Database.encrypter import Cryptography
+from bundle.API.SMTP import MAIL_SERVER
 import os
 from uuid import uuid4
 from werkzeug.utils import secure_filename

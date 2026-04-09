@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, session, redirect, request, url_for, jsonify, flash
-from app.Database.database import DatabaseManager
-from app.Database.encrypter import Cryptography
+from bundle.Database.database import DatabaseManager
+from bundle.Database.encrypter import Cryptography
 #from app.API.SMTP import MAIL_SERVER
 import secrets               
 from datetime import datetime, timedelta, timezone 

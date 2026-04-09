@@ -1,5 +1,5 @@
 from mysql.connector import connect, Error, IntegrityError
-from app.Database.encrypter import Cryptography
+from bundle.Database.encrypter import Cryptography
 from flask import session
 from datetime import date, datetime, timedelta
 import uuid

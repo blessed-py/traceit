@@ -1,11 +1,11 @@
 from flask import Blueprint, render_template, request, jsonify
-from app.Database.database import DatabaseManager
-from app.Database.encrypter import Cryptography
-from app.API.SMTP import MAIL_SERVER
+from bundle.Database.database import DatabaseManager
+from bundle.Database.encrypter import Cryptography
+from bundle.API.SMTP import MAIL_SERVER
 import os
 from uuid import uuid4
-from app.Blueprints.Authentications.decorators import time_ago
-from app.Blueprints.Utils.ai_detector import detect_image, map_category
+from bundle.Blueprints.Authentications.decorators import time_ago
+from bundle.Blueprints.Utils.ai_detector import detect_image, map_category
 
 
 
