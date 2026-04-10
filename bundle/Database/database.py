@@ -44,8 +44,8 @@ class DatabaseManager():
 
             # Create a cursor
             cursor = connection.cursor()
-            cursor.execute('CREATE DATABASE IF NOT EXISTS lost_found_db')
-            cursor.execute('USE lost_found_db')
+            cursor.execute('CREATE DATABASE IF NOT EXISTS trace_it_db')
+            cursor.execute('USE trace_it_db')
 
             
             # CREATE Tables
