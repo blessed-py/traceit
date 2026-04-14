@@ -17,14 +17,14 @@ from bundle.Database.database import DatabaseManager
 
 
 
-app = Flask(__name__, static_folder='app/static/')
+app = Flask(__name__, static_folder='bundle/static/')
 app.config['SECRET_KEY'] = 'JKKEBJKBJRBKJRBLKJRCBLRCBLKJCRL4Y4479272949474JBCKEHCEV'
 
 # Register Jinja filter
 app.jinja_env.filters['timeago'] = time_ago
 
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
-STORAGE_DIR = os.path.join(BASE_DIR, "app", "Storage")
+STORAGE_DIR = os.path.join(BASE_DIR, "bundle", "Storage")
 
 @app.route('/Storage/<path:filename>')
 def serve_storage(filename):
@@ -55,3 +55,6 @@ app.register_blueprint(settings_bp)
 app.register_blueprint(support_bp)
 
 
+# Main route
+if __name__ == '__main__':
+    app.run(debug=True, host='0.0.0.0', port=1234)

@@ -5,3 +5,5 @@ mysql-connector-python
 requests
 gunicorn
 dotenv
+ultralytics 
+opencv-python

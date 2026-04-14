@@ -1,0 +1,796 @@
+<!doctype html>
+<html class="no-js" lang="zxx" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>TraceIt - Smart Lost and Found Platform</title>
+    <meta name="author" content="blessedmatiko">
+    <meta name="description" content="TraceIt helps you find your lost items and report found items. Smart lost and found platform for your community.">
+    <meta name="keywords" content="lost and found, find lost items, report found items, trace it, lost items recovery">
+    <meta name="robots" content="INDEX,FOLLOW">
+
+    <!-- Mobile Specific Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Favicons-->
+    <link rel="icon" type="image/png" href="{{url_for('static', filename='assets/img/logo_2.png')}}">
+    <link rel="manifest" href="{{url_for('static', filename='assets/img/favicons/manifest.json')}}">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="theme-color" content="#ffffff">
+
+    <!--==============================
+	  Google Fonts
+	============================== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&family=Fredoka:wght@300..700&family=Onest:wght@100..900&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="{{url_for('static', filename='assets/css/bootstrap.min.css')}}">
+    <!-- Fontawesome Icon -->
+    <link rel="stylesheet" href="{{url_for('static', filename='assets/css/fontawesome.min.css')}}">
+    <!-- Magnific Popup -->
+    <link rel="stylesheet" href="{{url_for('static', filename='assets/css/magnific-popup.min.css')}}">
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="{{url_for('static', filename='assets/css/swiper-bundle.min.css')}}">
+    <!-- Theme Custom CSS -->
+    <link rel="stylesheet" href="{{url_for('static', filename='assets/css/style.css')}}">
+            <!-- Font Awesome Pro v7.0.0 -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='fontawesome-pro/css/all.css') }}">
+    
+
+
+</head>
+
+<body class="">
+
+    <div class="cursor-follower"></div>
+
+    <!--Preloader-->
+    <div class="preloader ">
+        <div class="preloader-inner">
+            <div class="bounce">
+                <img src="{{url_for('static', filename='assets/img/logo_1.png')}}" style="width: 200px; height: auto;" alt="img">
+            </div>
+            <span class="loader">
+                TraceIt
+                <span class="loading-text">TraceIt</span>
+            </span>
+        </div>
+    </div>
+
+
+
+<!--Header Area-->
+    <header class="th-header header-layout1">
+        <div class="sticky-wrapper">
+            <!-- Main Menu Area -->
+            <div class="menu-area">
+                <div class="container">
+                    <div class="row align-items-center justify-content-between">
+                        <div class="col-auto">
+                            <div class="header-logo">
+                                <a href="/">
+                                    <img src="{{url_for('static', filename='assets/img/logo_3.png')}}" style="width: 150px; height: auto;" alt="TraceIt">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <nav class="main-menu d-none d-lg-inline-block ms-5">
+                                <ul>
+                                    <li>
+                                        <a class="fw-bold" href="/">Home</a>
+                                    </li>
+                                    <li><a class="fw-bold" href="/about">About Us</a></li>
+                                    <li><a class="fw-bold" href="/report_lost">Report Lost Item</a></li>
+                                    <li><a class="fw-bold" href="/report_found">Report Found Item</a></li>
+                                    <li>
+                                        <a class="fw-bold" href="/contact">Contact</a>
+                                    </li>
+                                </ul>
+                            </nav>
+                     
+                            <div class="header-button d-flex d-lg-none">
+                                <button type="button" class="th-menu-toggle icon-btn"><i class="far fa-bars"></i></button>
+                                
+                                <!-- Mobile Dropdown Menu -->
+                                <div class="mobile-menu-dropdown mt-2">
+                                    <div class="mobile-menu-content">
+                                        <ul>
+                                            <li><a href="/">Home</a></li>
+                                            <li><a href="/about">About Us</a></li>
+                                            <li><a href="/report_lost">Report Lost Item</a></li>
+                                            <li><a href="/report_found">Report Found Item</a></li>
+                                            <li><a href="/find_item">Find Your Item</a></li>
+                                            <li><a href="/contact">Contact Us</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+           
+                        </div>
+                        <div class="col-auto d-xl-block d-none">
+                            <div class="header-button">
+                                <a href="/find_item" class="th-btn fw-bold" style="border-radius: 10px;">Find Your Item</a>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+
+    <div class="testi-area-2 about-area-2 overflow-hidden position-relative overflow-hidden" id="about-sec" style="background-color: #F6F2ED;" >
+
+        <div class="about2-bottom">
+            <img src="{{url_for('static', filename='assets/img/shape/about2-bottom.png')}}" alt="img">
+        </div>
+
+
+
+
+
+        <div class="container th-container2">
+            <div class="row gy-4">
+                <div class="col-lg-7 col-xl-6 col-xxl-5 ">
+                    <div class="title-area mb-35 mt-15">
+                        <span class="sub-title style2 mb-30 text-anim" data-cue="slideInUp">Store an Item</span>
+                        <h2 class="sec-title style2 text-anim2" data-cue="slideInUp">Store Smart. Retrieve Easy. No More Worries.</h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="about-slider2" data-cue="slideInUp">
+                <div class="swiper th-slider" id="aboutSlider2" data-slider-options='{"autoplay": true, "loop": true, "breakpoints":{"0":{"slidesPerView":1},"576":{"slidesPerView":"1"},"768":{"slidesPerView":"1"},"992":{"slidesPerView":"1"},"1200":{"slidesPerView":"1"}}}'>
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <div class="row gx-30 gy-40 align-items-center">
+                                <div class="col-xxl-6 col-xl-6">
+                                    <div class="img-box2 me-xl-3" data-cue="slideInLeft">
+                                        <div class="img1" data-mask-src="assets/img/shape/about-2-1_mask.jpg">
+                                            <img class="w-100" src="{{url_for('static', filename='assets/img/normal/about-thumb2-1.jpg')}}" alt="About">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xxl-6 col-xl-6">
+                                    <div class="about-wrap2">
+                                        <h4 class="box-title">Why We Built This</h4>
+                                        <p class="sec-text mb-25" data-cue="slideInUp"> Every year, students struggle to manage their belongings during hostel transitions and semester breaks. 
+                                            Existing storage systems are manual, unreliable, and often lead to lost tokens and misplaced items.</p>
+
+                                       <p class="sec-text mb-25" data-cue="slideInUp">TraceIt introduces a smarter approach by digitizing the entire process. From storing items to retrieving them, 
+        everything is tracked securely using digital tokens and structured storage management.</p>
+            <p>
+        This ensures a seamless, transparent, and hassle-free experience for both students and administrators.
+    </p>
+                                        <div class="icon-box-wrap" data-cue="slideInUp">
+                                            <div class="icon-box-item">
+                                                <div class="icon-box">
+                                                    <img src="{{url_for('static', filename='assets/img/icon/check.svg')}}" alt="img">
+                                                </div>
+                                                <div class="content">
+                                                    <p class="box-text"><span>Digital QR Codes – </span> Say goodbye to crumpled paper tokens! Get a digital QR code on your phone. Easy to save, impossible to lose, and always there when you need your stuff back.</p>
+                                                </div>
+                                            </div>
+                                            <div class="icon-box-item">
+                                                <div class="icon-box">
+                                                    <img src="{{url_for('static', filename='assets/img/icon/check.svg')}}" alt="img">
+                                                </div>
+                                                <div class="content">
+                                                    <p class="box-text"><span>Super Secure Storage – </span> Your belongings are locked up tight in our monitored storage area. Plus, everything is digitally tracked so you know exactly where your stuff is, 24/7.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+   
+     
+    
+<section class="feature-area-1 position-relative space overflow-hidden" id="service-sec">
+    
+
+
+
+    <div class="container th-container2">
+        
+       
+        <div class="row justify-content-center">
+            <div class="col-xl-8 col-lg-10">
+                <div class="title-area text-center">
+                    <span class="sub-title style2 text-anim" data-cue="slideInUp">Storage System</span>
+                    <h2 class="sec-title text-anim2" data-cue="slideInUp">
+                        Store Your Items in 4 Simple Steps
+                    </h2>
+                </div>
+            </div>
+        </div>
+
+      
+        <div class="row gy-4 justify-content-center">
+
+        
+            <div class="col-xl-3 col-lg-6 col-md-6">
+                <div class="feature-card" data-cue="slideInUp">
+                    <div class="top-wrap">
+                        <div class="box-icon">
+                            <i class="fas fa-box-open fa-2x"></i>
+                        </div>
+                        <h3 class="box-title">Submit Storage Request</h3>
+                        <p class="box-text">
+                            Enter details about the items you want to store, including description, quantity, and optional photos.
+                        </p>
+                    </div>
+                    <div class="bottom-text">
+                        <div class="checklist style2">
+                            <ul>
+                                <li>Quick digital form</li>
+                                <li>Add item details</li>
+                                <li>Upload images</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="col-xl-3 col-lg-6 col-md-6">
+                <div class="feature-card" data-cue="slideInUp">
+                    <div class="top-wrap">
+                        <div class="box-icon">
+                            <i class="fas fa-qrcode fa-2x"></i>
+                        </div>
+                        <h3 class="box-title">Get Digital Token</h3>
+                        <p class="box-text">
+                            Receive a secure digital token or QR code for your stored items. No more risk of losing physical coupons.
+                        </p>
+                    </div>
+                    <div class="bottom-text">
+                        <div class="checklist style2">
+                            <ul>
+                                <li>Unique ID generated</li>
+                                <li>QR code access</li>
+                                <li>Sent via email/SMS</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="col-xl-3 col-lg-6 col-md-6">
+                <div class="feature-card" data-cue="slideInUp">
+                    <div class="top-wrap">
+                        <div class="box-icon">
+                            <i class="fas fa-warehouse fa-2x"></i>
+                        </div>
+                        <h3 class="box-title">Secure Storage</h3>
+                        <p class="box-text">
+                            Your items are safely stored and assigned a precise location for easy tracking and retrieval.
+                        </p>
+                    </div>
+                    <div class="bottom-text">
+                        <div class="checklist style2">
+                            <ul>
+                                <li>Organized storage system</li>
+                                <li>Rack & shelf tracking</li>
+                                <li>Safe handling</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 4 -->
+            <div class="col-xl-3 col-lg-6 col-md-6">
+                <div class="feature-card" data-cue="slideInUp">
+                    <div class="top-wrap">
+                        <div class="box-icon">
+                            <i class="fas fa-unlock-alt fa-2x"></i>
+                        </div>
+                        <h3 class="box-title">Easy Retrieval</h3>
+                        <p class="box-text">
+                            Use your digital token or QR code to quickly locate and collect your items when you return.
+                        </p>
+                    </div>
+                    <div class="bottom-text">
+                        <div class="checklist style2">
+                            <ul>
+                                <li>Scan or enter code</li>
+                                <li>Instant location access</li>
+                                <li>Fast pickup process</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+    
+
+
+<section class="py-4 py-md-5" style="background: #F6F2ED;">
+    <div class="container">
+
+        <!-- Header -->
+        <div class="text-center mb-4 mb-md-5">
+            <h2 class="fw-semibold">Store Your Item</h2>
+            <p class="text-muted">Fill in details to securely store your belongings</p>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+
+                <!-- Card -->
+                <div class="card border-0 shadow-sm " style="border-radius: 10px">
+                    <div class="card-body p-3 p-md-4">
+
+                        <form  method="POST" enctype="multipart/form-data">
+
+                            <div class="row g-3 mt-1">
+
+                                <!-- Name -->
+                                <div class="col-md-6">
+                                    <label class="form-label">Full Name</label>
+                                    <input type="text" name="owner_name"
+                                           class="form-control rounded-2"
+                                            required>
+                                </div>
+
+                                <!-- Student ID -->
+                                <div class="col-md-6">
+                                    <label class="form-label">Student ID</label>
+                                    <input type="text" name="student_id"
+                                           class="form-control rounded-2"
+                                           style="border-radius:10px;" required>
+                                </div>
+
+                                <!-- Category -->
+                                <div class="col-md-6">
+                                    <label class="form-label">Category</label>
+                                    <select name="category"
+                                            class="form-select rounded-2"
+                                            style="border-radius:10px;" required>
+                                        <option value="">Select category</option>
+                                        <option value="luggage">Luggage</option>
+                                        <option value="electronics">Electronics</option>
+                                        <option value="books">Books</option>
+                                        <option value="clothing">Clothing</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+
+                                <!-- Quantity -->
+                                <div class="col-md-6">
+                                    <label class="form-label">Quantity</label>
+                                    <input type="number" name="quantity"
+                                           class="form-control rounded-2"
+                                           style="border-radius:10px;" min="1" value="1">
+                                </div>
+
+                                <!-- Dates -->
+                                <div class="col-md-6">
+                                    <label class="form-label">Store From</label>
+                                    <input type="date" name="start_date"
+                                           class="form-control rounded-2"
+                                           style="border-radius:10px;">
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="form-label">Return Date</label>
+                                    <input type="date" name="end_date"
+                                           class="form-control rounded-2"
+                                           style="border-radius:10px;">
+                                </div>
+
+                                <!-- Image -->
+<div class="col-12">
+    <label class="form-label">Upload Item Image *</label>
+    <input type="file" name="item_images"
+           class="form-control rounded-2 border"
+           style="border-radius:10px;"
+           accept="image/*"
+           required>
+</div>
+
+                                <!-- Button -->
+                                <div class="col-12 text-center mt-2">
+                                    <button type="submit"
+                                            class="btn btn-primary px-5 rounded-2"
+                                            style="border-radius:10px;">
+                                        Store Item
+                                    </button>
+                                </div>
+
+                            </div>
+
+                        </form>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</section>
+
+    <!--Frequently Asked Questions-->
+    <div class="mt-4 faq-sec-2 space overflow-hidden bg-smoke2 position-relative mb-30">
+        <div class="service-bg-shape1-1 shape-mockup d-xxl-block d-none" data-top="4%" data-left="1.4%">
+            <img src="{{url_for('static', filename='assets/img/shape/shape1-57.png')}}" alt="img">
+        </div>
+        <div class="service-bg-shape1-1 shape-mockup jump d-xxl-block d-none" data-top="20%" data-left="31%">
+            <img src="{{url_for('static', filename='assets/img/shape/shape1-59.png')}}" alt="img">
+        </div>
+
+
+
+        <div class="container th-container2">
+            <div class="row gy-40 gx-60">
+                <div class="col-xxl-6 col-xl-6">
+                    <div class="accordion-2-wrap">
+                        <div class="title-area mb-55">
+                            <span class="sub-title style2 text-anim mb-30" data-cue="slideInUp">Quick answers</span>
+                            <h2 class="sec-title text-white text-anim2" data-cue="slideInLeft">Smart Solutions for Lost and Found Items</h2>
+                        </div>
+
+
+                        <div class="accordion" id="faqAccordion">
+                            <div class="accordion-card style2" data-cue="slideInUp">
+                                <div class="accordion-header" id="collapse-item-1">
+                                    <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target="#collapse-1" aria-expanded="true" aria-controls="collapse-1"> Do I need an account to report a lost item?</button>
+                                </div>
+                                <div id="collapse-1" class="accordion-collapse collapse show" aria-labelledby="collapse-item-1" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        <p class="faq-text">No. TraceIt allows users to report lost or found items without creating an account. However, registering gives you the ability to track your reports and receive updates about possible matches.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="accordion-card style2" data-cue="slideInUp">
+                                <div class="accordion-header" id="collapse-item-2">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-2" aria-expanded="false" aria-controls="collapse-2">How does TraceIt match lost and found items?</button>
+                                </div>
+                                <div id="collapse-2" class="accordion-collapse collapse " aria-labelledby="collapse-item-2" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        <p class="faq-text">TraceIt compares item details such as name, category, description, and location between lost and found reports. When a potential match is identified, the system alerts the user for verification.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="accordion-card style2" data-cue="slideInUp">
+                                <div class="accordion-header" id="collapse-item-3">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-3" aria-expanded="false" aria-controls="collapse-3">What should I do if I find a lost item?</button>
+                                </div>
+                                <div id="collapse-3" class="accordion-collapse collapse " aria-labelledby="collapse-item-3" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        <p class="faq-text">If you find an item, you can report it through the “Report Found Item” section. Providing accurate details helps the system match the item with someone who has reported it as lost.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="accordion-card style2" data-cue="slideInUp">
+                                <div class="accordion-header" id="collapse-item-4">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-4" aria-expanded="false" aria-controls="collapse-4"> How will I know if my lost item has been found?</button>
+                                </div>
+                                <div id="collapse-4" class="accordion-collapse collapse " aria-labelledby="collapse-item-4" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        <p class="faq-text">When a possible match is detected, TraceIt will notify you using the contact information you provided so you can verify the item and arrange its return.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-xxl-6 col-xl-6 align-self-center" data-cue="slideInUp">
+                    <div class="faq-img-box2 " data-cue="slideInUp">
+                        <div class="faq2-gradient-wrap">
+                            <div class="gradient-box">
+                                <div class="faq2-mask" data-mask-src="{{url_for('static', filename='assets/img/bg/faq2-mask.png')}}"> </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!--Testimonial Area-->
+<section class="testi-area-2 space overflow-hidden space-extra-bottom">
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-xl-6 col-lg-8">
+                <div class="title-area text-center">
+                    <span class="sub-title style2 text-anim" data-cue="slideInUp">Student Feedback</span>
+                    <h2 class="sec-title text-anim2" data-cue="slideInUp">
+                        What Students Say About TraceIt
+                    </h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="testi-wrap2" data-cue="slideInUp">
+            <div class="slider-area">
+                <div class="swiper th-slider testi-slider2" id="testiSlide2"
+                    data-slider-options='{"breakpoints":{"0":{"slidesPerView":1},"767":{"slidesPerView":"1"},"992":{"slidesPerView":"1"},"1200":{"slidesPerView":"2.4","centeredSlides":"true"},"1400":{"spaceBetween":30,"slidesPerView":"2.8","centeredSlides":"true"}},"autoplay":"false"}'>
+
+                    <div class="swiper-wrapper">
+
+                        <!-- Testimonial 1 -->
+                        <div class="swiper-slide">
+                            <div class="testi-card2">
+                                <div class="box-thumb">
+                                </div>
+                                <div class="box-content">
+                                    <p class="box-text">
+                                        “I stored my luggage during summer break and got it back easily. The system is very helpful.”
+                                    </p>
+                                    <h3 class="box-title">Rahul Sharma</h3>
+                                    <p class="box-desig">B.Tech Student</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Testimonial 2 -->
+                        <div class="swiper-slide">
+                            <div class="testi-card2">
+                                <div class="box-thumb">
+                                </div>
+                                <div class="box-content">
+                                    <p class="box-text">
+                                        “Earlier we used paper slips. Now everything is digital and much easier to track.”
+                                    </p>
+                                    <h3 class="box-title">Priya Verma</h3>
+                                    <p class="box-desig">Hostel Student</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Testimonial 3 -->
+                        <div class="swiper-slide">
+                            <div class="testi-card2">
+                                <div class="box-thumb">
+                                </div>
+                                <div class="box-content">
+                                    <p class="box-text">
+                                        “The digital token feature is really useful. I didn’t have to worry about losing anything.”
+                                    </p>
+                                    <h3 class="box-title">Aman Gupta</h3>
+                                    <p class="box-desig">Diploma Student</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Testimonial 4 -->
+                        <div class="swiper-slide">
+                            <div class="testi-card2">
+                                <div class="box-thumb">
+                                </div>
+                                <div class="box-content">
+                                    <p class="box-text">
+                                        “Finding my stored items was very quick. The location system is very clear.”
+                                    </p>
+                                    <h3 class="box-title">Neha Singh</h3>
+                                    <p class="box-desig">MBA Student</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Testimonial 5 -->
+                        <div class="swiper-slide">
+                            <div class="testi-card2">
+                                <div class="box-thumb">
+                                </div>
+                                <div class="box-content">
+                                    <p class="box-text">
+                                        “Very simple and easy to use. This should be implemented in all hostels.”
+                                    </p>
+                                    <h3 class="box-title">Rohit Kumar</h3>
+                                    <p class="box-desig">Engineering Student</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Testimonial 6 -->
+                        <div class="swiper-slide">
+                            <div class="testi-card2">
+                                <div class="box-thumb">
+                                </div>
+                                <div class="box-content">
+                                    <p class="box-text">
+                                        “The process is smooth and saves a lot of time compared to manual storage.”
+                                    </p>
+                                    <h3 class="box-title">Sneha Patel</h3>
+                                    <p class="box-desig">Hostel Resident</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+    <!--==============================
+	Footer Area
+==============================-->
+    <footer class="footer-wrapper footer-layout1">
+        <div class="footer-1-top-shape">
+            <img src="{{url_for('static', filename='assets/img/bg/footer-1-top-shape.png')}}" alt="img">
+        </div>
+
+
+        <div class="container th-container2">
+            <div class="footer-bottom">
+                <div class="widget-area">
+                    <div class="row justify-content-between">
+                        <div class="col-md-6 col-xl-auto" data-cue="slideInUp">
+                            <div class="widget footer-widget">
+                                <div class="th-widget-about">
+                                    <div class="about-logo">
+                                        <a href="/"><img src="{{url_for('static', filename='assets/img/logo_3.png')}}" style="width: 230px; height: auto;" alt="TraceIt"></a>
+                                    </div>
+                                    <p class="about-text">Helping people reconnect with their lost belongings through a smarter lost and found system.</p>
+                                    <div class="th-social style7">
+                                        <a href="https://www.facebook.com/"><i class="fab fa-github"></i></a>
+                                        <a href="https://www.linkedin.com/"><i class="fab fa-linkedin-in"></i></a>
+                                        <a href="https://www.instagram.com/"><i class="fa-brands fa-instagram"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-xl-auto" data-cue="slideInUp">
+                            <div class="widget widget-contact-wrap footer-widget">
+                                <div class="info-box">
+                                    <div class="info-box_icon">
+                                        <i class="fas fa-phone"></i>
+                                    </div>
+                                    <div class="box-content">
+                                        <p class="info-box_title">Help For Call</p>
+                                        <p class="info-box_text">
+                                            <a href="tel:+917696912420" class="info-box_link">+91 7696912420</a>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="info-box">
+                                    <div class="info-box_icon">
+                                        <i class="fas fa-location"></i>
+                                    </div>
+                                    <div class="box-content">
+                                        <p class="info-box_title">Our Address</p>
+                                        <p class="info-box_text text-white">
+                                            Phagwara, LPU
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="info-box">
+                                    <div class="info-box_icon">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                    </div>
+                                    <div class="box-content">
+                                        <p class="info-box_title">WhatsApp</p>
+                                        <p class="info-box_text">
+                                            <a href="https://wa.me/+917696912420" target="_blank" class="info-box_link">+917696912420</a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xl-auto" data-cue="slideInUp">
+                            <div >
+                                       <h4 class="text-white">Quick Links</h4>
+                                       <p><a href="/">Home</a></p>
+                                       <p><a href="/report_lost">Report Lost</a> </p>
+                                       <p><a href="/report_found">Report Found</a></p>
+                                       <p><a href="/browse_item">Browse Items</a></p>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="container">
+            <div class="copyright-wrap ">
+                <div class="row gy-2">
+                    <div class="col-lg-4 col-xl-4" data-cue="slideInUp">
+                        <p class="copyright-text">Copyright &copy; 2026 <a href="/">TraceIt.</a> All Rights Reserved.</p>
+                    </div>
+                    <div class="col-lg-8 col-xl-6 text-center text-lg-end" data-cue="slideInUp">
+                        <div class="footer-links">
+                            <ul>
+                                <li>
+                                    <a href="/about">Terms and Conditions.</a>
+                                </li>
+                                <li>
+                                    <a href="/about">Privacy Policy</a>
+                                </li>
+
+                                <li>
+                                    <a href="/contact">Get Support</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll To Top -->
+    <div class="scroll-top">
+        <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+            <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" style="transition: stroke-dashoffset 10ms linear 0s; stroke-dasharray: 307.919, 307.919; stroke-dashoffset: 307.919;"></path>
+        </svg>
+    </div>
+
+
+    <!--==============================
+    All Js File
+============================== -->
+    <!-- Jquery -->
+    <script src="{{url_for('static', filename='assets/js/vendor/jquery-3.7.1.min.js')}}"></script>
+    <!-- Swiper Js -->
+    <script src="{{url_for('static', filename='assets/js/swiper-bundle.min.js')}}"></script>
+    <!-- Bootstrap -->
+    <script src="{{url_for('static', filename='assets/js/bootstrap.min.js')}}"></script>
+    <!-- Magnific Popup -->
+    <script src="{{url_for('static', filename='assets/js/jquery.magnific-popup.min.js')}}"></script>
+    <!-- Counter Up -->
+    <script src="{{url_for('static', filename='assets/js/jquery.counterup.min.js')}}"></script>
+    <!-- Range Slider -->
+    <script src="{{url_for('static', filename='assets/js/jquery-ui.min.js')}}"></script>
+    <!-- Isotope Filter -->
+    <script src="{{url_for('static', filename='assets/js/imagesloaded.pkgd.min.js')}}"></script>
+    <script src="{{url_for('static', filename='assets/js/isotope.pkgd.min.js')}}"></script>
+    <!-- Cue Js -->
+    <script src="{{url_for('static', filename='assets/js/scrollCue.min.js')}}"></script>
+    <!-- Gsap -->
+    <script src="{{url_for('static', filename='assets/js/gsap.min.js')}}"></script>
+    <!-- Scroll Trigger -->
+    <script src="{{url_for('static', filename='assets/js/ScrollTrigger.min.js')}}"></script>
+    <!-- Split Text -->
+    <script src="{{url_for('static', filename='assets/js/SplitText.min.js')}}"></script>
+    <!-- Lenis Js -->
+    <script src="{{url_for('static', filename='assets/js/lenis.min.js')}}"></script>
+
+    <!-- Perticle Js -->
+    <script src="{{url_for('static', filename='assets/js/particles.min.js')}}"></script>
+    <script src="{{url_for('static', filename='assets/js/particles-config.js')}}"></script>
+
+    <!-- Main Js File -->
+    <script src="{{url_for('static', filename='assets/js/main.js')}}"></script>
+
+</body>
+
+</html>

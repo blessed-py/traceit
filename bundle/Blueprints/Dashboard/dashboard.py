@@ -28,11 +28,13 @@ STORAGE_DIR = os.path.join(BASE_DIR, "Storage")
 
 UPLOAD_ITEM_FOUND_FOLDER = os.path.join(STORAGE_DIR, "item_found")
 UPLOAD_PFP_FOLDER = os.path.join(STORAGE_DIR, "pfp")
+UPLOAD_ITEM_STORED_FOLDER = os.path.join(STORAGE_DIR, "item_stored")
 
 
 
 os.makedirs(UPLOAD_ITEM_FOUND_FOLDER, exist_ok=True)
 os.makedirs(UPLOAD_PFP_FOLDER, exist_ok=True)
+os.makedirs(UPLOAD_ITEM_STORED_FOLDER, exist_ok=True)
 
 
 
@@ -338,6 +340,25 @@ def add_item_found():
 
     return jsonify({'success': success, 'feedback': feedback})
 
+@dashboard_bp.route('/sys/delete_item_found', methods=['POST'])
+def delete_item_found():
+    data = request.get_json()
+    item_found_id = data.get('item_found_id')
+
+    # Get the logo filename before deletion
+    item = db_manager.get_item_found_by_id(item_found_id)
+    image_filename = item['image'] if item else None
+
+    success, feedback = db_manager.delete_item_found(item_found_id)
+
+    # If DB deletion succeeded, remove the file
+    if success and image_filename:
+        image_path = os.path.join(UPLOAD_ITEM_FOUND_FOLDER, image_filename)
+        if os.path.exists(image_path):
+            os.remove(image_path)
+
+    return jsonify({'success': success, 'feedback': feedback})
+
 
 @dashboard_bp.route('/sys/item_claimed')
 @login_required
@@ -368,3 +389,54 @@ def delete_claim_item():
     except Exception as e:
         print("[ERROR] Deleting item claim:", e)
         return jsonify({'success': False, 'feedback': 'Unexpected error occurred.'}), 500    
+    
+@dashboard_bp.route('/sys/item_stored')
+@login_required
+def item_stored():
+    current_user = g.current_user
+    sys_items_stored = db_manager.get_system_items_stored()
+    items_stored_count = db_manager.get_total_items_stored_count()
+    return render_template('stored_item.html',
+                           current_user = current_user,
+                           sys_items_found=sys_items_stored,
+                           items_found_count = items_stored_count
+                           )     
+
+@dashboard_bp.route('/sys/add_item_stored', methods=['POST'])
+def add_item_stored():
+    item_name = request.form.get('item_name')
+    location = request.form.get('location')
+    room = request.form.get('room')
+    image = request.files.get('image')
+    registration_no = request.form.get('registration_no')
+    student_name = request.form.get('student_name')
+
+    # Handle image upload
+    unique_filename = None
+    if image and image.filename:
+        # Generate a unique filename using UUID
+        ext = os.path.splitext(image.filename)[1]  # keep original extension
+        unique_filename = f"{uuid4().hex}{ext}"  
+
+        image_path = os.path.join(UPLOAD_ITEM_STORED_FOLDER, unique_filename)
+        try:
+            image.save(image_path)
+        except Exception as e:
+            print("[ERROR] Saving item stored image:", e)
+            return jsonify({'success': False, 'feedback': 'Failed to save item stored image'}), 500
+
+    # Generate unique ID
+    item_stored_id = cryptographer.generate_unique_id()
+
+    # Add to the database
+    success, feedback = db_manager.add_item_stored(
+                    item_stored_id = item_stored_id, 
+                    item_name = item_name, 
+                    location = location,
+                    room = room, 
+                    image = unique_filename, 
+                    registration_no = registration_no,
+                    student_name = student_name
+    )
+
+    return jsonify({'success': success, 'feedback': feedback})

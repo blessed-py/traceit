@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>TraceIt | Manage Items Found</title>
+  <title>TraceIt | Manage Items Stored</title>
   <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='assets/img/logo_2.png') }}">
 
   <!-- Google Font: Source Sans Pro -->
@@ -62,7 +62,7 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fa-solid fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="javascript:void(0);" class="nav-link">Manage Items Found</a>
+        <a href="javascript:void(0);" class="nav-link">Manage Items Stored</a>
       </li>
     </ul>
 
@@ -149,9 +149,6 @@
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <!-- Add icons to the links using the .nav-icon class
-                     with font-awesome or any other icon font library -->
-      
                      
           <li class="nav-header">DASHBOARD</li>
            
@@ -171,7 +168,7 @@
               </p>
             </a>
           </li>
-      <li class="nav-header">REPORTS</li>
+            <li class="nav-header">REPORTS</li>
                 <li class="nav-item">
             <a href="/sys/item_lost" class="nav-link">
               <i class="nav-icon fa-solid fa-layer-group"></i>
@@ -181,7 +178,7 @@
             </a>
           </li>
             <li class="nav-item">
-            <a href="/sys/item_found" class="nav-link active">
+            <a href="/sys/item_found" class="nav-link">
               <i class="nav-icon fa-solid fa-layer-group"></i>
               <p>
                 Items Found
@@ -197,6 +194,17 @@
               </p>
             </a>
           </li>
+
+                    <li class="nav-header">STORAGE</li>
+          <li class="nav-item">
+            <a href="/sys/item_stored" class="nav-link active">
+              <i class="nav-icon fa-solid fa-layer-group"></i>
+              <p>
+                Stored Items
+              </p>
+            </a>
+          </li>
+
           <li class="nav-header">PAGES</li>
           <li class="nav-item">
             <a href="#" class="nav-link ">
@@ -209,16 +217,16 @@
 
 
 
-                                        <ul class="nav nav-treeview ">
-                                <li class="nav-item">
-                                    <a href="/settings/manage_testimonial" class="nav-link">
-                                        <i class="fa-solid fa-comment-dots"></i>
-                                        <p>
-                                            Testimonials
-                                        </p>
-                                    </a>
-                                </li>
-                            </ul>
+                        <ul class="nav nav-treeview ">
+                <li class="nav-item">
+                    <a href="/settings/manage_testimonial" class="nav-link">
+                        <i class="fa-solid fa-comment-dots"></i>
+                        <p>
+                            Testimonials
+                        </p>
+                    </a>
+                </li>
+            </ul>
             <ul class="nav nav-treeview ">
               <li class="nav-item">
                 <a href="/settings/manage_social" class="nav-link">
@@ -315,12 +323,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Manage Items Found</h1>
+            <h1 class="m-0">Manage Items Stored</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Manage Items Found</li>
+              <li class="breadcrumb-item active">Manage Items Stored</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -338,8 +346,8 @@
               <span class="info-box-icon bg-gradient-blue elevation-1"><i class="fa-solid fa-comments"></i></span>
 
               <div class="info-box-content">
-                <span class="info-box-text">Total Items Reported</span>
-                <span class="info-box-number">{{items_found_count}}</span>
+                <span class="info-box-text">Total Items Stored</span>
+                <span class="info-box-number">{{items_stored_count}}</span>
               </div>
               <!-- /.info-box-content -->
             </div>
@@ -398,7 +406,7 @@
         <div class="card-header">
             <h3 class="card-title">Available Items</h3>
                       <div class="d-flex justify-content-end">
-                        <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#addItemFound">
+                        <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#addItemStored">
                           <i class="fa-solid fa-circle-plus"></i> Add Item
                         </a>
       
@@ -466,7 +474,7 @@
             <div class="modal-content">
 
               <div class="modal-header">
-                <h4 class="mb-0">View Item Found</h4>
+                <h4 class="mb-0">View Item Stored</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
@@ -624,85 +632,46 @@
 </div>
 
 
-<!-- Add Item Found Modal -->
-<div class="modal fade" id="addItemFound" tabindex="-1" role="dialog" aria-hidden="true">
+<!-- Add Item Stored Modal -->
+<div class="modal fade" id="addItemStored" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="mb-2 text-center">Add Item Found</h4>
+        <h4 class="mb-2 text-center">Store an Item</h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
 
       <div class="modal-body">
-        <form id="add_item_found_form" class="row g-6">
-          <div class="col-12 col-md-6">
+        <form id="add_item_stored_form" class="row g-6">
+
+                      <div class="col-12 col-md-6">
+            <label class="form-label" for="student_name">Student Name</label>
+            <input type="text" id="student_name" name="student_name" class="form-control" placeholder="Enter Student Name" required>
+          </div>
+                    <div class="col-12 col-md-6">
+            <label class="form-label" for="registration_no">Registration No</label>
+            <input type="text" id="registration_no" name="registration_no" class="form-control" placeholder="Enter Registration Number" required>
+          </div>        
+
+            <div class="col-12 col-md-6 mt-2">
             <label class="form-label" for="item_name">Item Name</label>
             <input type="text" id="item_name" name="item_name" class="form-control" placeholder="Enter Item Name" required>
           </div>
-                <div class="col-md-6">
-                  <label class="form-label">Category</label>
-                  <select class="form-select form-control" id="category" name="category">
-                    <option value="">Select Category</option>
-                    <option>Electronics</option>
-                    <option>Wallet</option>
-                    <option>Keys</option>
-                    <option>Bag</option>
-                    <option>Documents</option>
-                    <option>Jewelry</option>
-                    <option>Clothing</option>
-                    <option>ID Card</option>
-                    <option>Other</option>
 
-                  </select>
-                </div>
-                 <div class="col-md-6 mt-3">
-                  <label class="form-label">Color</label>
-                  <select class="form-select form-control" id="color" name="color">
-                    <option value="">Select Category</option>
-                    <option>Black</option>
-                    <option>White</option>
-                    <option>Red</option>
-                    <option>Blue</option>
-                    <option>Green</option>
-                    <option>Yellow</option>
-                    <option>Orange</option>
-                    <option>Purple</option>
-                    <option>Pink</option>
-                    <option>Brown</option>
-                    <option>Grey</option>
-                    <option>Silver</option>
-                    <option>Gold</option>
 
-                  </select>
-                </div>
-                          <div class="col-12 col-md-6 mt-3">
+
+                            <div class="col-12 col-md-6 mt-2">
             <label class="form-label" for="location">Location</label>
-            <input type="text" id="location" name="location" class="form-control" placeholder="Enter Location Found" required>
+            <input type="text" id="location" name="location" class="form-control" placeholder="Enter Location" required>
           </div>
 
-          <div class="col-12 mt-3">
-            <label class="form-label" for="description">Description</label>
-            <textarea id="description" name="description" class="form-control" rows="3" placeholder="Enter Description" required></textarea>
+                      <div class="col-12 col-md-6 mt-2">
+            <label class="form-label" for="room">Room</label>
+            <input type="text" id="room" name="room" class="form-control" placeholder="Enter Room Number" required>
           </div>
 
-          <div class="col-12 col-md-6 mt-3">
-            <label class="form-label" for="finder_name">Finder Name</label>
-            <input type="text" id="finder_name" name="finder_name" class="form-control" placeholder="Full Name" required>
-          </div>
-            <div class="col-12 col-md-6 mt-3">
-            <label class="form-label" for="finder_email">Finder Email</label>
-            <input type="text" id="finder_email" name="finder_email" class="form-control" placeholder="Finder Email" required>
-          </div>
-            <div class="col-12 col-md-6 mt-3">
-            <label class="form-label" for="finder_phone_number">Finder Phone Number</label>
-            <input type="text" id="finder_phone_number" name="finder_phone_number" class="form-control" placeholder="Finder Phone Number" required>
-          </div>
-            <div class="col-12 col-md-6 mt-3">
-            <label class="form-label" for="date_found">Date Found</label>
-            <input type="date" id="date_found" name="date_found" class="form-control" required>
-          </div>
 
             <div class="form-group col-md-6 mt-3">
             <label for="image">Upload New Image</label>
@@ -718,7 +687,7 @@
 
       <div class="modal-footer justify-content-center">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="submit" form="add_item_found_form" class="btn btn-primary">Submit</button>
+        <button type="submit" form="add_item_stored_form" class="btn btn-primary">Submit</button>
       </div>
     </div>
   </div>
@@ -808,14 +777,14 @@
 </script>
 
 <script>
-var ItemFoundForm = document.getElementById("add_item_found_form");
+var ItemStoredForm = document.getElementById("add_item_stored_form");
 
-ItemFoundForm.addEventListener("submit", function (e) {
+ItemStoredForm.addEventListener("submit", function (e) {
   e.preventDefault();
 
-  let formData = new FormData(ItemFoundForm);
+  let formData = new FormData(ItemStoredForm);
 
-  fetch('/sys/add_item_found', {
+  fetch('/sys/add_item_stored', {
     method: 'POST',
     body: formData
   })

@@ -113,17 +113,6 @@ def report_item_found():
     try:
         image.save(image_path)
 
-        # Ai Detection
-        detected_class, confidence = detect_image(image_path)
-        ai_category = map_category(detected_class)
-
-        print("AI:", detected_class, confidence, ai_category)
-
-        # OPTIONAL: Override user input
-        if detected_class != "Unknown" and confidence > 0.5:
-            item_name = detected_class
-            category = ai_category
-
     except Exception as e:
         print("[ERROR] Saving item image:", e)
         return jsonify({'success': False, 'feedback': 'Failed to save image'}), 500
@@ -156,12 +145,14 @@ def detect_image_api():
     if not image:
         return jsonify({'success': False})
 
-    label, confidence = detect_image(image.stream, image.filename)
+    result = detect_image(image.stream, image.filename)
 
     return jsonify({
         'success': True,
-        'label': label,
-        'confidence': round(confidence * 100, 2)
+        'label': result['label'],
+        'confidence': round(result['confidence'] * 100, 2),
+        'category': result['category'],
+        'box': result['box']
     })
 
 @public_bp.route('/report_found/thank_you')
@@ -218,3 +209,7 @@ def add_claim_item():
     )
 
     return jsonify({'success': success, 'feedback': feedback})
+
+@public_bp.route('/store_item')
+def store_item():
+    return render_template('store_item.html')   

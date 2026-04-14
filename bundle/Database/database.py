@@ -23,6 +23,8 @@ DB_PWD = os.getenv("DB_PWD")
 EMAIL = os.getenv("EMAIL")
 EMAIL_PWD = os.getenv("EMAIL_PWD")
 
+
+
 db_config = {
     'host': DB_HOST,
     'user': DB_USER,
@@ -90,6 +92,19 @@ class DatabaseManager():
                     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                     item_found_id VARCHAR(255) PRIMARY KEY
                 );
+            ''')
+
+            cursor.execute('''
+                CREATE TABLE IF NOT EXISTS item_stored (
+                    id INT AUTO_INCREMENT UNIQUE NOT NULL,
+                    item_name VARCHAR(255) NOT NULL,
+                    location VARCHAR(255) NOT NULL,
+                    room VARCHAR(255) NOT NULL,
+                    image VARCHAR(255) NOT NULL,
+                    registration_no INT NOT NULL,
+                    student_name VARCHAR(255) NOT NULL,
+                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                    item_stored_id VARCHAR(255) PRIMARY KEY);
             ''')
 
             cursor.execute('''
@@ -1262,6 +1277,20 @@ class DatabaseManager():
         except Error as e:
             print("[ERROR] An error occurred while adding item found:", e)
             return False, "An unexpected error occurred."
+
+    def delete_item_found(self, item_found_id):
+        try:
+            connection = connect(**db_config)
+            cursor = connection.cursor()
+
+            cursor.execute("DELETE FROM item_found WHERE item_found_id = %s", (item_found_id,))
+            connection.commit()
+
+            return True, "Item deleted successfully"
+
+        except Error as e:
+            print("[ERROR] Deleting item found:", e)
+            return False, "Failed to delete item"           
         
     def get_system_claimed_items(self):
         try:
@@ -1331,3 +1360,38 @@ class DatabaseManager():
             print("[ERROR] Deleting item claim:", e)
             return False, "Failed to delete claim"             
    
+    def get_system_items_stored(self):
+        try:
+            connection = connect(**db_config)
+            cursor = connection.cursor(dictionary=True)
+            cursor.execute('SELECT * FROM item_stored')
+            result = cursor.fetchall()
+            return result
+        except Error as e:
+            print("[ERROR] An error occurred while fetching system items stored:", e)
+            return [] 
+
+    def get_total_items_stored_count(self):
+        try:
+            connection = connect(**db_config)
+            cursor = connection.cursor()
+            cursor.execute("SELECT COUNT(*) FROM item_stored")
+            return cursor.fetchone()[0]
+        except Error as e:
+            print("[ERROR] Fetching total items stored:", e)
+            return 0
+
+    def add_item_stored(self, item_stored_id, item_name, location, room, image, registration_no, student_name):
+        try:
+            connection = connect(**db_config)
+            cursor = connection.cursor(dictionary = True)  
+            cursor.execute(
+                '''INSERT INTO item_stored (item_stored_id, item_name, location, room, image, registration_no, student_name, created_at)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, CURDATE())''',
+                (item_stored_id, item_name, location, room, image, registration_no , student_name)
+            )
+            connection.commit()
+            return True, "Item Stored Successfully!"
+        except Error as e:
+            print("[ERROR] An error occurred while storing an item:", e)
+            return False, "An unexpected error occurred."                   
