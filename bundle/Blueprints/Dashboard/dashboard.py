@@ -398,7 +398,7 @@ def item_stored():
     items_stored_count = db_manager.get_total_items_stored_count()
     return render_template('stored_item.html',
                            current_user = current_user,
-                           sys_items_found=sys_items_stored,
+                           sys_items_stored=sys_items_stored,
                            items_found_count = items_stored_count
                            )     
 

@@ -389,7 +389,7 @@
               <span class="info-box-icon bg-danger elevation-1"><i class="fa-solid fa-ban"></i></span>
 
               <div class="info-box-content">
-                <span class="info-box-text">Recovered Items</span>
+                <span class="info-box-text">Pending Requests</span>
                 <span class="info-box-number">0</span>
               </div>
               <!-- /.info-box-content -->
@@ -418,20 +418,20 @@
     <thead class="table-dark">
       <tr>
         <th>S/N</th>
+        <th>STUDENT NAME</th>
+        <th>REGISTRATION NO</th>
         <th>ITEM</th>
-        <th>CATEGORY</th>
-        <th>EMAIL</th>
         <th>STATUS</th>
         <th>ACTIONS</th>
       </tr>
     </thead>
     <tbody>
-      {% for item in sys_items_found %}
+      {% for item in sys_items_stored %}
       <tr>
         <td>{{ loop.index }}</td>
-        <td>{{ item.item_name }}</td>
-        <td>{{ item.category}}</td>
-        <td>{{ item.finder_email}}</td>
+        <td>{{ item.student_name }}</td>
+        <td>{{ item.registration_no}}</td>
+        <td>{{ item.item_name}}</td>
                 <td>
           {% if item.status == 'available' %}
             <span class="badge bg-secondary">AVAILABLE</span>
@@ -440,13 +440,13 @@
           {% elif item.status == 'returned' %}
             <span class="badge bg-success">RETURNED</span>
           {% else %}
-            <span class="badge bg-secondary">{{ item.status }}</span>
+            <span class="badge bg-success">STORED</span>
           {% endif %}
         </td>
         <td>
         <button type="button" class="btn btn-sm btn-outline-info" 
                 data-toggle="modal" 
-                data-target="#viewItemFound{{item.item_found_id}}">
+                data-target="#viewItemStored{{item.item_stored_id}}">
             <i class="fa fa-eye"></i> View
         </button>
 
@@ -454,21 +454,21 @@
             type="button"
             class="btn btn-sm btn-outline-primary"
             data-toggle="modal"
-            data-target="#editItemFound{{ item.item_found_id }}">
+            data-target="#editItemStored{{ item.item_stored_id }}">
             <i class="fa fa-edit"></i> Edit
           </button>
 
           <button
             type="button"
             class="btn btn-sm btn-default"
-            onclick="deleteItemFound('{{ item.item_found_id }}')">
+            onclick="deleteItemStored('{{ item.item_stored_id }}')">
             <i class="fa-regular fa-trash-can"></i> Delete
           </button>
         </td>
       </tr>
 
-        <!-- View Item Found Modal -->
-        <div class="modal fade" id="viewItemFound{{ item.item_found_id }}" tabindex="-1" role="dialog"
+        <!-- View Item Stored Modal -->
+        <div class="modal fade" id="viewItemStored{{ item.item_stored_id }}" tabindex="-1" role="dialog"
           aria-hidden="true">
           <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
@@ -485,63 +485,34 @@
 
                   <div class="form-row">
 
-                    <div class="col-12 col-md-6">
+                                        <div class="col-12 col-md-6">
+                      <label class="form-label" for="student_name">Student Name</label>
+                      <input type="text" id="student_name" name="student_name" class="form-control" value="{{item.student_name}}" readonly>
+                    </div>
+                                        <div class="col-12 col-md-6">
+                      <label class="form-label" for="registration_no">Registration No</label>
+                      <input type="text" id="registration_no" name="registration_no" class="form-control" value="{{item.registration_no}}" readonly>
+                    </div>
+
+                    <div class="col-12 col-md-6 mt-2">
                       <label class="form-label" for="item_name">Item Name</label>
                       <input type="text" id="item_name" name="item_name" class="form-control" value="{{item.item_name}}" readonly>
                     </div>
-                    <div class="col-md-6">
-                      <label class="form-label">Category</label>
-                      <input type="text" id="category" name="category" class="form-control" value="{{item.category}}" readonly>
+                    <div class="col-md-6 mt-2">
+                      <label class="form-label">Location</label>
+                      <input type="text" id="location" name="location" class="form-control" value="{{item.location}}" readonly>
                     </div>
                 </div>
 
-                  <div class="form-row">
 
-                    <div class="col-md-6 mt-3">
-                      <label class="form-label">Color</label>
-                      <input type="text" id="color" name="color" class="form-control" value="{{item.color}}" readonly>
-                    </div>
-                    
-                    <div class="col-12 col-md-6 mt-3">
-                      <label class="form-label" for="location">Location</label>
-                      <input type="text" id="location" name="location" class="form-control" value="{{item.location}}" readonly>
-                    </div>
-                  </div>
 
-                  <div class="form-group">
-                    <label>Description</label>
-                    <textarea class="form-control" rows="3" readonly style="resize:none;">{{item.description}}</textarea>
-                  </div>
-
-                  <div class="form-row">
-
-                    <div class="col-12 col-md-6 mt-3">
-                      <label class="form-label" for="finder_name">Finder Name</label>
-                      <input type="text" id="finder_name" name="finder_name" class="form-control" value="{{item.finder_name}}" readonly>
-                    </div>
-                    <div class="col-12 col-md-6 mt-3">
-                      <label class="form-label" for="finder_email">Finder Email</label>
-                      <input type="text" id="finder_email" name="finder_email" class="form-control" value="{{item.finder_email}}" readonly>
-                    </div>
-                  </div>
-                  <div class="form-row">
-
-                    <div class="col-12 col-md-6 mt-3">
-                      <label class="form-label" for="finder_phone_number">Finder Phone Number</label>
-                      <input type="text" id="finder_phone_number" name="finder_phone_number" class="form-control" value="{{item.finder_phone_number}}" readonly>
-                    </div>
-                    <div class="col-12 col-md-6 mt-3">
-                      <label class="form-label" for="date_found">Date Found</label>
-                      <input type="date" id="date_found" name="date_found" class="form-control" value="{{item.date_found}}" readonly>
-                    </div>
-                  </div>
 
         <div class="form-group col-12 mt-3">
           <label class="form-label">Image</label>
           <div>
             {% if item.image %}
             <img 
-              src="/Storage/item_found/{{ item.image }}" 
+              src="/Storage/item_stored/{{ item.image }}" 
               alt="{{item.item_name}} Image" 
               class="img-fluid" 
               style="max-height: 300px; object-fit: contain; border: 2px solid #ccc; padding: 5px;">
@@ -564,45 +535,46 @@
           </div>
         </div>
 
-<!-- Edit Item Found Modal -->
-<div class="modal fade" id="editItemFound{{ item.item_found_id }}" tabindex="-1">
+<!-- Edit Item Stored Modal -->
+<div class="modal fade" id="editItemStored{{ item.item_stored_id }}" tabindex="-1">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
 
       <div class="modal-header">
-        <h4>Edit Item Found</h4>
+        <h4>Edit Item Stored</h4>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
 
       <div class="modal-body">
-        <form id="edit_item_found_form_{{ item.item_found_id }}">
+        <form id="edit_item_stored_form_{{ item.item_stored_id }}">
           <div class="form-row">
-            <div class="form-group col-md-6">
+                <div class="col-12 col-md-6">
+                      <label class="form-label" for="student_name">Student Name</label>
+                      <input type="text" id="student_name" name="student_name" class="form-control" value="{{item.student_name}}" readonly>
+                    </div>
+                                        <div class="col-12 col-md-6">
+                      <label class="form-label" for="registration_no">Registration No</label>
+                      <input type="text" id="registration_no" name="registration_no" class="form-control" value="{{item.registration_no}}" readonly>
+                    </div>
+
+            <div class="form-group col-md-6 mt-2">
               <label class="form-label" for="item_name">Item Name</label>
               <input type="text" class="form-control" name="name" value="{{ item.item_name }}" required>
             </div>
-                <div class="col-md-6">
-                  <label class="form-label">Category</label>
-                  <select class="form-select form-control" id="category" name="category">
-                    <option value="">Select Category</option>
-                    <option>Electronics</option>
-                    <option>Wallet</option>
-                    <option>Keys</option>
-                    <option>Bag</option>
-                    <option>Documents</option>
-                    <option>Jewelry</option>
-                    <option>Clothing</option>
-                    <option>ID Card</option>
-                    <option>Other</option>
 
-                  </select>
-                </div>
-          </div>
+                    <div class="col-md-6 mt-2">
+                      <label class="form-label">Location</label>
+                      <input type="text" id="location" name="location" class="form-control" value="{{item.location}}" readonly>
+                    </div>
+
+                   <div class="col-md-6 ">
+                      <label class="form-label">Room</label>
+                      <input type="text" id="room" name="room" class="form-control" value="{{item.room}}" required>
+                    </div>
 
 
 
-          <div class="form-row">
-            <div class="form-group col-md-4">
+            <div class="form-group col-md-6 ">
               <label>Status</label>
               <select class="form-control" name="status">
                 {% set statuses = ['available','claimed','returned'] %}
@@ -614,8 +586,22 @@
 
 
           </div>
+                  <div class="form-group col-12 mt-3">
+          <label class="form-label">Image</label>
+          <div>
+            {% if item.image %}
+            <img 
+              src="/Storage/item_stored/{{ item.image }}" 
+              alt="{{item.item_name}} Image" 
+              class="img-fluid" 
+              style="max-height: 300px; object-fit: contain; border: 2px solid #ccc; padding: 5px;">
+            {% else %}
+            <div class="text-muted">No image available</div>
+            {% endif %}
+          </div>
+        </div>
 
-          <input type="hidden" name="item_found_id" value="{{ item.item_found_id }}">
+          <input type="hidden" name="item_stored_id" value="{{ item.item_stored_id }}">
         </form>
 
         <div class="modal-footer justify-content-center">
@@ -673,7 +659,7 @@
           </div>
 
 
-            <div class="form-group col-md-6 mt-3">
+            <div class="form-group col-md-6 mt-2">
             <label for="image">Upload New Image</label>
             <div class="custom-file">
               <input type="file" class="custom-file-input" id="image" name="image" accept=".jpg,.jpeg,.png,.webp">
